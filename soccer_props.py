@@ -50,12 +50,31 @@ def map_team(understat_title, fd_teams):
 
 def parse_players_page(html):
     """understat league page -> [{name, team, goals, xg, minutes}].
-    Raises ValueError with a diagnostic head if the format shifted."""
+    Tries known embeddings in order; on total miss the error carries a window
+    AROUND the token so the Action log itself hands over the fix."""
+    data = None
     m = re.search(r"playersData\s*=\s*JSON\.parse\('(.*?)'\)", html, re.S)
-    if not m:
-        raise ValueError("playersData block not found; page head: " + html[:400].replace("\n", " "))
-    raw = m.group(1).encode("utf-8").decode("unicode_escape")
-    data = json.loads(raw)
+    if m:                                   # legacy hex-escaped embed
+        data = json.loads(m.group(1).encode("utf-8").decode("unicode_escape"))
+    if data is None:
+        m = re.search(r"playersData\s*=\s*(\[.*?\])\s*[;,<]", html, re.S)
+        if m:                               # direct JSON array assignment
+            try: data = json.loads(m.group(1))
+            except ValueError: data = None
+    if data is None:                        # any-script scan for the array
+        for sm in re.finditer(r"<script[^>]*>(.*?)</script>", html, re.S):
+            body = sm.group(1)
+            if "playersData" not in body: continue
+            m = re.search(r"JSON\.parse\('(.*?)'\)", body, re.S)
+            if m:
+                try:
+                    data = json.loads(m.group(1).encode("utf-8").decode("unicode_escape")); break
+                except ValueError: pass
+    if data is None:
+        i = html.find("playersData")
+        ctx = (html[max(0, i-60): i+300].replace("\n", " ")
+               if i >= 0 else "TOKEN ABSENT ENTIRELY; page head: " + html[:300].replace("\n", " "))
+        raise ValueError("playersData unparsed; context: " + ctx)
     out = []
     for p in data:
         try:
@@ -122,10 +141,18 @@ def selftest():
     html = f"<html><script>var playersData = JSON.parse('{esc}');</script></html>"
     rows = parse_players_page(html)
     assert len(rows) == 3 and rows[0]["goals"] == 20 and rows[2]["team"] == "Celta Vigo"
+    rows2 = parse_players_page("<html><script>var playersData = "
+        + json.dumps(payload) + ";</script></html>")
+    assert len(rows2) == 3 and rows2[0]["goals"] == 20    # direct-array variant
     try:
         parse_players_page("<html>redesigned page</html>"); assert False
     except ValueError as e:
-        assert "page head" in str(e)                     # loud diagnostic path
+        assert "TOKEN ABSENT" in str(e)
+    try:
+        parse_players_page("<html><script>window.playersData = load('/api/x')</script></html>")
+        assert False
+    except ValueError as e:
+        assert "context:" in str(e) and "load('/api/x')" in str(e)   # window shows the truth
     # 2. team mapper on the notorious deltas + fuzzy fallback
     fd = {"Man United", "Wolves", "Nott'm Forest", "Ath Madrid", "Dortmund", "Paris SG", "Girona"}
     assert map_team("Manchester United", fd) == "Man United"

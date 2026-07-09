@@ -60,7 +60,9 @@ def main():
     print(f"   settled {n_graded} | panel n={cal.get('n', 0)}")
 
     print("2b) player shares (understat)…")
-    season_year = dt.date.today().year - (1 if dt.date.today().month < 7 else 0)
+    # understat keys seasons by START year; before August the completed
+    # season (year-1) is the one that exists — July 2026 -> 2025 (i.e. 25/26)
+    season_year = dt.date.today().year - (1 if dt.date.today().month < 8 else 0)
     props_note = []
     shares_by_div = {}
     for div in M.LEAGUES:
