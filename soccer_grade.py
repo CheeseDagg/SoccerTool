@@ -13,6 +13,15 @@ GRADED = os.path.join(DATA, "soccer_graded.csv")
 COLS = ["logged", "div", "date", "home", "away", "pH", "pD", "pA",
         "qH", "qD", "qA", "outcome"]
 
+def ensure_files():
+    """Both artifacts must exist from run one — offseason has nothing to log,
+    and the workflow's git-add of missing paths is a hard failure otherwise."""
+    os.makedirs(DATA, exist_ok=True)
+    for p, cols in ((PLOG, COLS[:-1]), (GRADED, COLS)):
+        if not os.path.exists(p):
+            with open(p, "w", newline="") as f:
+                csv.DictWriter(f, fieldnames=cols).writeheader()
+
 def load_csv(p):
     if not os.path.exists(p): return []
     with open(p) as f: return list(csv.DictReader(f))
@@ -22,7 +31,7 @@ def _key(r): return (r["div"], r["date"], r["home"], r["away"])
 def log_predictions(fixture_rows):
     """fixture_rows: dicts with div,date(iso),home,away,pH,pD,pA and optional
     market qH,qD,qA. Appends rows not already logged."""
-    os.makedirs(DATA, exist_ok=True)
+    ensure_files()
     existing = load_csv(PLOG)
     have = {_key(r) for r in existing}
     today = dt.date.today().isoformat()
@@ -43,6 +52,7 @@ def log_predictions(fixture_rows):
 def grade_all(results):
     """results: iterable of match dicts (div,date(date),home,away,hg,ag) — the
     freshly fetched season files. Settles logged predictions whose result is in."""
+    ensure_files()
     preds = load_csv(PLOG)
     if not preds: return 0, summarize([])
     done = {_key(r) for r in load_csv(GRADED)}
@@ -126,6 +136,13 @@ def selftest():
                          ((0.40)**2 + 0.30**2 + (0.30-1)**2)) / 2, 4)
     assert p3["brier3"] == bs_expected, (p3["brier3"], bs_expected)
     json.dumps(p3)
+    # offseason path: fresh dir, zero fixtures -> both files still materialize
+    tmp2 = tempfile.mkdtemp()
+    globals()["PLOG"], globals()["GRADED"] = os.path.join(tmp2,"p.csv"), os.path.join(tmp2,"g.csv")
+    n0, p0 = grade_all([])
+    assert n0 == 0 and p0["n"] == 0
+    assert os.path.exists(PLOG) and os.path.exists(GRADED)
+    assert open(PLOG).readline().startswith("logged,div,date")
     print("SOCCER GRADER SELFTEST PASS — log/settle idempotent, 3-way Brier exact, "
           "market disagreement live, per-league split")
     return 0
