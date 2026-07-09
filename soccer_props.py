@@ -70,6 +70,15 @@ def parse_players_page(html):
                 try:
                     data = json.loads(m.group(1).encode("utf-8").decode("unicode_escape")); break
                 except ValueError: pass
+    if data is None:                        # rename-proof: any parse blob w/ player rows
+        for pm in re.finditer(r"JSON\.parse\('(.*?)'\)", html, re.S):
+            try:
+                cand = json.loads(pm.group(1).encode("utf-8").decode("unicode_escape"))
+            except ValueError:
+                continue
+            if isinstance(cand, list) and cand and isinstance(cand[0], dict) \
+               and "player_name" in cand[0]:
+                data = cand; break
     if data is None:
         i = html.find("playersData")
         ctx = (html[max(0, i-40): i+160].replace("\n", " ")
@@ -88,11 +97,11 @@ def parse_players_page(html):
         raise ValueError("playersData parsed but yielded no rows")
     return out
 
-def _players_from_api(slug, season_year):
-    """understat's own AJAX source (what their page JS calls)."""
+def _players_from_api(slug, season_year, route="/main/getPlayersStats/"):
+    """understat's own AJAX source — route harvested from their page JS."""
     import urllib.parse
     body = urllib.parse.urlencode({"league": slug, "season": str(season_year)}).encode()
-    req = urllib.request.Request("https://understat.com/main/getPlayersStats/",
+    req = urllib.request.Request("https://understat.com" + route,
         data=body, headers={"User-Agent": "Mozilla/5.0 (SoccerTool props)",
                             "X-Requested-With": "XMLHttpRequest",
                             "Content-Type": "application/x-www-form-urlencoded"})
@@ -131,12 +140,20 @@ def fetch_league_players(div, season_year):
     try:
         return parse_players_page(html)
     except ValueError as e_page:
-        try:
-            return _players_from_api(slug, season_year)          # tier 4
-        except Exception as e_api:
-            raise ValueError(f"API: {type(e_api).__name__}: {str(e_api)[:200]}"
-                             + _page_endpoints(html)
-                             + f" || page: {str(e_page)[:120]}")
+        routes = sorted(set(re.findall(r"/main/[A-Za-z]+/", html)))
+        tries = sorted(routes, key=lambda r: ("layer" not in r.lower(), r))[:3] \
+                or ["/main/getPlayersStats/"]
+        errs = []
+        for route in tries:
+            try:
+                return _players_from_api(slug, season_year, route)
+            except Exception as e:
+                errs.append(f"{route}->{type(e).__name__}:{str(e)[:80]}")
+        varnames = re.findall(r"var\s+(\w+)\s*=\s*JSON\.parse", html)[:6]
+        raise ValueError("routes on page: " + (",".join(routes) or "NONE")
+                         + " | tried: " + " ; ".join(errs)
+                         + " | parse vars: " + (",".join(varnames) or "none")
+                         + f" || page: {str(e_page)[:100]}")
 
 def team_shares(players, fd_teams):
     """-> {fd_team: [{name, share, avail}]} using blended goals/xG shares."""
@@ -208,6 +225,14 @@ def selftest():
     assert _mock(api_payload)[0]["player_name"]=="Api Guy"
     inv=_page_endpoints('<script src="/static/app.9f2.js"></script> fetch("/main/getPlayersStats/")')
     assert "app.9f2.js" in inv and "getPlayersStats" in inv
+    # 1c. renamed inline var still parses; routes harvested & player-ish first
+    esc2 = json.dumps(payload).encode("unicode_escape").decode()
+    rowsR = parse_players_page(f"<script>var statsBlob = JSON.parse('{esc2}');</script>")
+    assert rowsR[0]["name"] == "Star Striker"                     # rename-proof
+    fakepage = 'x $.post("/main/getTeamStats/") y $.post("/main/getLeaguePlayers/") z'
+    rts = sorted(set(re.findall(r"/main/[A-Za-z]+/", fakepage)))
+    order = sorted(rts, key=lambda r: ("layer" not in r.lower(), r))
+    assert order[0] == "/main/getLeaguePlayers/"                  # player-ish tried first
     # 2. team mapper on the notorious deltas + fuzzy fallback
     fd = {"Man United", "Wolves", "Nott'm Forest", "Ath Madrid", "Dortmund", "Paris SG", "Girona"}
     assert map_team("Manchester United", fd) == "Man United"
