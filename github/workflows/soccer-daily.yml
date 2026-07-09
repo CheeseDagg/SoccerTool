@@ -1,0 +1,44 @@
+name: Soccer daily slate
+on:
+  schedule:
+    - cron: "23 9 * * *"    # 4:23am CT daily — European results final, grades + reprices overnight
+  workflow_dispatch: {}
+permissions:
+  contents: write
+concurrency:
+  group: soccer-daily-publish
+  cancel-in-progress: false
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+      - name: Install deps
+        run: pip install numpy
+      - name: Fetch, fit, grade, publish
+        run: python soccer_publish.py
+      - name: Validate slate.json is browser-parseable
+        run: |
+          node -e "JSON.parse(require('fs').readFileSync('data/slate.json','utf8')); console.log('slate.json OK for browsers')"
+      - name: Commit fresh slate
+        run: |
+          git config user.name "soccer-bot"
+          git config user.email "actions@github.com"
+          for attempt in 1 2 3 4 5; do
+            git fetch origin main
+            git reset --mixed origin/main
+            git add data/slate.json data/soccer_predictions.csv data/soccer_graded.csv data/backtest_cache.json
+            if git diff --cached --quiet; then
+              echo "slate unchanged vs published -- nothing to commit."
+              exit 0
+            fi
+            git commit -m "daily slate $(date -u +%F)"
+            git push origin HEAD:main && { echo "Published on attempt $attempt."; exit 0; }
+            echo "Remote advanced during push (attempt $attempt) -- retrying on new tip."
+          done
+          echo "::error::Failed to publish slate after 5 attempts."
+          exit 1
