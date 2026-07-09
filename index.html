@@ -1,0 +1,172 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Soccer · Four Leagues, One Model</title>
+<style>
+:root{--bg:#0d1117;--card:#151b23;--line:#232b36;--txt:#dbe4ee;--dim:#8b98a9;
+--acc:#e8b44a;--acc2:#4ad6a2;--red:#e06c75;font-size:15px}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--txt);
+font:400 1rem/1.5 system-ui,Segoe UI,Roboto,sans-serif}
+.wrap{max-width:1080px;margin:0 auto;padding:22px 16px 60px}
+h1{font-size:1.25rem;letter-spacing:.14em;margin:0}
+h1 b{color:var(--acc)}
+.tag{color:var(--dim);font-size:.8rem;letter-spacing:.1em;text-transform:uppercase}
+#meta{color:var(--dim);font-size:.8rem;margin-top:4px}
+nav{display:flex;gap:6px;margin:18px 0 14px;flex-wrap:wrap}
+nav button{background:none;border:1px solid var(--line);color:var(--dim);
+padding:7px 14px;border-radius:8px;cursor:pointer;font:inherit;font-size:.85rem;letter-spacing:.06em}
+nav button.on{background:var(--card);color:var(--txt);border-color:#33404f}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px 18px;margin-bottom:14px}
+h3{margin:0 0 6px;font-size:1rem;letter-spacing:.08em;text-transform:uppercase;color:var(--acc)}
+.sub{color:var(--dim);font-size:.82rem;margin-bottom:10px}
+table{width:100%;border-collapse:collapse;font-size:.88rem}
+th{color:var(--dim);text-align:left;font-weight:500;font-size:.74rem;letter-spacing:.1em;
+text-transform:uppercase;padding:6px 8px;border-bottom:1px solid var(--line)}
+td{padding:8px;border-bottom:1px solid var(--line);vertical-align:top}
+.num{text-align:right}.dim{color:var(--dim)}
+.pill{display:inline-block;background:#1d2632;border:1px solid var(--line);border-radius:20px;
+padding:1px 9px;font-size:.72rem;color:var(--dim);white-space:nowrap}
+.bar{height:7px;border-radius:4px;background:#22303f;min-width:64px;position:relative;overflow:hidden;display:inline-block;width:100%}
+.bar i{position:absolute;inset:0;background:var(--acc2);border-radius:4px}
+.trip{display:flex;gap:2px;height:9px;border-radius:4px;overflow:hidden;min-width:110px}
+.trip i{display:block}
+.empty{color:var(--dim);padding:18px;text-align:center}
+.hide-m{display:table-cell}@media(max-width:680px){.hide-m{display:none}}
+footer{color:var(--dim);font-size:.72rem;text-align:center;margin-top:26px}
+</style></head><body><div class="wrap">
+<div class="tag">SoccerTool</div>
+<h1>SOCCER <b>FOUR LEAGUES · ONE MODEL</b></h1>
+<div class="tag">time-decayed dixon-coles · measured vs closing market · graded live</div>
+<div id="meta">loading slate.json…</div>
+<nav id="nav"></nav>
+<div id="tabs"></div>
+<footer>decision support, not advice · data: football-data.co.uk · model graded against its own record</footer>
+</div>
+<script>
+const $=id=>document.getElementById(id);
+const LG_ORDER=["E0","SP1","D1","F1"];
+const pct=x=>Math.round(100*Number(x));
+const trip=(h,d,a)=>`<span class="trip" title="H ${pct(h)} · D ${pct(d)} · A ${pct(a)}">
+<i style="width:${pct(h)}%;background:var(--acc2)"></i>
+<i style="width:${pct(d)}%;background:#5b6b7d"></i>
+<i style="width:${pct(a)}%;background:var(--red)"></i></span>`;
+const bar=p=>`<div class="bar"><i style="width:${Math.min(Math.max(p,0),100)}%"></i></div>`;
+
+function render(d){
+  $('meta').textContent=`updated ${new Date(d.generated).toLocaleString()}`;
+  const tabs=[], nav=$('nav'), host=$('tabs');
+  LG_ORDER.forEach(div=>{ if(d.leagues[div]) tabs.push([div, d.leagues[div].name||div]); });
+  tabs.push(["props","Props"],["cal","Calibration"],["method","Method"]);
+  nav.innerHTML=tabs.map(([k,n],i)=>`<button data-t="${k}" class="${i===0?'on':''}">${n}</button>`).join('');
+  host.innerHTML=tabs.map(([k])=>`<section id="t-${k}" style="display:${k===tabs[0][0]?'':'none'}"></section>`).join('');
+  nav.querySelectorAll('button').forEach(b=>b.onclick=()=>{
+    nav.querySelectorAll('button').forEach(x=>x.classList.remove('on'));
+    b.classList.add('on');
+    tabs.forEach(([k])=>$('t-'+k).style.display=(k===b.dataset.t?'':'none'));
+  });
+
+  LG_ORDER.forEach(div=>{
+    const L=d.leagues[div]; if(!L) return;
+    const el=$('t-'+div);
+    if(L.error){ el.innerHTML=`<div class="card"><div class="empty">${L.error}</div></div>`; return; }
+    let fx='';
+    if(L.fixtures&&L.fixtures.length){
+      fx=`<table><tr><th>date</th><th>match</th><th class="num">H%</th><th class="num">D%</th><th class="num">A%</th>
+      <th>shape</th><th class="num hide-m">O2.5</th><th class="num hide-m">BTTS</th><th class="num hide-m">mkt H/D/A</th></tr>`+
+      L.fixtures.map(f=>`<tr><td class="dim">${f.date}</td>
+        <td><b>${f.home}</b> v ${f.away}</td>
+        <td class="num"><b>${pct(f.pH)}</b></td><td class="num dim">${pct(f.pD)}</td><td class="num">${pct(f.pA)}</td>
+        <td>${trip(f.pH,f.pD,f.pA)}</td>
+        <td class="num hide-m dim">${pct(f.o25)}%</td><td class="num hide-m dim">${pct(f.btts)}%</td>
+        <td class="num hide-m dim">${f.qH!=null?pct(f.qH)+'/'+pct(f.qD)+'/'+pct(f.qA):'—'}</td></tr>`).join('')+`</table>`;
+    } else fx=`<div class="empty">no upcoming fixtures priced — offseason, or books haven't posted lines. Ratings and backtest below stay live.</div>`;
+    let rt='';
+    if(L.ratings&&L.ratings.length){
+      const top=L.ratings[0].idx||1;
+      rt=`<table><tr><th>#</th><th>team</th><th class="num">strength</th><th></th>
+      <th class="num hide-m">attack</th><th class="num hide-m">defense</th></tr>`+
+      L.ratings.map((r,i)=>`<tr><td class="dim">${i+1}</td><td><b>${r.team}</b></td>
+        <td class="num">${r.idx}</td><td>${bar(100*r.idx/top)}</td>
+        <td class="num hide-m dim">${r.att>0?'+':''}${r.att}</td>
+        <td class="num hide-m dim">${r.dfn>0?'+':''}${r.dfn}</td></tr>`).join('')+`</table>`;
+    }
+    const bt=L.backtest;
+    const btLine = bt ? `walk-forward: model <b>${bt.acc}%</b> (Brier ${bt.brier3})`+
+      (bt.market_acc!=null?` · closing market <b>${bt.market_acc}%</b> on ${bt.n_mkt} · disagreements <b>${bt.disagree_n}</b>${bt.disagree_model_right!=null?` @ model <b style="color:${bt.disagree_model_right>=50?'var(--acc2)':'var(--red)'}">${bt.disagree_model_right}%</b> right`:''}`:'')
+      : 'backtest pending';
+    el.innerHTML=`
+      <div class="card"><h3>${L.name} — fixtures</h3>
+      <div class="sub">Model 1X2 / over-2.5 / both-teams-to-score from the scoreline grid.
+      Win% leads — likelihood-first, house rule. Market column is the devigged book line when posted.
+      <span class="pill">${btLine}</span></div>${fx}</div>
+      <div class="card"><h3>${L.name} — ratings</h3>
+      <div class="sub">Time-decayed attack/defense (recent form weighted). Strength = combined index,
+      100 = league average. Home advantage ${L.home_adv!=null?(Math.exp(L.home_adv)).toFixed(2)+'x goals':''}
+      · fit through ${L.latest_result||''}.</div>${rt}</div>`;
+  });
+
+  // props — anytime goalscorer, likelihood-first across all four leagues
+  const props=[];
+  LG_ORDER.forEach(div=>{
+    const L=d.leagues[div]; if(!L||!L.fixtures) return;
+    L.fixtures.forEach(f=>{
+      if(!f.scorers) return;
+      (f.scorers.home||[]).forEach(s=>props.push({p:s.p,name:s.name,team:f.home,opp:f.away,ha:'H',date:f.date,lg:L.name}));
+      (f.scorers.away||[]).forEach(s=>props.push({p:s.p,name:s.name,team:f.away,opp:f.home,ha:'A',date:f.date,lg:L.name}));
+    });
+  });
+  props.sort((a,b)=>b.p-a.p);
+  $('t-props').innerHTML=`<div class="card"><h3>Anytime Goalscorer — model board</h3>
+  <div class="sub">P(scores) = team goal rate (Dixon-Coles) x player's blended goal/xG share x availability —
+  a MODEL read, logged for grading, not a market price. Likelihood-first, all four leagues together.
+  <b>Compare to your book's price; the gap is yours to judge.</b></div>`+
+  (props.length?`<table><tr><th>#</th><th>player</th><th class="hide-m">match</th><th class="num">anytime%</th><th></th></tr>`+
+  props.slice(0,60).map((r,i)=>`<tr><td class="dim">${i+1}</td>
+  <td><b>${r.name}</b> <span class="pill">${r.team}</span><span class="dim hide-m"> ${r.lg}</span></td>
+  <td class="hide-m dim">${r.ha==='H'?'v':'@'} ${r.opp} · ${r.date}</td>
+  <td class="num"><b>${pct(r.p)}%</b></td><td>${bar(r.p*140)}</td></tr>`).join('')+`</table>`
+  :`<div class="empty">no fixtures carry player shares yet — appears once fixtures post and the props source responds.</div>`)+`</div>`;
+
+  // calibration
+  const c=d.cal||{};
+  let ch='';
+  if(c.n>0){
+    ch=`<div class="sub">graded matches: <b>${c.n}</b> · model accuracy <b>${c.acc}%</b> · 3-way Brier <b>${c.brier3}</b></div>`;
+    if(c.market){const m=c.market;
+      ch+=`<div class="sub">vs closing market (live continuation): market <b>${m.acc}%</b> on ${m.n} ·
+      disagreements <b>${m.disagree_n}</b>${m.disagree_model_right!=null?` · model right <b style="color:${m.disagree_model_right>=50?'var(--acc2)':'var(--red)'}">${m.disagree_model_right}%</b>`:''}</div>`;}
+    if(c.by_league){
+      ch+=`<table><tr><th>league</th><th class="num">n</th><th class="num">acc</th><th class="num">brier</th><th class="num hide-m">mkt acc</th><th class="num hide-m">disagree (model right)</th></tr>`+
+      Object.entries(c.by_league).map(([k,b])=>`<tr><td><b>${(d.leagues[k]||{}).name||k}</b></td>
+      <td class="num">${b.n}</td><td class="num">${b.acc}%</td><td class="num">${b.brier3}</td>
+      <td class="num hide-m dim">${b.market?b.market.acc+'%':'—'}</td>
+      <td class="num hide-m dim">${b.market?b.market.disagree_n+(b.market.disagree_model_right!=null?' ('+b.market.disagree_model_right+'%)':''):'—'}</td></tr>`).join('')+`</table>`;
+    }
+  } else ch=`<div class="empty">grading begins once published fixtures play out — every logged probability settles against the final result automatically.</div>`;
+  $('t-cal').innerHTML=`<div class="card"><h3>Calibration — the model, graded</h3>
+  <div class="sub">Every published match probability is logged pre-match and settled from the same
+  result files the model trains on. Includes a LIVE continuation of the disagreement study:
+  when this model and the closing market pick different sides, who wins?</div>${ch}</div>`;
+
+  // method
+  const btAll=LG_ORDER.filter(k=>d.leagues[k]&&d.leagues[k].backtest).map(k=>{
+    const b=d.leagues[k].backtest;
+    return `<tr><td><b>${d.leagues[k].name}</b></td><td class="num">${b.n}</td><td class="num">${b.acc}%</td>
+    <td class="num">${b.brier3}</td><td class="num">${b.market_acc!=null?b.market_acc+'%':'—'}</td>
+    <td class="num">${b.disagree_n!=null?b.disagree_n:'—'}</td>
+    <td class="num">${b.disagree_model_right!=null?`<b style="color:${b.disagree_model_right>=50?'var(--acc2)':'var(--red)'}">${b.disagree_model_right}%</b>`:'—'}</td></tr>`;
+  }).join('');
+  $('t-method').innerHTML=`<div class="card"><h3>Method — and the honest verdict</h3>
+  <div class="sub" style="font-size:.86rem;line-height:1.65">
+  <b>Model:</b> Dixon-Coles — independent Poisson goals with team attack/defense strengths, home
+  advantage, and the low-score dependence correction (rho). Matches time-decayed (half-life
+  ~8 months) so recent form counts more. Fit by maximum likelihood per league; the full scoreline
+  grid prices 1X2, over/under 2.5 and BTTS from one distribution.<br><br>
+  <b>The measured verdict, per league</b> (walk-forward, expanding window, refit monthly,
+  model vs the CLOSING market on identical matches — recomputed weekly from raw data):<br><br>
+  ${btAll?`<table><tr><th>league</th><th class="num">n</th><th class="num">model</th><th class="num">brier</th><th class="num">market</th><th class="num">disagree</th><th class="num">model right</th></tr>${btAll}</table>`:'<span class="dim">backtests pending first full run</span>'}
+  <br>If the disagreement column sits under 50%, fading the market with this model loses money —
+  measured, not inferred. Win% is decision support; the tool never claims an edge the table doesn't show.</div></div>`;
+}
+fetch('data/slate.json').then(r=>r.json()).then(render)
+ .catch(()=>{$('meta').textContent='could not load slate.json — run soccer_publish.py (or wait for the daily Action)';});
+</script></body></html>
