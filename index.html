@@ -150,10 +150,12 @@ function render(d){
   // method
   const btAll=LG_ORDER.filter(k=>d.leagues[k]&&d.leagues[k].backtest).map(k=>{
     const b=d.leagues[k].backtest;
+    const t=b.totals;
     return `<tr><td><b>${d.leagues[k].name}</b></td><td class="num">${b.n}</td><td class="num">${b.acc}%</td>
     <td class="num">${b.brier3}</td><td class="num">${b.market_acc!=null?b.market_acc+'%':'—'}</td>
     <td class="num">${b.disagree_n!=null?b.disagree_n:'—'}</td>
-    <td class="num">${b.disagree_model_right!=null?`<b style="color:${b.disagree_model_right>=50?'var(--acc2)':'var(--red)'}">${b.disagree_model_right}%</b>`:'—'}</td></tr>`;
+    <td class="num">${b.disagree_model_right!=null?`<b style="color:${b.disagree_model_right>=50?'var(--acc2)':'var(--red)'}">${b.disagree_model_right}%</b>`:'—'}</td></tr>`+
+    (t?`<tr><td class="dim" style="padding-left:18px">↳ over/under 2.5</td><td class="num dim">${t.n}</td><td class="num dim">${t.acc}%</td><td class="num dim">—</td><td class="num dim">${t.market_acc}%</td><td class="num dim">${t.disagree_n}</td><td class="num dim">${t.disagree_model_right!=null?t.disagree_model_right+'%':'—'}</td></tr>`:'');
   }).join('');
   $('t-method').innerHTML=`<div class="card"><h3>Method — and the honest verdict</h3>
   <div class="sub" style="font-size:.86rem;line-height:1.65">

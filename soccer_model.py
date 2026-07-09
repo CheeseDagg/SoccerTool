@@ -68,9 +68,11 @@ def parse_results_csv(text, div):
         mh = _f(r.get("PSCH")) or _f(r.get("PSH")) or _f(r.get("B365CH")) or _f(r.get("B365H"))
         md = _f(r.get("PSCD")) or _f(r.get("PSD")) or _f(r.get("B365CD")) or _f(r.get("B365D"))
         ma = _f(r.get("PSCA")) or _f(r.get("PSA")) or _f(r.get("B365CA")) or _f(r.get("B365A"))
+        mo = _f(r.get("PC>2.5")) or _f(r.get("P>2.5")) or _f(r.get("B365C>2.5")) or _f(r.get("B365>2.5"))
+        mu_ = _f(r.get("PC<2.5")) or _f(r.get("P<2.5")) or _f(r.get("B365C<2.5")) or _f(r.get("B365<2.5"))
         out.append({"div": div, "date": d, "home": h, "away": a,
                     "hg": int(float(hg)), "ag": int(float(ag)),
-                    "mh": mh, "md": md, "ma": ma})
+                    "mh": mh, "md": md, "ma": ma, "mo": mo, "mu": mu_})
     return out
 
 def parse_fixtures_csv(text):
@@ -208,10 +210,14 @@ def backtest_league(matches, refit_days=30, min_train=180):
         if m["home"] not in ratings or m["away"] not in ratings: continue
         p = match_probs(ratings, home_adv, rho, mu, m["home"], m["away"])
         res = "H" if m["hg"] > m["ag"] else ("A" if m["ag"] > m["hg"] else "D")
-        rec = {"pH": p["pH"], "pD": p["pD"], "pA": p["pA"], "res": res}
+        rec = {"pH": p["pH"], "pD": p["pD"], "pA": p["pA"], "res": res,
+               "po": p["o25"], "over": (m["hg"] + m["ag"]) >= 3}
         if m["mh"] and m["md"] and m["ma"]:
             ih, idd, ia = 1/m["mh"], 1/m["md"], 1/m["ma"]; s = ih + idd + ia
             rec.update({"qH": ih/s, "qD": idd/s, "qA": ia/s})
+        if m.get("mo") and m.get("mu"):
+            io, iu = 1/m["mo"], 1/m["mu"]
+            rec["qo"] = io / (io + iu)
         preds.append(rec)
     if not preds: return None
     def pick(d, a, b, c): return max(((d[a],"H"),(d[b],"D"),(d[c],"A")))[1]
@@ -221,6 +227,16 @@ def backtest_league(matches, refit_days=30, min_train=180):
              (r["pA"]-(r["res"]=="A"))**2 for r in preds) / n
     M = [r for r in preds if "qH" in r]
     out = {"n": n, "acc": round(100*acc,1), "brier3": round(bs,4)}
+    # totals: model O2.5 pick vs closing totals market on identical matches
+    T = [r for r in preds if "qo" in r]
+    if T:
+        tacc = sum(1 for r in T if (r["po"] > 0.5) == r["over"]) / len(T)
+        tmk = sum(1 for r in T if (r["qo"] > 0.5) == r["over"]) / len(T)
+        tdis = [r for r in T if (r["po"] > 0.5) != (r["qo"] > 0.5)]
+        out["totals"] = {"n": len(T), "acc": round(100*tacc,1), "market_acc": round(100*tmk,1),
+                         "disagree_n": len(tdis),
+                         "disagree_model_right": (round(100*sum(1 for r in tdis
+                             if (r["po"]>0.5)==r["over"])/len(tdis),1) if tdis else None)}
     if M:
         macc = sum(1 for r in M if pick(r,"qH","qD","qA") == r["res"]) / len(M)
         dis = [r for r in M if pick(r,"pH","pD","pA") != pick(r,"qH","qD","qA")]
@@ -266,6 +282,10 @@ def selftest():
     rows = parse_results_csv(csv_text, "E0")
     assert len(rows) == 2 and rows[0]["hg"] == 2 and rows[0]["mh"] == 1.44  # PSC preferred
     assert rows[1]["mh"] == 3.10                                            # B365 fallback
+    csv_t = ("Div,Date,HomeTeam,AwayTeam,FTHG,FTAG,B365>2.5,B365<2.5,P>2.5,P<2.5\n"
+             "E0,17/08/2025,Arsenal,Everton,2,0,1.80,2.00,1.85,1.98\n")
+    rt = parse_results_csv(csv_t, "E0")
+    assert rt[0]["mo"] == 1.85 and rt[0]["mu"] == 1.98      # Pinnacle preferred
     fx = parse_fixtures_csv("Div,Date,Time,HomeTeam,AwayTeam,B365H,B365D,B365A\n"
                             "E0,16/08/2026,12:30,Arsenal,Leeds,1.5,4.2,6.0\n"
                             "SC0,16/08/2026,15:00,Celtic,Rangers,1.9,3.5,3.8\n")
@@ -313,8 +333,12 @@ def selftest():
     assert r_fast[flip][0] > r_slow[flip][0] + 0.05, (r_fast[flip][0], r_slow[flip][0])
 
     # 5. BACKTEST plumbing on synthetic (market cols absent -> model-only block)
+    for m in ms:
+        m["mo"], m["mu"] = 1.9, 1.9                       # flat totals market
     bt = backtest_league(ms, refit_days=45, min_train=60)
     assert bt and bt["n"] > 50 and 25 < bt["acc"] < 75 and "brier3" in bt
+    assert bt["totals"]["n"] == bt["n"] and 25 < bt["totals"]["acc"] < 80
+    assert bt["totals"]["disagree_n"] >= 0
     print("SOCCER SELFTEST PASS — parser/PSC-fallback, synthetic recovery "
           f"(MAE {mae:.3f}, att-corr {corr:.2f}, home {home_adv:.2f}~{H:.2f}, rho {rho:.2f}), "
           "grid, decay, backtest plumbing")
