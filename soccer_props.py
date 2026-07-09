@@ -72,8 +72,8 @@ def parse_players_page(html):
                 except ValueError: pass
     if data is None:
         i = html.find("playersData")
-        ctx = (html[max(0, i-60): i+300].replace("\n", " ")
-               if i >= 0 else "TOKEN ABSENT ENTIRELY; page head: " + html[:300].replace("\n", " "))
+        ctx = (html[max(0, i-40): i+160].replace("\n", " ")
+               if i >= 0 else "TOKEN ABSENT; head: " + html[:120].replace("\n", " "))
         raise ValueError("playersData unparsed; context: " + ctx)
     out = []
     for p in data:
@@ -134,8 +134,9 @@ def fetch_league_players(div, season_year):
         try:
             return _players_from_api(slug, season_year)          # tier 4
         except Exception as e_api:
-            raise ValueError(f"page: {e_page} || api: {type(e_api).__name__}: {e_api}"
-                             + _page_endpoints(html))
+            raise ValueError(f"API: {type(e_api).__name__}: {str(e_api)[:200]}"
+                             + _page_endpoints(html)
+                             + f" || page: {str(e_page)[:120]}")
 
 def team_shares(players, fd_teams):
     """-> {fd_team: [{name, share, avail}]} using blended goals/xG shares."""

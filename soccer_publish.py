@@ -74,7 +74,7 @@ def main():
         except Exception as e:
             shares_by_div[div] = {}
             props_note.append(f"{div}:off({type(e).__name__})")
-            print(f"   {div} props source failed — {e}"[:300])
+            print(f"   {div} props source failed — {e}"[:900])
     print("   " + " · ".join(props_note))
 
     print("3) fit + price per league…")
