@@ -65,16 +65,30 @@ def main():
     season_year = dt.date.today().year - (1 if dt.date.today().month < 8 else 0)
     props_note = []
     shares_by_div = {}
+    pin = {}
+    try:
+        pin = json.load(open(os.path.join(DATA, "player_shares_pin.json")))
+    except Exception:
+        pass
+    pin_age = None
+    if pin.get("asof"):
+        pin_age = (dt.date.today() - dt.date.fromisoformat(pin["asof"])).days
     for div in M.LEAGUES:
+        fd_teams = {m["home"] for m in matches if m["div"] == div} | \
+                   {m["away"] for m in matches if m["div"] == div}
         try:
             players = PR.fetch_league_players(div, season_year)
-            fd_teams = {m["home"] for m in matches if m["div"] == div} |                        {m["away"] for m in matches if m["div"] == div}
             shares_by_div[div] = PR.team_shares(players, fd_teams)
             props_note.append(f"{div}:{len(players)}p/{len(shares_by_div[div])}t")
         except Exception as e:
-            shares_by_div[div] = {}
-            props_note.append(f"{div}:off({type(e).__name__})")
-            print(f"   {div} props source failed — {e}"[:900])
+            pinned = (pin.get("leagues") or {}).get(div) or []
+            if pinned:
+                shares_by_div[div] = PR.team_shares(pinned, fd_teams)
+                props_note.append(f"{div}:pin({len(pinned)}p,{pin_age}d)")
+            else:
+                shares_by_div[div] = {}
+                props_note.append(f"{div}:off({type(e).__name__})")
+                print(f"   {div} props source failed — {e}"[:900])
     print("   " + " · ".join(props_note))
 
     print("3) fit + price per league…")
@@ -123,7 +137,9 @@ def main():
         if bt:
             leagues_out.setdefault(div, {})["backtest"] = bt
 
-    out = {"generated": dt.datetime.now(dt.timezone.utc).isoformat(timespec="seconds"),
+    props_src = " · ".join(props_note)
+    out = {"props_src": props_src,
+           "generated": dt.datetime.now(dt.timezone.utc).isoformat(timespec="seconds"),
            "leagues": leagues_out, "note": note + " · props " + " ".join(props_note), "cal": cal}
     with open(os.path.join(DATA, "slate.json"), "w") as f:
         json.dump(_scrub(out), f, indent=1, allow_nan=False)

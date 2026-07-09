@@ -118,7 +118,7 @@ function render(d){
   $('t-props').innerHTML=`<div class="card"><h3>Anytime Goalscorer — model board</h3>
   <div class="sub">P(scores) = team goal rate (Dixon-Coles) x player's blended goal/xG share x availability —
   a MODEL read, logged for grading, not a market price. Likelihood-first, all four leagues together.
-  <b>Compare to your book's price; the gap is yours to judge.</b></div>`+
+  <b>Compare to your book's price; the gap is yours to judge.</b>${d.props_src?`<br><span class="pill">shares: ${d.props_src}</span>`:''}</div>`+
   (props.length?`<table><tr><th>#</th><th>player</th><th class="hide-m">match</th><th class="num">anytime%</th><th></th></tr>`+
   props.slice(0,60).map((r,i)=>`<tr><td class="dim">${i+1}</td>
   <td><b>${r.name}</b> <span class="pill">${r.team}</span><span class="dim hide-m"> ${r.lg}</span></td>
