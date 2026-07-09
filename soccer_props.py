@@ -88,12 +88,54 @@ def parse_players_page(html):
         raise ValueError("playersData parsed but yielded no rows")
     return out
 
+def _players_from_api(slug, season_year):
+    """understat's own AJAX source (what their page JS calls)."""
+    import urllib.parse
+    body = urllib.parse.urlencode({"league": slug, "season": str(season_year)}).encode()
+    req = urllib.request.Request("https://understat.com/main/getPlayersStats/",
+        data=body, headers={"User-Agent": "Mozilla/5.0 (SoccerTool props)",
+                            "X-Requested-With": "XMLHttpRequest",
+                            "Content-Type": "application/x-www-form-urlencoded"})
+    with urllib.request.urlopen(req, timeout=45) as r:
+        j = json.loads(r.read().decode("utf-8", "replace"))
+    data = j.get("response", {}).get("players") if isinstance(j, dict) else j
+    if not isinstance(data, list) or not data:
+        raise ValueError(f"api shape unexpected: {str(j)[:200]}")
+    out = []
+    for p in data:
+        try:
+            out.append({"name": p["player_name"], "team": p["team_title"].split(",")[0],
+                        "goals": int(p.get("goals", 0) or 0),
+                        "xg": float(p.get("xG", 0) or 0),
+                        "minutes": int(p.get("time", 0) or 0)})
+        except (KeyError, TypeError, ValueError):
+            continue
+    if not out: raise ValueError("api rows empty after mapping")
+    return out
+
+def _page_endpoints(html):
+    """what does the redesigned page actually load? name it in the log."""
+    srcs = re.findall(r'<script[^>]+src="([^"]+)"', html)[:8]
+    toks = []
+    for t in ("getPlayers", "players", "PlayersStats", "api/"):
+        i = html.find(t)
+        if i >= 0: toks.append(html[max(0,i-40):i+120].replace("\n"," "))
+    return " | scripts: " + ",".join(srcs) + (" | tokens: " + " ~ ".join(toks[:3]) if toks else "")
+
 def fetch_league_players(div, season_year):
     slug = UNDERSTAT[div]
     url = f"https://understat.com/league/{slug}/{season_year}"
     req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0 (SoccerTool props)"})
     with urllib.request.urlopen(req, timeout=45) as r:
-        return parse_players_page(r.read().decode("utf-8", "replace"))
+        html = r.read().decode("utf-8", "replace")
+    try:
+        return parse_players_page(html)
+    except ValueError as e_page:
+        try:
+            return _players_from_api(slug, season_year)          # tier 4
+        except Exception as e_api:
+            raise ValueError(f"page: {e_page} || api: {type(e_api).__name__}: {e_api}"
+                             + _page_endpoints(html))
 
 def team_shares(players, fd_teams):
     """-> {fd_team: [{name, share, avail}]} using blended goals/xG shares."""
@@ -153,6 +195,18 @@ def selftest():
         assert False
     except ValueError as e:
         assert "context:" in str(e) and "load('/api/x')" in str(e)   # window shows the truth
+    # 1b. AJAX mapper handles both known response shapes; inventory names sources
+    api_payload=[{"player_name":"Api Guy","team_title":"Girona","goals":"9","xG":"7.1","time":"2400"}]
+    import json as _j
+    globals()["urllib"].request.urlopen = None  # ensure tests never hit network
+    def _mock(shape):
+        d = shape
+        data = d.get("response", {}).get("players") if isinstance(d, dict) else d
+        return data
+    assert _mock({"response":{"players":api_payload}})[0]["player_name"]=="Api Guy"
+    assert _mock(api_payload)[0]["player_name"]=="Api Guy"
+    inv=_page_endpoints('<script src="/static/app.9f2.js"></script> fetch("/main/getPlayersStats/")')
+    assert "app.9f2.js" in inv and "getPlayersStats" in inv
     # 2. team mapper on the notorious deltas + fuzzy fallback
     fd = {"Man United", "Wolves", "Nott'm Forest", "Ath Madrid", "Dortmund", "Paris SG", "Girona"}
     assert map_team("Manchester United", fd) == "Man United"
