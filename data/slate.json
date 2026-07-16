@@ -1,6 +1,6 @@
 {
  "props_src": "E0:off(ValueError) \u00b7 SP1:off(ValueError) \u00b7 D1:off(ValueError) \u00b7 F1:off(ValueError)",
- "generated": "2026-07-15T15:10:14+00:00",
+ "generated": "2026-07-16T15:21:33+00:00",
  "leagues": {
   "E0": {
    "name": "Premier League",
@@ -165,6 +165,13 @@
     "n": 892,
     "acc": 50.6,
     "brier3": 0.589,
+    "totals": {
+     "n": 892,
+     "acc": 58.3,
+     "market_acc": 58.6,
+     "disagree_n": 195,
+     "disagree_model_right": 49.2
+    },
     "n_mkt": 892,
     "market_acc": 54.0,
     "disagree_n": 132,
@@ -340,6 +347,13 @@
     "n": 889,
     "acc": 52.1,
     "brier3": 0.5891,
+    "totals": {
+     "n": 889,
+     "acc": 57.1,
+     "market_acc": 60.1,
+     "disagree_n": 156,
+     "disagree_model_right": 41.7
+    },
     "n_mkt": 889,
     "market_acc": 55.3,
     "disagree_n": 128,
@@ -485,6 +499,13 @@
     "n": 718,
     "acc": 51.8,
     "brier3": 0.5965,
+    "totals": {
+     "n": 718,
+     "acc": 61.3,
+     "market_acc": 62.1,
+     "disagree_n": 120,
+     "disagree_model_right": 47.5
+    },
     "n_mkt": 718,
     "market_acc": 54.9,
     "disagree_n": 115,
@@ -636,6 +657,13 @@
     "n": 724,
     "acc": 52.1,
     "brier3": 0.6086,
+    "totals": {
+     "n": 724,
+     "acc": 53.9,
+     "market_acc": 58.3,
+     "disagree_n": 188,
+     "disagree_model_right": 41.5
+    },
     "n_mkt": 724,
     "market_acc": 53.7,
     "disagree_n": 92,
