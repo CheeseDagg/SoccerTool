@@ -1,0 +1,30 @@
+name: Soccer xG experiment
+# On-demand research experiment: do expected-goals (xG) based ratings beat the goals-based
+# model out-of-sample? Pulls understat xG, runs the leak-free backtest, prints a VERDICT.
+# Touches no production model — nothing ships unless the verdict shows a robust win.
+on:
+  workflow_dispatch: {}
+permissions:
+  contents: read
+jobs:
+  experiment:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: '3.11' }
+      - name: deps
+        run: pip install numpy pandas
+      - name: selftest gate (leak-free logic must hold)
+        run: python soccer_xg_experiment.py --selftest
+      - name: run experiment (prints goals vs xG verdict)
+        run: python soccer_xg_experiment.py --save-cache
+      - name: upload results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: soccer-xg-result
+          path: |
+            data/understat_xg.json
+            data/*xg*
+          if-no-files-found: ignore
