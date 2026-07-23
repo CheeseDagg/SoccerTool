@@ -94,6 +94,7 @@ def main():
     print("3) fit + price per league…")
     leagues_out = {}
     log_rows = []
+    _today_iso = dt.date.today().isoformat()   # don't price/log fixtures that already kicked off
     for div, name in M.LEAGUES.items():
         ms = [m for m in matches if m["div"] == div]
         if len(ms) < 60:
@@ -105,7 +106,8 @@ def main():
                          "idx": round(100 * math.exp(a + d), 1)}     # single-number strength
                         for t, (a, d) in ratings.items()), key=lambda r: -r["idx"])
         fx_out = []
-        for f in sorted((f for f in fixtures if f["div"] == div), key=lambda x: x["date"]):
+        for f in sorted((f for f in fixtures if f["div"] == div
+                         and f["date"].isoformat()[:10] >= _today_iso), key=lambda x: x["date"]):
             if f["home"] not in ratings or f["away"] not in ratings: continue
             p = M.match_probs(ratings, home_adv, rho, mu, f["home"], f["away"])
             row = {"date": f["date"].isoformat(), "home": f["home"], "away": f["away"],
@@ -138,8 +140,13 @@ def main():
             leagues_out.setdefault(div, {})["backtest"] = bt
 
     props_src = " · ".join(props_note)
+    # Real freshness signal = the fixtures' own dates, not wall-clock `generated`. If the
+    # build stalls, slate_end falls into the past and the dashboard can warn.
+    _fx_dates = sorted(r["date"][:10] for v in leagues_out.values() for r in v.get("fixtures", []))
     out = {"props_src": props_src,
            "generated": dt.datetime.now(dt.timezone.utc).isoformat(timespec="seconds"),
+           "slate_date": _fx_dates[0] if _fx_dates else None,
+           "slate_end": _fx_dates[-1] if _fx_dates else None,
            "leagues": leagues_out, "note": note + " · props " + " ".join(props_note), "cal": cal}
     with open(os.path.join(DATA, "slate.json"), "w") as f:
         json.dump(_scrub(out), f, indent=1, allow_nan=False)

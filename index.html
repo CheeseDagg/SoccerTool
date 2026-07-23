@@ -52,7 +52,17 @@ const trip=(h,d,a)=>`<span class="trip" title="H ${pct(h)} · D ${pct(d)} · A $
 const bar=p=>`<div class="bar"><i style="width:${Math.min(Math.max(p,0),100)}%"></i></div>`;
 
 function render(d){
-  $('meta').textContent=`updated ${new Date(d.generated).toLocaleString()}`;
+  var _meta=`updated ${new Date(d.generated).toLocaleString()}`;
+  // FRESHNESS: if every priced fixture is already in the past, the build has stalled —
+  // warn instead of showing a frozen slate as current.
+  var _end=d.slate_end||'';
+  var _n=new Date();
+  var _t=_n.getFullYear()+'-'+String(_n.getMonth()+1).padStart(2,'0')+'-'+String(_n.getDate()).padStart(2,'0');
+  if(_end && _end<_t){
+    $('meta').innerHTML='<span style="color:#e5533c;font-weight:800">⚠ STALE SLATE — fixtures through '+_end+' (today is '+_t+'). The daily build hasn\'t refreshed.</span><br>'+_meta;
+  } else {
+    $('meta').textContent=_meta;
+  }
   const tabs=[], nav=$('nav'), host=$('tabs');
   LG_ORDER.forEach(div=>{ if(d.leagues[div]) tabs.push([div, d.leagues[div].name||div]); });
   tabs.push(["props","Props"],["cal","Calibration"],["method","Method"]);
