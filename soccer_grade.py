@@ -49,6 +49,27 @@ def log_predictions(fixture_rows):
             new += 1
     return new
 
+RESCHED_DAYS = 45   # a postponed match is replayed within weeks — well short of a season,
+                    # so this can't collide with the same fixture in a different season.
+
+def _rescheduled_result(pred, res_by_match):
+    """Settle a prediction whose match was POSTPONED: the played date then differs from
+    the scheduled date it was logged under, so the exact key misses. Each div/home/away
+    pairing is played once per season, so match to the closest result within RESCHED_DAYS.
+    Returns (hg, ag) or None."""
+    cands = res_by_match.get((pred["div"], pred["home"], pred["away"]))
+    if not cands: return None
+    try: pdte = dt.date.fromisoformat(pred["date"])
+    except (ValueError, TypeError): return None
+    best = None
+    for di, hgag in cands:
+        try: d = dt.date.fromisoformat(di)
+        except (ValueError, TypeError): continue
+        delta = abs((d - pdte).days)
+        if delta <= RESCHED_DAYS and (best is None or delta < best[0]):
+            best = (delta, hgag)
+    return best[1] if best else None
+
 def grade_all(results):
     """results: iterable of match dicts (div,date(date),home,away,hg,ag) — the
     freshly fetched season files. Settles logged predictions whose result is in."""
@@ -56,15 +77,20 @@ def grade_all(results):
     preds = load_csv(PLOG)
     if not preds: return 0, summarize([])
     done = {_key(r) for r in load_csv(GRADED)}
-    res = {}
+    res, res_by_match = {}, {}
     for m in results:
-        res[(m["div"], m["date"].isoformat(), m["home"], m["away"])] = (m["hg"], m["ag"])
+        di = m["date"].isoformat()
+        res[(m["div"], di, m["home"], m["away"])] = (m["hg"], m["ag"])
+        res_by_match.setdefault((m["div"], m["home"], m["away"]), []).append((di, (m["hg"], m["ag"])))
     new = []
     for r in preds:
         k = _key(r)
         if k in done: continue
-        if k not in res: continue                       # not played / not in files yet
-        hg, ag = res[k]
+        got = res.get(k)
+        if got is None:
+            got = _rescheduled_result(r, res_by_match)  # postponed match: tolerant date match
+        if got is None: continue                        # not played / not in files yet
+        hg, ag = got
         r2 = dict(r)
         r2["outcome"] = "H" if hg > ag else ("A" if ag > hg else "D")
         new.append(r2)
@@ -136,6 +162,18 @@ def selftest():
                          ((0.40)**2 + 0.30**2 + (0.30-1)**2)) / 2, 4)
     assert p3["brier3"] == bs_expected, (p3["brier3"], bs_expected)
     json.dumps(p3)
+    # RESCHEDULE: a postponed match settles even though its played date differs from the
+    # scheduled date the prediction was logged under; a season-away date must NOT match.
+    globals()["PLOG"], globals()["GRADED"] = os.path.join(tempfile.mkdtemp(),"p.csv"), os.path.join(tempfile.mkdtemp(),"g.csv")
+    log_predictions([{"div":"E0","date":"2026-09-01","home":"Chelsea","away":"Fulham",
+                      "pH":0.5,"pD":0.3,"pA":0.2,"qH":0.5,"qD":0.3,"qA":0.2}])
+    nr, pr = grade_all([{"div":"E0","date":dt.date(2026,9,6),"home":"Chelsea","away":"Fulham","hg":1,"ag":1}])
+    assert nr == 1 and pr["n"] == 1, (nr, pr)            # settled despite the 5-day postponement
+    globals()["PLOG"], globals()["GRADED"] = os.path.join(tempfile.mkdtemp(),"p.csv"), os.path.join(tempfile.mkdtemp(),"g.csv")
+    log_predictions([{"div":"E0","date":"2026-09-01","home":"Chelsea","away":"Fulham",
+                      "pH":0.5,"pD":0.3,"pA":0.2,"qH":0.5,"qD":0.3,"qA":0.2}])
+    nf, _ = grade_all([{"div":"E0","date":dt.date(2027,9,1),"home":"Chelsea","away":"Fulham","hg":1,"ag":1}])
+    assert nf == 0                                       # >45 days away (next season) -> no false match
     # offseason path: fresh dir, zero fixtures -> both files still materialize
     tmp2 = tempfile.mkdtemp()
     globals()["PLOG"], globals()["GRADED"] = os.path.join(tmp2,"p.csv"), os.path.join(tmp2,"g.csv")
