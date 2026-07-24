@@ -182,16 +182,24 @@ UNDERSTAT_API_LEAGUE = {"E0": "EPL", "SP1": "La liga", "D1": "Bundesliga", "F1":
 
 
 def _http_api(url, referer):
-    import urllib.parse
     req = urllib.request.Request(url, headers={
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
                       "(KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36",
         "X-Requested-With": "XMLHttpRequest",     # jQuery marker the endpoint expects
         "Accept": "application/json, text/javascript, */*; q=0.01",
+        "Accept-Encoding": "gzip",                # explicit; we decompress ourselves
         "Referer": referer,
     })
     with urllib.request.urlopen(req, timeout=45) as r:
-        return r.read().decode("utf-8", "replace")
+        raw = r.read()
+    if raw[:2] == b"\x1f\x8b":                    # gzip magic (also covers forced gzip)
+        import gzip
+        raw = gzip.decompress(raw)
+    text = raw.decode("utf-8", "replace").lstrip("﻿")
+    if not text.lstrip().startswith(("{", "[")):
+        # not JSON — surface what we actually got so failures are diagnosable
+        raise ValueError(f"non-JSON response (starts: {text.lstrip()[:80]!r})")
+    return text
 
 
 def fetch_understat(divs=("E0", "SP1", "D1", "F1")):
