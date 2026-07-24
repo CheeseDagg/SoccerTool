@@ -62,6 +62,47 @@ MIN_TRAIN_DAYS = 180
 REFIT_DAYS = 30
 FIT_ITERS = 250
 
+# FiveThirtyEight SPI fallback — understat Cloudflare-walls GitHub runners (run 1 died
+# in 24s), but 538's static CSV carries per-match xG for these exact leagues, 2016-2023.
+# Historical-only is fine for the VERDICT (does xG beat goals out-of-sample?).
+SPI_URL = "https://projects.fivethirtyeight.com/soccer-api/club/spi_matches.csv"
+SPI_LEAGUE = {"Barclays Premier League": "E0", "Spanish Primera Division": "SP1",
+              "German Bundesliga": "D1", "French Ligue 1": "F1"}
+
+
+def parse_spi_csv(text):
+    """538 spi_matches.csv -> harness match dicts (div/date/home/away/g_h/g_a/xgh/xga).
+    Keeps only the four production leagues and rows with both scores and both xG."""
+    import csv as _csv, io as _io
+    out = []
+    for r in _csv.DictReader(_io.StringIO(text)):
+        div = SPI_LEAGUE.get((r.get("league") or "").strip())
+        if not div:
+            continue
+        try:
+            d = dt.date.fromisoformat((r.get("date") or "")[:10])
+            g_h, g_a = int(float(r["score1"])), int(float(r["score2"]))
+            xgh, xga = float(r["xg1"]), float(r["xg2"])
+        except (KeyError, TypeError, ValueError):
+            continue
+        out.append({"div": div, "date": d, "home": r["team1"].strip(),
+                    "away": r["team2"].strip(), "g_h": g_h, "g_a": g_a,
+                    "xgh": xgh, "xga": xga})
+    return out
+
+
+def fetch_538():
+    """Pull the 538 SPI match file. Raises on unreachable (caller degrades)."""
+    text = _http(SPI_URL)
+    matches = parse_spi_csv(text)
+    if not matches:
+        raise RuntimeError("538 SPI reachable but produced 0 usable xG matches")
+    per = {}
+    for m in matches:
+        per[m["div"]] = per.get(m["div"], 0) + 1
+    note = " · ".join(f"{k}: {v}" for k, v in sorted(per.items()))
+    return matches, f"538 SPI ({note})"
+
 # ----------------------------------------------------------------- data layer
 def _http(url):
     req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0 (SoccerTool xG experiment)"})
@@ -436,10 +477,23 @@ def selftest():
         mm = metrics(preds)
         assert mm and 0 < mm["brier"] < 2 and 0.15 < mm["acc"] < 0.9, (mode, mm)
 
+    # 538 SPI fallback parser: league filter, type coercion, junk-row tolerance
+    spi_fix = ("season,date,league_id,league,team1,team2,spi1,spi2,prob1,prob2,probtie,"
+               "proj_score1,proj_score2,importance1,importance2,score1,score2,xg1,xg2,"
+               "nsxg1,nsxg2,adj_score1,adj_score2\n"
+               "2022,2022-08-05,2411,Barclays Premier League,Crystal Palace,Arsenal,"
+               "70.1,82.3,0.2,0.55,0.25,1.0,1.8,30,60,0,2,1.2,1.31,0.9,1.4,0.0,2.1\n"
+               "2022,2022-08-06,9999,Some Other League,X,Y,1,1,0.3,0.4,0.3,1,1,1,1,1,1,0.5,0.5,0.4,0.4,1,1\n"
+               "2022,2022-08-07,2411,Barclays Premier League,Leeds,Wolves,60,60,0.4,0.3,0.3,1.4,1.1,20,20,,,,,,,,\n")
+    spi = parse_spi_csv(spi_fix)
+    assert len(spi) == 1, f"538 parser: expected 1 usable row, got {len(spi)}"
+    assert spi[0]["div"] == "E0" and spi[0]["g_a"] == 2 and abs(spi[0]["xgh"] - 1.2) < 1e-9
+    assert spi[0]["date"] == dt.date(2022, 8, 5) and spi[0]["home"] == "Crystal Palace"
+
     print("XG-EXPERIMENT SELFTEST PASS — understat parser (UTF-8 \\xNN decode), "
           f"Brier/log-loss math, xG-as-goals recovery (corr {corr:.2f}, MAE {mae:.3f}), "
           f"leak-freeness ({checked} predictions unchanged under future poisoning), "
-          "backtest plumbing (both modes).")
+          "backtest plumbing (both modes), 538 SPI fallback parser.")
     return 0
 
 # --------------------------------------------------------------- entrypoint
@@ -470,8 +524,19 @@ def main():
                 matches = [{**m, "date": dt.date.fromisoformat(m["date"])} for m in json.load(f)]
         else:
             print(str(e))
-            print("Nothing to do from here. Exiting 0 (this is expected in a blocked sandbox).")
-            return 0
+            print("understat unavailable — trying FiveThirtyEight SPI xG (2016-2023)...")
+            try:
+                matches, note = fetch_538()
+                print("538 pull:", note)
+                if args.save_cache and matches:
+                    os.makedirs(DATA, exist_ok=True)
+                    with open(CACHE, "w") as f:
+                        json.dump([{**m, "date": m["date"].isoformat()} for m in matches], f)
+                    print("cached ->", CACHE)
+            except Exception as e2:
+                print(f"538 SPI also unreachable ({type(e2).__name__}).")
+                print("Nothing to do from here. Exiting 0 (expected in a blocked sandbox).")
+                return 0
     run_experiment(matches)
     return 0
 
