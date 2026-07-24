@@ -136,11 +136,16 @@ def decode_jsonparse(blob):
     return out.decode("utf-8", "replace")
 
 def parse_understat_dates(html, div, season):
-    """Extract per-match xG from an understat league page's datesData block."""
+    """Extract per-match xG from an understat league page's datesData block
+    (LEGACY layout — understat now serves data via the getLeagueData JSON API)."""
     m = re.search(r"datesData\s*=\s*JSON\.parse\('(.*?)'\)", html, re.S)
     if not m:
         raise ValueError("datesData block not found (understat layout changed?)")
     rows = json.loads(decode_jsonparse(m.group(1)))
+    return _matches_from_dates(rows, div, season)
+
+def _matches_from_dates(rows, div, season):
+    """understat match dicts (from datesData or getLeagueData['dates']) -> harness rows."""
     out = []
     for r in rows:
         if not r.get("isResult"):
@@ -168,31 +173,64 @@ def _parse_dt(s):
     except ValueError:
         return None
 
-def fetch_understat(divs=("E0", "SP1", "D1", "F1")):
-    """Pull per-match xG for every (div, season). Returns (matches, note).
+# understat's 2026 redesign: match data moved out of the page into a JSON API the
+# league page's own JS calls — GET getLeagueData/{select-value}/{year} returning
+# {"dates": [match dicts], "teams": ..., "players": ...}. The select values differ
+# from the URL slugs ("La liga" with a space, not "La_liga").
+UNDERSTAT_API = "https://understat.com/getLeagueData/{league}/{year}"
+UNDERSTAT_API_LEAGUE = {"E0": "EPL", "SP1": "La liga", "D1": "Bundesliga", "F1": "Ligue 1"}
 
-    Raises RuntimeError with a clear message if understat is unreachable so the
-    caller can degrade gracefully (this sandbox is egress-blocked -> 403)."""
+
+def _http_api(url, referer):
+    import urllib.parse
+    req = urllib.request.Request(url, headers={
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
+                      "(KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36",
+        "X-Requested-With": "XMLHttpRequest",     # jQuery marker the endpoint expects
+        "Accept": "application/json, text/javascript, */*; q=0.01",
+        "Referer": referer,
+    })
+    with urllib.request.urlopen(req, timeout=45) as r:
+        return r.read().decode("utf-8", "replace")
+
+
+def fetch_understat(divs=("E0", "SP1", "D1", "F1")):
+    """Pull per-match xG for every (div, season) — JSON API first (2026 layout),
+    legacy embedded-datesData scrape as fallback. Returns (matches, note).
+
+    Raises RuntimeError if understat is unreachable so the caller can degrade."""
+    import urllib.parse
     matches, notes = [], []
     reached_any = False
     blocked = False
     for div in divs:
-        league = UNDERSTAT_LEAGUE[div]
         got = 0
         for year in UNDERSTAT_SEASONS:
-            url = UNDERSTAT_URL.format(league=league, year=year)
-            try:
-                html = _http(url)
+            api_url = UNDERSTAT_API.format(
+                league=urllib.parse.quote(UNDERSTAT_API_LEAGUE[div]), year=year)
+            referer = UNDERSTAT_URL.format(league=UNDERSTAT_LEAGUE[div], year=year)
+            rows = None
+            try:                                   # 1) the JSON API the site itself uses
+                data = json.loads(_http_api(api_url, referer))
                 reached_any = True
-                rows = parse_understat_dates(html, div, year)
-                matches += rows; got += len(rows)
-            except urllib.error.HTTPError as e:
-                notes.append(f"{div} {year}: HTTP {e.code}")
-                if e.code in (403, 407, 429): blocked = True
-            except urllib.error.URLError as e:
-                notes.append(f"{div} {year}: {type(e.reason).__name__}"); blocked = True
+                rows = _matches_from_dates(data.get("dates") or [], div, year)
+                if not rows:
+                    notes.append(f"{div} {year}: api 0 rows")
             except Exception as e:
-                notes.append(f"{div} {year}: {type(e).__name__}")
+                notes.append(f"{div} {year}: api {type(e).__name__}")
+                if isinstance(e, urllib.error.HTTPError) and e.code in (403, 407, 429):
+                    blocked = True
+                if isinstance(e, urllib.error.URLError):
+                    blocked = True
+            if not rows:
+                try:                               # 2) legacy embedded-JSON page scrape
+                    html = _http(referer)
+                    reached_any = True
+                    rows = parse_understat_dates(html, div, year)
+                except Exception as e:
+                    notes.append(f"{div} {year}: page {type(e).__name__}")
+                    rows = []
+            matches += rows; got += len(rows)
         notes.append(f"{div}: {got} xG matches")
     if not reached_any:
         raise RuntimeError(
@@ -476,6 +514,20 @@ def selftest():
             assert abs(r["pH"] + r["pD"] + r["pA"] - 1) < 1e-6
         mm = metrics(preds)
         assert mm and 0 < mm["brier"] < 2 and 0.15 < mm["acc"] < 0.9, (mode, mm)
+
+    # getLeagueData API path: the 'dates' list feeds the same extractor
+    api_rows = [
+        {"isResult": True, "datetime": "2024-08-16 19:00:00",
+         "h": {"title": "Manchester United"}, "a": {"title": "Fulham"},
+         "goals": {"h": "1", "a": "0"}, "xG": {"h": "1.84", "a": "0.62"}},
+        {"isResult": False, "datetime": "2027-01-01 15:00:00",
+         "h": {"title": "X"}, "a": {"title": "Y"},
+         "goals": {"h": None, "a": None}, "xG": {"h": None, "a": None}},
+    ]
+    api_m = _matches_from_dates(api_rows, "E0", 2024)
+    assert len(api_m) == 1 and api_m[0]["home"] == "Manchester United"
+    assert abs(api_m[0]["xgh"] - 1.84) < 1e-9 and api_m[0]["g_a"] == 0
+    assert api_m[0]["date"] == dt.date(2024, 8, 16)
 
     # 538 SPI fallback parser: league filter, type coercion, junk-row tolerance
     spi_fix = ("season,date,league_id,league,team1,team2,spi1,spi2,prob1,prob2,probtie,"
