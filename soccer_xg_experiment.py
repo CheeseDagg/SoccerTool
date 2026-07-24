@@ -511,6 +511,10 @@ def main():
     try:
         matches, note = fetch_understat()
         print("understat pull:", note)
+        if not matches:
+            # understat answered but with challenge/changed HTML (0 parsed) — that is
+            # just as dead as unreachable. Route to the 538 fallback.
+            raise RuntimeError("understat reachable but parsed 0 matches")
         if args.save_cache and matches:
             os.makedirs(DATA, exist_ok=True)
             with open(CACHE, "w") as f:
