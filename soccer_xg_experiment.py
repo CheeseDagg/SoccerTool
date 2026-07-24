@@ -562,10 +562,27 @@ def main():
     ap.add_argument("--selftest", action="store_true", help="offline synthetic tests, no network")
     ap.add_argument("--save-cache", action="store_true",
                     help="on a successful pull, write data/understat_xg.json for Actions to reuse")
+    ap.add_argument("--refresh-cache", action="store_true",
+                    help="fetch understat and update the cache ONLY (no backtest) — used by "
+                         "the daily workflow, fail-soft: keeps the old cache on any failure")
     args = ap.parse_args()
 
     if args.selftest:
         return selftest()
+
+    if args.refresh_cache:
+        try:
+            matches, note = fetch_understat()
+            if not matches:
+                print("refresh-cache: pull produced 0 matches — keeping existing cache")
+                return 0
+            os.makedirs(DATA, exist_ok=True)
+            with open(CACHE, "w") as f:
+                json.dump([{**m, "date": m["date"].isoformat()} for m in matches], f)
+            print(f"refresh-cache: {note} -> {CACHE}")
+        except Exception as e:
+            print(f"refresh-cache: understat unavailable ({type(e).__name__}) — keeping existing cache")
+        return 0
 
     # Real experiment path — network required. Degrade cleanly if blocked.
     try:

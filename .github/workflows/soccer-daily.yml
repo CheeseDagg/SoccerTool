@@ -19,6 +19,8 @@ jobs:
         with: { python-version: "3.12" }
       - name: Install deps
         run: pip install numpy
+      - name: Refresh xG cache (fail-soft — keeps committed cache if understat is walled)
+        run: python soccer_xg_experiment.py --refresh-cache || true
       - name: Fetch, fit, grade, publish
         run: python soccer_publish.py
       - name: Validate slate.json is browser-parseable
@@ -31,7 +33,7 @@ jobs:
           for attempt in 1 2 3 4 5; do
             git fetch origin main
             git reset --mixed origin/main
-            for f in data/slate.json data/soccer_predictions.csv data/soccer_graded.csv data/backtest_cache.json; do
+            for f in data/slate.json data/soccer_predictions.csv data/soccer_graded.csv data/backtest_cache.json data/understat_xg.json; do
               git add "$f" 2>/dev/null || true
             done
             if git diff --cached --quiet; then
