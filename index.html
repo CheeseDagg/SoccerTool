@@ -624,7 +624,29 @@ function renderProps(){
   <td class="hide-m dim">${r.ha==='H'?'v':'@'} ${esc(r.opp)} · ${esc(r.date)}</td>
   <td class="num"><b>${pct(r.p)}%</b></td><td>${bar(r.p*140)}</td>
   <td class="num dim">${amFromP(r.p)}</td></tr>`).join('')+`</table>`
-  :`<div class="empty">no fixtures carry player shares yet — appears once fixtures post and the props source responds.</div>`)+`</div>`;
+  :`<div class="empty">${propsEmptyReason(d)}</div>`)+`</div>`;
+}
+
+/* An empty Props tab has two completely different causes and used to give one
+   message for both: "no fixtures carry player shares yet — appears once fixtures
+   post and the props source responds." That reads as an offseason notice, so a
+   BROKEN player feed looked like a quiet calendar. props_src carries the truth
+   (it read "E0:off(ValueError) · SP1:off(...) · ..." for weeks); use it. */
+function propsEmptyReason(d){
+  const src = d.props_src || '';
+  const parts = src ? src.split('·').map(s=>s.trim()).filter(Boolean) : [];
+  const off   = parts.filter(s=>s.includes(':off('));
+  let fixtures = 0;
+  LG_ORDER.forEach(div=>{ const L=d.leagues[div]; if(L&&L.fixtures) fixtures+=L.fixtures.length; });
+  if(parts.length && off.length === parts.length)
+    return 'the player-shares source is DOWN in all '+off.length+' leagues, so there are no '
+         + 'props to show. This is a broken feed, not an empty calendar. ('+esc(src)+')';
+  if(off.length)
+    return off.length+' of '+parts.length+' leagues have no player shares ('+esc(off.join(', '))
+         + '); the rest post props once their fixtures do.';
+  if(!fixtures)
+    return 'no fixtures on the board yet — props appear as soon as the next round posts.';
+  return 'fixtures are posted but none carry player shares yet.';
 }
 
 function renderCal(){
@@ -657,9 +679,18 @@ function renderMethod(){
     return `<tr><td><b>${esc(d.leagues[k].name)}</b></td><td class="num">${b.n}</td><td class="num">${b.acc}%</td>
     <td class="num">${b.brier3}</td><td class="num">${b.market_acc!=null?b.market_acc+'%':'—'}</td>
     <td class="num">${b.disagree_n!=null?b.disagree_n:'—'}</td>
-    <td class="num">${b.disagree_model_right!=null?`<b style="color:${b.disagree_model_right>=50?'var(--acc2)':'var(--red)'}">${b.disagree_model_right}%</b>`:'—'}</td></tr>`+
-    (t?`<tr><td class="dim" style="padding-left:18px">↳ over/under 2.5</td><td class="num dim">${t.n}</td><td class="num dim">${t.acc}%</td><td class="num dim">—</td><td class="num dim">${t.market_acc}%</td><td class="num dim">${t.disagree_n}</td><td class="num dim">${t.disagree_model_right!=null?t.disagree_model_right+'%':'—'}</td></tr>`:'');
+    <td class="num">${b.disagree_model_right!=null?`<b style="color:${b.disagree_model_right>=50?'var(--acc2)':'var(--red)'}">${b.disagree_model_right}%</b>`:'—'}</td>
+    <td class="num dim">${b.disagree_market_right!=null?b.disagree_market_right+'%':'—'}</td></tr>`+
+    (t?`<tr><td class="dim" style="padding-left:18px">↳ over/under 2.5</td><td class="num dim">${t.n}</td><td class="num dim">${t.acc}%</td><td class="num dim">—</td><td class="num dim">${t.market_acc}%</td><td class="num dim">${t.disagree_n}</td><td class="num dim">${t.disagree_model_right!=null?t.disagree_model_right+'%':'—'}</td><td class="num dim">${t.disagree_market_right!=null?t.disagree_market_right+'%':'—'}</td></tr>`:'');
   }).join('');
+  /* Aggregate the disagreement rows across leagues. Per-league the numbers read as
+     four separate mediocre results; summed they are one unambiguous statement, and
+     that statement is the answer to "is this model worth betting". */
+  const _bs = LG_ORDER.filter(k=>d.leagues[k]&&d.leagues[k].backtest).map(k=>d.leagues[k].backtest);
+  const _dn = _bs.reduce((s,b)=>s+(b.disagree_n||0),0);
+  const _dmod = _dn?_bs.reduce((s,b)=>s+(b.disagree_model_right||0)*(b.disagree_n||0),0)/_dn:null;
+  const _dmkt = _dn&&_bs.some(b=>b.disagree_market_right!=null)
+    ?_bs.reduce((s,b)=>s+(b.disagree_market_right||0)*(b.disagree_n||0),0)/_dn:null;
   $('t-method').innerHTML=`<div class="card"><h3>Method — and the honest verdict</h3>
   <div class="sub" style="font-size:.86rem;line-height:1.65">
   <b>Model:</b> Dixon-Coles — independent Poisson goals with team attack/defense strengths, home
@@ -673,7 +704,21 @@ function renderMethod(){
   distribution asked different questions. Same kmax, same tau, same renormalisation as the Python.<br><br>
   <b>The measured verdict, per league</b> (walk-forward, expanding window, refit monthly,
   model vs the CLOSING market on identical matches — recomputed weekly from raw data):<br><br>
-  ${btAll?`<table><tr><th>league</th><th class="num">n</th><th class="num">model</th><th class="num">brier</th><th class="num">market</th><th class="num">disagree</th><th class="num">model right</th></tr>${btAll}</table>`:'<span class="dim">backtests pending first full run</span>'}
+  ${btAll?`<table><tr><th>league</th><th class="num">n</th><th class="num">model</th><th class="num">brier</th><th class="num">market</th><th class="num">disagree</th><th class="num">model right</th><th class="num">market right</th></tr>${btAll}</table>`:'<span class="dim">backtests pending first full run</span>'}
+  ${_dmkt!=null?`<br><div class="card" style="border-color:var(--red);background:rgba(224,108,117,.07)">
+  <b>Read this before you take a soccer leg off this board.</b><br>
+  Across all four leagues the model picks a different 1X2 side than the closing market on
+  <b>${_dn}</b> of ${_bs.reduce((s,b)=>s+(b.n_mkt||b.n||0),0)} walk-forward matches. On those
+  <b>${_dn}</b> matches the model is right <b style="color:var(--red)">${_dmod.toFixed(1)}%</b>
+  of the time and the closing market is right <b>${_dmkt.toFixed(1)}%</b> of the time — the market
+  is roughly <b>${(_dmkt/_dmod).toFixed(1)}x</b> better on precisely the matches where this model
+  claims to know something the price doesn't.<br><br>
+  These two rates do not sum to 100 because a three-way market has a third outcome both can miss,
+  so neither number can be derived from the other; both are measured. The conclusion is not
+  "shade the edges" — it is that <b>a disagreement with the price is evidence against the model,
+  not for it</b>. Where model and market agree the model is fine; the agreements are the whole of
+  its accuracy. This board is worth using to price a side you already like, and is worth nothing
+  as a source of plays the market has mispriced.</div>`:''}
   <br>If the disagreement column sits under 50%, fading the market with this model loses money —
   measured, not inferred. Win% is decision support; the tool never claims an edge the table doesn't show.</div></div>`;
 }

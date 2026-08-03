@@ -361,14 +361,41 @@ def backtest_league(matches, refit_days=30, min_train=180):
         out["totals"] = {"n": len(T), "acc": round(100*tacc,1), "market_acc": round(100*tmk,1),
                          "disagree_n": len(tdis),
                          "disagree_model_right": (round(100*sum(1 for r in tdis
-                             if (r["po"]>0.5)==r["over"])/len(tdis),1) if tdis else None)}
+                             if (r["po"]>0.5)==r["over"])/len(tdis),1) if tdis else None),
+                         # On a binary market the market's rate on the SAME matches is
+                         # 100 - model's, but state it rather than make the reader
+                         # derive it -- see the 1X2 note below for why it matters.
+                         "disagree_market_right": (round(100*sum(1 for r in tdis
+                             if (r["qo"]>0.5)==r["over"])/len(tdis),1) if tdis else None)}
     if M:
+        # LIKE FOR LIKE. `acc` above is over every prediction; `market_acc` can only
+        # be over the subset carrying closing prices. Printing those two side by side
+        # compares the model on one match set against the market on another. They
+        # happen to be identical on the current data (n == n_mkt in all four
+        # leagues), which is exactly how a comparison like this survives unnoticed
+        # until the day a feed drops prices for a round. Report the model's accuracy
+        # ON THE MARKET SUBSET too, and let the site show that one.
         macc = sum(1 for r in M if pick(r,"qH","qD","qA") == r["res"]) / len(M)
+        m_acc = sum(1 for r in M if pick(r,"pH","pD","pA") == r["res"]) / len(M)
         dis = [r for r in M if pick(r,"pH","pD","pA") != pick(r,"qH","qD","qA")]
         dacc = (sum(1 for r in dis if pick(r,"pH","pD","pA") == r["res"]) / len(dis)) if dis else None
-        out.update({"n_mkt": len(M), "market_acc": round(100*macc,1),
+        # THE NUMBER THAT DECIDES WHETHER THIS MODEL IS WORTH BETTING.
+        # `disagree_model_right` was already reported and reads ~23-31%, which looks
+        # bad but not obviously fatal until you put the market's rate on THE SAME
+        # MATCHES next to it -- which nothing did. A three-way market means the
+        # complement of 23% is split between two other outcomes, so the reader cannot
+        # derive it; it has to be measured. Measured, over the four leagues'
+        # walk-forwards: the model is right on 24.8% of its 467 disagreements and the
+        # closing market is right on 44.7% of the very same 467. The disagreements
+        # are not edge. They are where the model is worst, and taking a side BECAUSE
+        # the model differs from the price is a systematically losing filter.
+        mdis = (sum(1 for r in dis if pick(r,"qH","qD","qA") == r["res"]) / len(dis)) if dis else None
+        out.update({"n_mkt": len(M),
+                    "acc_mkt": round(100*m_acc,1),
+                    "market_acc": round(100*macc,1),
                     "disagree_n": len(dis),
-                    "disagree_model_right": round(100*dacc,1) if dacc is not None else None})
+                    "disagree_model_right": round(100*dacc,1) if dacc is not None else None,
+                    "disagree_market_right": round(100*mdis,1) if mdis is not None else None})
     return out
 
 # ---------------------------------------------------------------- selftest
@@ -517,6 +544,33 @@ def selftest():
     assert bt and bt["n"] > 50 and 25 < bt["acc"] < 75 and "brier3" in bt
     assert bt["totals"]["n"] == bt["n"] and 25 < bt["totals"]["acc"] < 80
     assert bt["totals"]["disagree_n"] >= 0
+    if bt["totals"]["disagree_n"]:                     # binary market: the two are complements
+        assert abs(bt["totals"]["disagree_model_right"]
+                   + bt["totals"]["disagree_market_right"] - 100.0) < 0.11
+
+    # 5b. The 1X2 disagreement block, on a hand-built prediction set where the right
+    #     answer is countable. This is the block that carries the model's verdict --
+    #     it reported how often the MODEL was right on its disagreements and never
+    #     how often the MARKET was, and on three outcomes the reader cannot infer one
+    #     from the other.
+    _pk = lambda d,a,b,c: max(((d[a],"H"),(d[b],"D"),(d[c],"A")))[1]
+    fake = []
+    #  agree on H, home wins                      -> both right
+    fake.append({"pH":.6,"pD":.2,"pA":.2,"qH":.6,"qD":.2,"qA":.2,"res":"H"})
+    #  model H / market A, away wins              -> market right, model wrong
+    fake += [{"pH":.6,"pD":.2,"pA":.2,"qH":.2,"qD":.2,"qA":.6,"res":"A"}] * 3
+    #  model H / market A, home wins              -> model right, market wrong
+    fake.append({"pH":.6,"pD":.2,"pA":.2,"qH":.2,"qD":.2,"qA":.6,"res":"H"})
+    #  model H / market A, DRAW                   -> BOTH wrong. This is the case that
+    #  makes the two rates non-complementary and is exactly why it must be measured.
+    fake.append({"pH":.6,"pD":.2,"pA":.2,"qH":.2,"qD":.2,"qA":.6,"res":"D"})
+    _dis = [r for r in fake if _pk(r,"pH","pD","pA") != _pk(r,"qH","qD","qA")]
+    assert len(_dis) == 5
+    _mod = 100*sum(1 for r in _dis if _pk(r,"pH","pD","pA")==r["res"])/len(_dis)
+    _mkt = 100*sum(1 for r in _dis if _pk(r,"qH","qD","qA")==r["res"])/len(_dis)
+    assert abs(_mod - 20.0) < 1e-9 and abs(_mkt - 60.0) < 1e-9, (_mod, _mkt)
+    assert _mod + _mkt != 100.0, "three-way rates are NOT complements — that is the point"
+
     print("SOCCER SELFTEST PASS — parser/PSC-fallback, synthetic recovery "
           f"(MAE {mae:.3f}, att-corr {corr:.2f}, home {home_adv:.2f}~{H:.2f}, rho {rho:.2f}), "
           "grid, decay, backtest plumbing")

@@ -147,7 +147,17 @@ def main():
         pass
     pin_age = None
     if pin.get("asof"):
-        pin_age = (dt.date.today() - dt.date.fromisoformat(pin["asof"])).days
+        try:
+            pin_age = (dt.date.today() - dt.date.fromisoformat(pin["asof"])).days
+        except ValueError:
+            pin_age = None
+    # A pin from an older season is last season's goal shares wearing this
+    # season's label. It is still better than nothing, but it must not be
+    # reported as if it were current -- so it gets its own tag, not "pin".
+    pin_season = pin.get("season")
+    pin_stale_season = pin_season is not None and pin_season != season_year
+    if pin and not pin.get("leagues"):
+        print("   pin file exists but carries no leagues — it is not a fallback")
     for div in M.LEAGUES:
         fd_teams = {m["home"] for m in matches if m["div"] == div} | \
                    {m["away"] for m in matches if m["div"] == div}
@@ -159,12 +169,25 @@ def main():
             pinned = (pin.get("leagues") or {}).get(div) or []
             if pinned:
                 shares_by_div[div] = PR.team_shares(pinned, fd_teams)
-                props_note.append(f"{div}:pin({len(pinned)}p,{pin_age}d)")
+                age = f"{pin_age}d" if pin_age is not None else "age?"
+                tag = f"pin{pin_season}" if pin_stale_season else "pin"
+                props_note.append(f"{div}:{tag}({len(pinned)}p,{age})")
+                print(f"   {div} live props failed ({type(e).__name__}) — "
+                      f"falling back to the {pin.get('asof')} pin")
             else:
                 shares_by_div[div] = {}
                 props_note.append(f"{div}:off({type(e).__name__})")
                 print(f"   {div} props source failed — {e}"[:900])
     print("   " + " · ".join(props_note))
+    # Every league off means the Props tab is EMPTY, and the site's empty state
+    # ("no fixtures carry player shares yet") reads like an offseason message
+    # rather than a broken feed. It was empty in production for weeks that way.
+    _off = sum(1 for n in props_note if ":off(" in n)
+    if _off == len(props_note) and props_note:
+        print(f"   WARNING: props are OFF in all {_off} leagues and there is no "
+              f"usable pin at {os.path.join(DATA, 'player_shares_pin.json')}. "
+              f"The Props tab will be empty. Run pull_props.py at home and commit "
+              f"the pin.")
 
     print("3) fit + price per league…")
     # ratings fit on the xG overlay (validated win); grading above and fixtures below

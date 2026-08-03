@@ -19,6 +19,16 @@ jobs:
         with: { python-version: "3.12" }
       - name: Install deps
         run: pip install numpy
+      # The model, props and overlay selftests all existed and NOTHING RAN THEM.
+      # Only the xG-experiment workflow had a gate, so the job that actually
+      # publishes the board to the site was the one job with no check in front of
+      # it. Gate it: a broken model should fail loudly here, not ship quietly.
+      - name: Selftest gate
+        run: |
+          python soccer_model.py --selftest
+          python soccer_props.py --selftest
+          python soccer_publish.py --selftest-overlay
+          node selftest.js
       - name: Refresh xG cache (fail-soft — keeps committed cache if understat is walled)
         run: python soccer_xg_experiment.py --refresh-cache || true
       - name: Fetch, fit, grade, publish
