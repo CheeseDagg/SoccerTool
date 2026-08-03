@@ -26,7 +26,16 @@ import soccer_props as PR
 HERE = os.path.dirname(os.path.abspath(__file__))
 PATH = os.path.join(HERE, "data", "player_shares_pin.json")
 
-season = dt.date.today().year - (1 if dt.date.today().month < 8 else 0)
+# Season can be forced from the command line: `python3 pull_props.py 2025`.
+# Otherwise it is guessed from the date -- and the guess needs a fallback,
+# because the August 1 rollover bites BEFORE the new season has any data in it.
+# On 2026-08-03 this computed season 2026, understat's 2026/27 pages existed but
+# carried an empty player list (zero minutes played league-wide), and all four
+# leagues "failed" on a site that was up the whole time. Early-season shares
+# have to come from the completed season anyway, so an empty current season is
+# not an error -- it is a season-minus-one situation, handled per-league below.
+season = (int(sys.argv[1]) if len(sys.argv) > 1 and sys.argv[1].isdigit()
+          else dt.date.today().year - (1 if dt.date.today().month < 8 else 0))
 
 prev = {}
 try:
@@ -44,10 +53,22 @@ out = {"asof": dt.date.today().isoformat(), "season": season,
 ok, failed = [], []
 for div in PR.UNDERSTAT:
     try:
-        players = PR.fetch_league_players(div, season)
+        try:
+            players = PR.fetch_league_players(div, season)
+            got = season
+        except Exception as e_cur:
+            # The current season being empty or absent is expected in August;
+            # last season's shares are the right answer then, not a failure.
+            # Only if season-1 ALSO fails do we report the original error.
+            print(f"{div}: season {season} unavailable "
+                  f"({str(e_cur)[:120]}) — falling back to {season - 1}")
+            players = PR.fetch_league_players(div, season - 1)
+            got = season - 1
         out["leagues"][div] = players
         ok.append(div)
-        print(f"{div}: {len(players)} players")
+        if got != season:
+            out.setdefault("fallback_season", {})[div] = got
+        print(f"{div}: {len(players)} players (season {got}/{got + 1})")
     except Exception as e:
         failed.append(div)
         print(f"{div}: FAILED — {str(e)[:600]}")
@@ -69,6 +90,17 @@ if not ok:
 # Record that so soccer_publish can label it instead of presenting it as current.
 if out["carried"]:
     out["carried_season"] = prev.get("season")
+
+# If every league that fetched came from the fallback season, the pin IS a
+# season-minus-one pin and must say so in its top-level season field --
+# soccer_publish compares that field against its own season guess to decide
+# whether to label the shares as stale. Leaving the guessed season here would
+# dress last season's shares in this season's label, which is the exact
+# mislabeling the pin_stale_season check exists to catch.
+fb = out.get("fallback_season", {})
+if fb and set(fb) >= set(ok) and len(set(fb.values())) == 1:
+    out["season"] = next(iter(fb.values()))
+    season = out["season"]
 
 os.makedirs(os.path.dirname(PATH), exist_ok=True)
 tmp = PATH + ".tmp"
