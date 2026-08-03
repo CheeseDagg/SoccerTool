@@ -752,6 +752,10 @@ function renderMethod(){
   measured, not inferred. Win% is decision support; the tool never claims an edge the table doesn't show.</div></div>`;
 }
 
-fetch('data/slate.json').then(r=>r.json()).then(render)
+/* no-store. The daily Action republishes data/slate.json at the same URL every
+   morning, so a browser is free to serve yesterday's fixtures on a page whose whole
+   value is that it is today's -- and nothing would look wrong, because a stale slate
+   renders perfectly. */
+fetch('data/slate.json',{cache:'no-store'}).then(r=>r.json()).then(render)
  .catch(()=>{$('meta').textContent='could not load slate.json — run soccer_publish.py (or wait for the daily Action)';});
 </script></body></html>

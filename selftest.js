@@ -245,6 +245,20 @@ h = verdictOf(BT_GOOD);
 check(!/verdict bad/.test(h),
   'a model that wins its disagreements is NOT flagged bad (the test is market>model, not model<50)');
 
+/* ------------------------------------------------ 6) no stale-cache fetches */
+console.log('6) the slate cannot be served from browser cache');
+// The daily Action republishes data/slate.json at the same URL every morning. A cached
+// copy renders perfectly and is simply yesterday's fixtures -- the one failure mode a
+// reader has no way to see, on a page whose entire value is that it is today's.
+{
+  const fetches = [...html.matchAll(/fetch\(\s*'(data\/[^']+)'([^)]*)\)/g)];
+  check(fetches.length > 0, 'found the data fetches in index.html');
+  const cacheable = fetches.filter(m => !/no-store/.test(m[2])).map(m => m[1]);
+  check(cacheable.length === 0,
+    "every data fetch passes cache:'no-store'" +
+    (cacheable.length ? ' — CACHEABLE: ' + cacheable.join(', ') : ''));
+}
+
 /* ------------------------------------------------------------------ report */
 console.log(failures ? `\nSOCCER UI SELFTEST: ${failures} FAILURE(S)`
                      : '\nSOCCER UI SELFTEST PASS — props empty-state tells the truth about a '
