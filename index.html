@@ -337,15 +337,35 @@ function verdictHTML(){
   if(!bs.length) return '';
   const n=bs.reduce((s,b)=>s+(b.n||0),0);
   const wavg=(f)=>bs.reduce((s,b)=>s+(f(b)||0)*(b.n||0),0)/Math.max(n,1);
-  const acc=wavg(b=>b.acc), mkt=wavg(b=>b.market_acc);
+  /* LIKE FOR LIKE. `acc` is the model over every walk-forward match; `market_acc`
+     can only be over the matches that carried a closing price. Putting those two
+     side by side compares the model on one match set to the market on another.
+     acc_mkt is the model's rate on the market's own subset — use it when the slate
+     carries it, and weight both by n_mkt so the average is over the same matches. */
+  const nm=bs.reduce((s,b)=>s+(b.n_mkt||b.n||0),0);
+  const wavgM=(f)=>bs.reduce((s,b)=>s+(f(b)||0)*(b.n_mkt||b.n||0),0)/Math.max(nm,1);
+  const acc=bs.some(b=>b.acc_mkt!=null)?wavgM(b=>b.acc_mkt!=null?b.acc_mkt:b.acc):wavg(b=>b.acc);
+  const mkt=wavgM(b=>b.market_acc);
   const dn=bs.reduce((s,b)=>s+(b.disagree_n||0),0);
   const dr=dn?bs.reduce((s,b)=>s+(b.disagree_model_right||0)*(b.disagree_n||0),0)/dn:null;
-  const bad = dr!=null && dr<50;
+  /* THE HALF THIS BANNER WAS MISSING. It printed how often the MODEL was right on
+     its disagreements with the price and never how often the MARKET was on those
+     same matches. On a three-way market that is not 100 minus the model's number —
+     a draw beats both — so a reader cannot derive it, and 24.8% reads as "meh"
+     until 44.7% is sitting next to it. `bad` also used to trip on dr<50, which is
+     arbitrary; the real test is whether the market beats the model on exactly the
+     matches where the model claims to know better. */
+  const dmk=(dn&&bs.some(b=>b.disagree_market_right!=null))
+    ?bs.reduce((s,b)=>s+(b.disagree_market_right||0)*(b.disagree_n||0),0)/dn:null;
+  const bad = dr!=null && (dmk!=null ? dmk>dr : dr<50);
   return `<div class="verdict ${bad?'bad':''}">
-    Across <b>${n.toLocaleString()}</b> walk-forward matches this model called <b>${acc.toFixed(1)}%</b>
-    of results and the closing market called <b>${mkt.toFixed(1)}%</b>.
+    Across <b>${nm.toLocaleString()}</b> walk-forward matches this model called <b>${acc.toFixed(1)}%</b>
+    of results and the closing market called <b>${mkt.toFixed(1)}%</b> — same matches, both figures.
     ${dr!=null?`On the <b>${dn}</b> matches where the two picked different sides, the model was right
-    <b style="color:${dr>=50?'var(--acc2)':'var(--red)'}">${dr.toFixed(1)}%</b> of the time.`:''}
+    <b style="color:${dr>=50?'var(--acc2)':'var(--red)'}">${dr.toFixed(1)}%</b> of the time${
+      dmk!=null?` and the market was right <b>${dmk.toFixed(1)}%</b> — the market is
+      <b>${(dmk/Math.max(dr,0.1)).toFixed(1)}x</b> better on precisely the matches where this model
+      claims to know something the price doesn't`:''}.`:''}
     ${bad?`<br><b style="color:var(--red)">The market is the better forecaster here, and fading it with this
     model loses.</b> Use these numbers as a calibrated read of <b>what is likely</b> — which is what they
     are good at — and not as an edge over the price. Nothing on this page is claiming one.`:''}</div>`;
@@ -654,15 +674,24 @@ function renderCal(){
   let ch='';
   if(c.n>0){
     ch=`<div class="sub">graded matches: <b>${c.n}</b> · model accuracy <b>${c.acc}%</b> · 3-way Brier <b>${c.brier3}</b></div>`;
+    /* The live grader had the same asymmetry the backtest did: it printed the
+       model's rate on its disagreements with the price and never the market's on
+       the same matches. Also `c.acc` is over every graded row while `m.acc` is over
+       the priced subset — m.model_acc is the like-for-like figure. */
     if(c.market){const m=c.market;
-      ch+=`<div class="sub">vs closing market (live continuation): market <b>${m.acc}%</b> on ${m.n} ·
-      disagreements <b>${m.disagree_n}</b>${m.disagree_model_right!=null?` · model right <b style="color:${m.disagree_model_right>=50?'var(--acc2)':'var(--red)'}">${m.disagree_model_right}%</b>`:''}</div>`;}
+      ch+=`<div class="sub">vs closing market (live continuation), on the <b>${m.n}</b> graded matches that
+      carried a closing price: model <b>${m.model_acc!=null?m.model_acc:c.acc}%</b> · market <b>${m.acc}%</b> ·
+      disagreements <b>${m.disagree_n}</b>${m.disagree_model_right!=null?` · model right <b style="color:${m.disagree_model_right>=50?'var(--acc2)':'var(--red)'}">${m.disagree_model_right}%</b>`:''}${
+      m.disagree_market_right!=null?` · market right <b>${m.disagree_market_right}%</b>`:''}</div>`;
+      if(m.disagree_market_right!=null&&m.disagree_model_right!=null)
+        ch+=`<div class="sub dim">These two do not sum to 100: a three-way market has a third outcome both
+        can miss, so neither rate can be derived from the other and both are counted.</div>`;}
     if(c.by_league){
-      ch+=`<table><tr><th>league</th><th class="num">n</th><th class="num">acc</th><th class="num">brier</th><th class="num hide-m">mkt acc</th><th class="num hide-m">disagree (model right)</th></tr>`+
+      ch+=`<table><tr><th>league</th><th class="num">n</th><th class="num">acc</th><th class="num">brier</th><th class="num hide-m">mkt acc</th><th class="num hide-m">disagree (model / market right)</th></tr>`+
       Object.entries(c.by_league).map(([k,b])=>`<tr><td><b>${esc((d.leagues[k]||{}).name||k)}</b></td>
       <td class="num">${b.n}</td><td class="num">${b.acc}%</td><td class="num">${b.brier3}</td>
       <td class="num hide-m dim">${b.market?b.market.acc+'%':'—'}</td>
-      <td class="num hide-m dim">${b.market?b.market.disagree_n+(b.market.disagree_model_right!=null?' ('+b.market.disagree_model_right+'%)':''):'—'}</td></tr>`).join('')+`</table>`;
+      <td class="num hide-m dim">${b.market?b.market.disagree_n+(b.market.disagree_model_right!=null?' ('+b.market.disagree_model_right+'% / '+(b.market.disagree_market_right!=null?b.market.disagree_market_right+'%':'—')+')':''):'—'}</td></tr>`).join('')+`</table>`;
     }
   } else ch=`<div class="empty">grading begins once published fixtures play out — every logged probability settles against the final result automatically.</div>`;
   $('t-cal').innerHTML=`<div class="card"><h3>Calibration — the model, graded</h3>

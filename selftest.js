@@ -180,6 +180,71 @@ check(!/Read this before you take a soccer leg/.test(h),
 check(!/undefined|NaN/.test(h),
   'no "undefined"/"NaN" leaks into the Method tab on an older slate');
 
+/* --------------------- 4) the live grader panel on the Calibration tab */
+console.log('4) Calibration tab reports the live grader symmetrically');
+function calHtml(cal) {
+  const s = baseSlate();
+  s.cal = cal;
+  for (const k of Object.keys(s.leagues)) s.leagues[k].backtest = JSON.parse(JSON.stringify(BT_NEW));
+  const e = runRender(s);
+  return e['t-cal'] ? e['t-cal'].innerHTML : '';
+}
+
+const CAL_NEW = { n: 200, acc: 50.5, brier3: 0.60,
+  market: { n: 190, acc: 54.0, model_acc: 50.0, disagree_n: 40,
+            disagree_model_right: 25.0, disagree_market_right: 45.0 },
+  by_league: { E0: { n: 100, acc: 51.0, brier3: 0.60,
+    market: { n: 95, acc: 54.0, model_acc: 50.5, disagree_n: 20,
+              disagree_model_right: 25.0, disagree_market_right: 45.0 } } } };
+
+h = calHtml(CAL_NEW);
+check(/market right <b>45%<\/b>/.test(h),
+  "the live grader prints the MARKET's rate on the disagreements, not only the model's");
+check(/model <b>50%<\/b>/.test(h),
+  'the live panel quotes the model on the priced subset (model_acc), not over all rows');
+check(/carried a closing price/.test(h),
+  'the live panel says which match set the two accuracies describe');
+check(/do not sum to 100/.test(h),
+  'the live panel explains the three-way non-complement too');
+check(/\(25% \/ 45%\)/.test(h),
+  'the per-league row carries both rates');
+
+// A grader panel written before disagree_market_right existed must still render.
+const CAL_OLD = JSON.parse(JSON.stringify(CAL_NEW));
+delete CAL_OLD.market.disagree_market_right;
+delete CAL_OLD.market.model_acc;
+delete CAL_OLD.by_league.E0.market.disagree_market_right;
+h = calHtml(CAL_OLD);
+check(!/undefined|NaN/.test(h), 'an older cal panel renders with no "undefined"/"NaN"');
+check(/model <b>50\.5%<\/b>/.test(h),
+  'with model_acc absent the panel falls back to the overall accuracy rather than blank');
+
+/* --------------------------------- 5) the site-wide verdict banner */
+console.log('5) verdict banner compares like for like');
+// The banner is emitted by verdictHTML() into several tabs (legs, builder, lab,
+// calibration) and not into Method, which carries its own panel. Scan every
+// rendered element rather than guessing which tab hosts it.
+function verdictOf(bt) {
+  const s = baseSlate();
+  s.cal = CAL_NEW;
+  for (const k of Object.keys(s.leagues)) s.leagues[k].backtest = JSON.parse(JSON.stringify(bt));
+  const e = runRender(s);
+  return Object.values(e).map(x => x.innerHTML || '').join('\n<!--el-->\n');
+}
+h = verdictOf(BT_NEW);
+check(/the market was right <b>45\.0%<\/b>/.test(h),
+  "the banner states the market's rate on the disagreements");
+check(/same matches, both figures/.test(h),
+  'the banner says the two accuracies are over the same match set');
+check(/verdict bad/.test(h),
+  'the banner flags itself bad because the market beats the model on the disagreements');
+// A model that is BETTER on its disagreements must not be flagged bad.
+const BT_GOOD = JSON.parse(JSON.stringify(BT_NEW));
+BT_GOOD.disagree_model_right = 55.0; BT_GOOD.disagree_market_right = 30.0;
+h = verdictOf(BT_GOOD);
+check(!/verdict bad/.test(h),
+  'a model that wins its disagreements is NOT flagged bad (the test is market>model, not model<50)');
+
 /* ------------------------------------------------------------------ report */
 console.log(failures ? `\nSOCCER UI SELFTEST: ${failures} FAILURE(S)`
                      : '\nSOCCER UI SELFTEST PASS — props empty-state tells the truth about a '

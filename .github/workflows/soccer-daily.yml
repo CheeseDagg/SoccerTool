@@ -27,6 +27,7 @@ jobs:
         run: |
           python soccer_model.py --selftest
           python soccer_props.py --selftest
+          python soccer_grade.py --selftest
           python soccer_publish.py --selftest-overlay
           node selftest.js
       - name: Refresh xG cache (fail-soft — keeps committed cache if understat is walled)
