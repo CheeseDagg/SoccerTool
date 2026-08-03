@@ -180,9 +180,19 @@ def main():
                          and f["date"].isoformat()[:10] >= _today_iso), key=lambda x: x["date"]):
             if f["home"] not in ratings or f["away"] not in ratings: continue
             p = M.match_probs(ratings, home_adv, rho, mu, f["home"], f["away"])
+            # lh/la are the whole model. Every derived market -- any total line,
+            # any correct score, any Asian handicap, clean sheets, win-to-nil --
+            # is score_grid(lh, la, rho) summed over a different region of the
+            # same 9x9 matrix (MAX_GOALS=8). Publishing only five pre-chosen aggregates
+            # (pH/pD/pA/o25/btts) forced a Python rebuild for every new question;
+            # publishing the two rates plus rho makes the browser able to answer
+            # questions nobody has thought of yet, with zero new modelling and
+            # ~40 lines of JS. Six decimals because exp() is sensitive and these
+            # get re-exponentiated into a grid, not printed.
             row = {"date": f["date"].isoformat(), "home": f["home"], "away": f["away"],
                    "pH": round(p["pH"], 3), "pD": round(p["pD"], 3), "pA": round(p["pA"], 3),
-                   "o25": round(p["o25"], 3), "btts": round(p["btts"], 3)}
+                   "o25": round(p["o25"], 3), "btts": round(p["btts"], 3),
+                   "lh": round(p["lh"], 6), "la": round(p["la"], 6)}
             if f.get("mh") and f.get("md") and f.get("ma"):
                 ih, idd, ia = 1/f["mh"], 1/f["md"], 1/f["ma"]; s = ih + idd + ia
                 row.update({"qH": round(ih/s, 3), "qD": round(idd/s, 3), "qA": round(ia/s, 3)})
@@ -193,9 +203,17 @@ def main():
                     "away": PR.anytime_probs(p["la"], sh.get(f["away"], []))}
             fx_out.append(row)
             log_rows.append({k: v for k, v in row.items() if k != "scorers"} | {"div": div})
+        # mu is the league's baseline log-goal-rate and was the one fitted
+        # parameter never published. Without it the browser can read a rating
+        # table but cannot reconstruct a rate for a matchup that is not already
+        # on the fixture list -- which is exactly what a "what if these two
+        # played" tool has to do. att/dfn/home_adv/rho were already here; mu
+        # completes the set, and lh = exp(mu + home_adv + att_h - dfn_a) becomes
+        # computable client-side for ANY pair of teams in the league.
         leagues_out[div] = {"name": name, "n_matches": len(ms),
                             "latest_result": latest.isoformat(),
                             "home_adv": round(home_adv, 3), "rho": round(rho, 3),
+                            "mu": round(mu, 6),
                             "ratings": table, "fixtures": fx_out}
         print(f"   {div}: {len(ratings)} teams, {len(fx_out)} priced fixtures, "
               f"top {table[0]['team']} {table[0]['idx']}")
