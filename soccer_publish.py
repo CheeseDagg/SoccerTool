@@ -71,12 +71,22 @@ def xg_overlay(matches):
                     best = (delta, xgh, xga)
         if best is not None:
             m2 = dict(m)
+            # Carry the REAL scoreline alongside the xG response. fit_league fits
+            # lambda on hg/ag but the Dixon-Coles rho term is only defined on integer
+            # scorelines -- without these it has nothing to fit rho on and pins it to
+            # 0. Overwriting hg/ag and dropping the goals is what left rho frozen at
+            # its -0.05 initialisation in all four leagues.
+            m2["g_h"], m2["g_a"] = m["hg"], m["ag"]
             m2["hg"], m2["ag"] = best[1], best[2]
             out.append(m2); hits += 1
             if latest is None or m["date"] > latest:
                 latest = m["date"]
         else:
-            out.append(m)
+            # No xG join: hg/ag are already the real goals, but g_h/g_a must be present
+            # on EVERY row or fit_league's rho step sees a partially-annotated list and
+            # falls back to pinning rho at 0 for the whole league.
+            m2 = dict(m); m2["g_h"], m2["g_a"] = m["hg"], m["ag"]
+            out.append(m2)
     if not hits:
         return matches, "xG overlay off (0 joins — check cache/team mapping)"
     return out, f"xG overlay: {hits}/{len(matches)} matches fit on xG (through {latest.isoformat()})"
@@ -171,6 +181,12 @@ def main():
             leagues_out[div] = {"name": name, "error": f"only {len(ms)} matches fetched"}
             continue
         ratings, home_adv, rho, mu = M.fit_league(ms)
+        # Read these IMMEDIATELY -- they are function attributes, so the next fit
+        # overwrites them. Both are diagnostics that were previously invisible: a
+        # rho pinned at its init and a lambda level denominated in xG rather than
+        # goals both look exactly like a normal fit from the outside.
+        _rho_src = getattr(M.fit_league, "rho_source", None)
+        _lvl = getattr(M.fit_league, "level_scale", (1.0, 1.0))
         latest = max(m["date"] for m in ms)
         table = sorted(({"team": t, "att": round(a, 3), "dfn": round(d, 3),
                          "idx": round(100 * math.exp(a + d), 1)}     # single-number strength
@@ -214,15 +230,25 @@ def main():
                             "latest_result": latest.isoformat(),
                             "home_adv": round(home_adv, 3), "rho": round(rho, 3),
                             "mu": round(mu, 6),
+                            "rho_source": _rho_src,
+                            "level_scale": [round(_lvl[0], 4), round(_lvl[1], 4)],
                             "ratings": table, "fixtures": fx_out}
         print(f"   {div}: {len(ratings)} teams, {len(fx_out)} priced fixtures, "
-              f"top {table[0]['team']} {table[0]['idx']}")
+              f"top {table[0]['team']} {table[0]['idx']}  "
+              f"[rho {rho:+.3f} from {_rho_src} · level x{_lvl[0]:.3f}/{_lvl[1]:.3f}]")
 
     n_logged = G.log_predictions(log_rows) if log_rows else 0
     print(f"4) logged {n_logged} new predictions")
 
     print("5) walk-forward backtests (model vs closing market)…")
-    bts = _backtests(matches)
+    # xg_matches, NOT matches. Step 3 fits and publishes on the xG overlay; passing the
+    # raw-goals list here measured the GOALS model and printed its accuracy under the
+    # published board. Those are different models -- the whole reason the overlay exists
+    # is that they score differently out of sample -- so the number on the dashboard was
+    # not the record of the number beside it. backtest_league refits internally on
+    # whatever it is handed, and xg_matches carries g_h/g_a, so grading still reads real
+    # results.
+    bts = _backtests(xg_matches)
     for div, bt in bts.items():
         if bt:
             leagues_out.setdefault(div, {})["backtest"] = bt
@@ -270,6 +296,27 @@ def _selftest_overlay():
     assert out[1]["hg"] == 2 and out[2]["hg"] == 0                    # unjoined stay on goals
     assert matches[0]["hg"] == 1, "original (grading) list must NOT be mutated"
     assert "1/3" in note, note
+    # THE RHO GUARD. Every row -- joined or not -- must carry the real integer
+    # scoreline as g_h/g_a. fit_league's rho step is only defined on integer
+    # scorelines; if ANY row is missing them it pins rho to 0 for the whole league,
+    # and if they are missing everywhere (the old behaviour) rho silently stays at
+    # its -0.05 initialisation. backtest_league also grades off these, so without
+    # them the walk-forward would score "H/D/A" against expected goals.
+    assert all(m.get("g_h") is not None and m.get("g_a") is not None for m in out), \
+        "every overlay row must carry the real scoreline for the rho step and for grading"
+    assert (out[0]["g_h"], out[0]["g_a"]) == (1, 0), out[0]     # joined row: real result kept
+    assert (out[1]["g_h"], out[1]["g_a"]) == (2, 2), out[1]     # unjoined row: annotated too
+    import soccer_model as _M
+    _M.fit_league.rho_source = None
+    _fitrows = [dict(m, date=dt.date(2026, 1, 1) + dt.timedelta(days=i % 90))
+                for i, m in enumerate(out * 30)]
+    _M.fit_league(_fitrows, iters=20)
+    assert _M.fit_league.rho_source == "goals", \
+        f"annotated xG rows must fit rho on real goals, got {_M.fit_league.rho_source}"
+    _M.fit_league([{k: v for k, v in m.items() if k not in ("g_h", "g_a")} for m in _fitrows],
+                  iters=20)
+    assert _M.fit_league.rho_source == "unidentifiable-pinned-0", \
+        "stripping the scorelines must pin rho at 0, never leave it at the init"
     # 2-day drift must NOT join
     json.dump([{"div": "E0", "date": "2026-03-05", "home": "Manchester United",
                 "away": "Wolverhampton Wanderers", "g_h": 1, "g_a": 0, "xgh": 1.9, "xga": 0.4}],
