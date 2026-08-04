@@ -268,7 +268,7 @@ function render(d){
     appear the morning books post lines. Until then the <b>Matchup Lab</b> prices any fixture you invent,
     and each league tab holds full team ratings.`)+`</div>`);
   const tabs=[], nav=$('nav'), host=$('tabs');
-  tabs.push(["legs","Legs"],["build","Builder"],["lab","Matchup Lab"]);
+  tabs.push(["legs","Legs"],["build","Builder"],["lab","Matchup Lab"],["track","Tracker"]);
   LG_ORDER.forEach(div=>{ if(d.leagues[div]) tabs.push([div, d.leagues[div].name||div]); });
   tabs.push(["props","Props"],["cal","Calibration"],["method","Method"]);
   // Preseason, the Legs tab is an apology and the Lab is the show. Open on the
@@ -282,7 +282,7 @@ function render(d){
     tabs.forEach(([k])=>$('t-'+k).style.display=(k===b.dataset.t?'':'none'));
   });
 
-  renderLegs(); renderBuilder(); renderLab();
+  renderLegs(); renderBuilder(); renderLab(); renderTrack();
 
   LG_ORDER.forEach(div=>{
     const L=d.leagues[div]; if(!L) return;
@@ -562,6 +562,57 @@ function renderSlip(){
    Any team vs any team in a league, at home, away, or neutral. This is what
    publishing `mu` bought: without a league baseline the browser has ratings but
    no way to turn two of them into goal rates, so the panel could not exist. */
+/* ---- Bet Tracker: a written-down record beats a remembered one. ----------
+   Stored in THIS browser (localStorage) — private, survives visits, never
+   uploaded. Grading is manual (W/L/push) because honesty needs a human to
+   admit the loss; the running line does the arithmetic that memory fudges. */
+function bets(){ try{ return JSON.parse(localStorage.getItem('socBets')||'[]'); }catch(e){ return []; } }
+function saveBets(b){ try{ localStorage.setItem('socBets', JSON.stringify(b)); }catch(e){} }
+function decFromAm(a){ a=Number(a); if(!a||!isFinite(a)) return null; return a>0?1+a/100:1+100/(-a); }
+function addBet(){
+  const lab=$('tkLab').value.trim(), am=Number($('tkAm').value), st=Number($('tkSt').value)||0;
+  if(!lab||!decFromAm(am)){ $('tkMsg').textContent='need a bet and a real American price (e.g. -350)'; return; }
+  const b=bets(); b.unshift({d:new Date().toISOString().slice(0,10),lab,am,st,r:''});
+  saveBets(b); renderTrack();
+}
+function setBet(i,r){ const b=bets(); if(b[i]){ b[i].r=(b[i].r===r?'':r); saveBets(b); renderTrack(); } }
+function delBet(i){ const b=bets(); b.splice(i,1); saveBets(b); renderTrack(); }
+function exportBets(){
+  downloadCSV('soccer_bets.csv',['date','bet','price','stake','result'],
+    bets().map(b=>[b.d,b.lab,b.am,b.st,b.r||'open']));
+}
+function renderTrack(){
+  const el=$('t-track'); if(!el) return;
+  const b=bets();
+  const done=b.filter(x=>x.r==='W'||x.r==='L');
+  const w=done.filter(x=>x.r==='W');
+  const staked=done.reduce((s,x)=>s+(x.st||0),0);
+  const pl=done.reduce((s,x)=>s+(x.r==='W'?(x.st||0)*(decFromAm(x.am)-1):-(x.st||0)),0);
+  const sum= done.length?`<div class="verdict">record <b>${w.length}-${done.length-w.length}</b>
+      (${(100*w.length/done.length).toFixed(0)}% of graded) · staked <b>$${staked.toFixed(0)}</b> ·
+      P/L <b style="color:${pl>=0?'var(--acc2)':'var(--red)'}">${pl>=0?'+':''}$${pl.toFixed(2)}</b>
+      ${staked?` · ROI <b style="color:${pl>=0?'var(--acc2)':'var(--red)'}">${(100*pl/staked).toFixed(1)}%</b>`:''}
+      — the number memory won't keep.</div>`
+    :`<div class="sub">No graded bets yet. Log a bet when you place it, grade it when it settles —
+      the running record and ROI appear here and do not forget.</div>`;
+  el.innerHTML=`<div class="card"><h3>Bet Tracker — your record, written down</h3>
+    <div class="sub">Lives in this browser only. Log the bet when you place it (copy a leg's label from
+    any tab), then hit <b>W</b> or <b>L</b> when it settles. A tracked record is the only defensible
+    answer to "how am I actually doing?"</div>${sum}
+    <div class="ctl"><input id="tkLab" placeholder="bet — e.g. Arsenal ML v Leeds" style="flex:2;min-width:180px">
+      <input id="tkAm" placeholder="price (-350)" style="width:95px"><input id="tkSt" placeholder="stake $" style="width:80px">
+      <button class="btn" onclick="addBet()">＋ log bet</button>
+      ${b.length?`<button class="btn" onclick="exportBets()">⤓ CSV</button>`:''}<span id="tkMsg" class="dim"></span></div>`
+    +(b.length?`<table><tr><th>date</th><th>bet</th><th class="num">price</th><th class="num hide-m">stake</th><th>result</th><th></th></tr>`+
+      b.map((x,i)=>`<tr style="${x.r==='W'?'':x.r==='L'?'opacity:.65':''}"><td class="dim">${esc(x.d)}</td>
+        <td><b>${esc(x.lab)}</b></td><td class="num">${x.am>0?'+':''}${x.am}</td>
+        <td class="num hide-m">${x.st?'$'+x.st:''}</td>
+        <td><button class="btn ${x.r==='W'?'on':''}" onclick="setBet(${i},'W')">W</button>
+            <button class="btn ${x.r==='L'?'on':''}" onclick="setBet(${i},'L')">L</button>
+            <button class="btn ${x.r==='P'?'on':''}" title="push / void" onclick="setBet(${i},'P')">push</button></td>
+        <td><button class="x" title="delete" onclick="delBet(${i})">×</button></td></tr>`).join('')+`</table>`:'')
+    +`</div>`;
+}
 function renderLab(){
   const el=$('t-lab'); if(!el) return;
   const avail=LG_ORDER.filter(k=>D.leagues[k]&&(D.leagues[k].ratings||[]).length);
