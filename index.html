@@ -268,7 +268,7 @@ function render(d){
     appear the morning books post lines. Until then the <b>Matchup Lab</b> prices any fixture you invent,
     and each league tab holds full team ratings.`)+`</div>`);
   const tabs=[], nav=$('nav'), host=$('tabs');
-  tabs.push(["legs","Legs"],["build","Builder"],["lab","Matchup Lab"],["track","Tracker"]);
+  tabs.push(["scores","Scoreboard"],["legs","Legs"],["build","Builder"],["lab","Matchup Lab"],["track","Tracker"]);
   LG_ORDER.forEach(div=>{ if(d.leagues[div]) tabs.push([div, d.leagues[div].name||div]); });
   tabs.push(["props","Props"],["cal","Calibration"],["method","Method"]);
   // Preseason, the Legs tab is an apology and the Lab is the show. Open on the
@@ -282,7 +282,7 @@ function render(d){
     tabs.forEach(([k])=>$('t-'+k).style.display=(k===b.dataset.t?'':'none'));
   });
 
-  renderLegs(); renderBuilder(); renderLab(); renderTrack();
+  renderLegs(); renderBuilder(); renderLab(); renderTrack(); startScores();
 
   LG_ORDER.forEach(div=>{
     const L=d.leagues[div]; if(!L) return;
@@ -562,6 +562,94 @@ function renderSlip(){
    Any team vs any team in a league, at home, away, or neutral. This is what
    publishing `mu` bought: without a league baseline the browser has ratings but
    no way to turn two of them into goal rates, so the panel could not exist. */
+/* ---- Scoreboard: the day's games, live, same feed as the World Cup tool --
+   ESPN's open scoreboard (site.api.espn.com, no key, browser-side) for the
+   same four leagues the model covers. Each finished/live game shows the
+   score; each game whose sides map onto our ratings also shows the MODEL's
+   pre-match favorite, so the scoreboard grades the model in public exactly
+   like the World Cup tool does. Fails soft: feed unreachable -> a sentence,
+   not a blank. */
+const ESPN_LG={E0:'eng.1',SP1:'esp.1',D1:'ger.1',F1:'fra.1'};
+let SCORES={state:'load',games:[]}, _scoresTimer=null;
+function _normTeam(s){return String(s||'').toLowerCase().replace(/[^a-z]/g,'');}
+function _findRated(L,name){
+  const n=_normTeam(name); if(!n) return null;
+  let best=null;
+  (L.ratings||[]).forEach(r=>{const m=_normTeam(r.team);
+    if(m===n||n.includes(m)||m.includes(n)){ if(!best||m.length>_normTeam(best).length) best=r.team; }});
+  return best;
+}
+function startScores(){
+  renderScores();
+  try{
+    Promise.all(Object.entries(ESPN_LG).map(([div,code])=>
+      fetch(`https://site.api.espn.com/apis/site/v2/sports/soccer/${code}/scoreboard`)
+        .then(r=>r.json()).then(j=>({div,ev:(j.events||[])})).catch(()=>({div,ev:null}))
+    )).then(rs=>{
+      if(rs.every(r=>r.ev===null)){ SCORES={state:'fail',games:[]}; renderScores(); return; }
+      const games=[];
+      rs.forEach(({div,ev})=>(ev||[]).forEach(e=>{
+        try{
+          const c=(e.competitions||[])[0]||{}, cs=c.competitors||[];
+          const h=cs.find(x=>x.homeAway==='home'), a=cs.find(x=>x.homeAway==='away');
+          if(!h||!a) return;
+          const st=(((e.status||{}).type)||{});
+          games.push({div, ms:Date.parse(e.date||0),
+            state: st.state||'pre', clk:(e.status||{}).displayClock||'',
+            home:(h.team||{}).displayName||'?', away:(a.team||{}).displayName||'?',
+            hs:h.score, as:a.score,
+            hWin:h.winner===true, aWin:a.winner===true});
+        }catch(_){/* one bad event must not kill the board */}
+      }));
+      games.sort((x,y)=>x.ms-y.ms);
+      SCORES={state:'ok',games}; renderScores();
+    });
+    if(!_scoresTimer && typeof setInterval!=='undefined')
+      _scoresTimer=setInterval(()=>{ if(SCORES.state!=='load') startScores(); }, 120000);
+  }catch(_){ SCORES={state:'fail',games:[]}; renderScores(); }
+}
+function renderScores(){
+  const el=$('t-scores'); if(!el) return;
+  const g=SCORES.games;
+  let body;
+  if(SCORES.state==='load') body=`<div class="empty">loading the day's games from the live feed…</div>`;
+  else if(SCORES.state==='fail') body=`<div class="empty">Live scores unreachable from this browser right now — every other tab still works from the model's own data.</div>`;
+  else if(!g.length) body=`<div class="empty">no matches on the live feed today — the leagues kick off mid-August, and this board fills itself on matchdays.</div>`;
+  else body=LG_ORDER.filter(k=>g.some(x=>x.div===k)).map(k=>{
+    const L=D.leagues[k]||{};
+    return `<div style="margin-top:10px"><b>${esc(L.name||k)}</b><table>`+
+      g.filter(x=>x.div===k).map(x=>{
+        const live=x.state==='in', done=x.state==='post';
+        const stat= live?`<span style="color:var(--acc2);font-weight:700">LIVE${x.clk?' '+esc(x.clk):''}</span>`
+                  : done?`<span class="dim">FT</span>`
+                  : `<span class="dim">${new Date(x.ms).toLocaleString([],{weekday:'short',hour:'numeric',minute:'2-digit'})}</span>`;
+        const sc=(live||done)?`<b>${esc(x.hs)}–${esc(x.as)}</b>`:'';
+        let mdl='';
+        const th=_findRated(L,x.home), ta=_findRated(L,x.away);
+        if(th&&ta&&th!==ta&&hasMu(L)){
+          const lam=lamFor(L,th,ta,false);
+          if(lam){ const gr=scoreGrid(lam.lh,lam.la,L.rho||0);
+            let pH=0,pD=0,pA=0;
+            for(let i=0;i<gr.length;i++)for(let j=0;j<gr[i].length;j++){const p=gr[i][j];i>j?pH+=p:i<j?pA+=p:pD+=p;}
+            const fav=pH>=pA?x.home:x.away, fp=Math.max(pH,pA);
+            let note=`model: <b>${esc(fav)}</b> ${pct(fp)}%`;
+            if(done){ const won=(pH>=pA&&x.hWin)||(pA>pH&&x.aWin); const draw=!x.hWin&&!x.aWin;
+              note+= draw?` <span class="dim">(draw — nobody right)</span>`
+                   : won?` <span style="color:var(--acc2)">✓</span>`:` <span style="color:var(--red)">✗</span>`; }
+            mdl=`<span class="dim" style="font-size:.78rem">${note}</span>`;
+          }
+        }
+        return `<tr style="${done&&!live?'opacity:.8':''}"><td>${stat}</td>
+          <td><b style="${x.hWin?'color:var(--acc2)':''}">${esc(x.home)}</b> <span class="dim">v</span>
+              <b style="${x.aWin?'color:var(--acc2)':''}">${esc(x.away)}</b></td>
+          <td class="num">${sc}</td><td class="hide-m">${mdl}</td></tr>`;
+      }).join('')+`</table></div>`;
+  }).join('');
+  el.innerHTML=`<div class="card"><h3>Scoreboard — the day's games, live</h3>
+    <div class="sub">Same live feed as the World Cup tool (ESPN's open scoreboard), auto-refreshing
+    every 2 minutes. Where both clubs map onto the model's ratings the pre-match favorite prints
+    beside the score — <b>and gets graded ✓/✗ in public when the whistle goes</b>.</div>${body}</div>`;
+}
 /* ---- Bet Tracker: a written-down record beats a remembered one. ----------
    Stored in THIS browser (localStorage) — private, survives visits, never
    uploaded. Grading is manual (W/L/push) because honesty needs a human to
