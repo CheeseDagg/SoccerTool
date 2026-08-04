@@ -671,6 +671,9 @@ function gotoLab(div,h,a){
   if($('labH')) $('labH').value=h;
   if($('labA')) $('labA').value=a;
   labDraw();
+  // The tab switch happens in place; without a scroll the click can read as a
+  // no-op to someone mid-page. Same as the World Cup tool: jump to the Lab.
+  try{ window.scrollTo({top:0,behavior:'smooth'}); }catch(_){ }
 }
 /* ---- Bet Tracker: a written-down record beats a remembered one. ----------
    Stored in THIS browser (localStorage) — private, survives visits, never
