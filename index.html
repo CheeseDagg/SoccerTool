@@ -622,7 +622,7 @@ function renderScores(){
         const live=x.state==='in', done=x.state==='post';
         const stat= live?`<span style="color:var(--acc2);font-weight:700">LIVE${x.clk?' '+esc(x.clk):''}</span>`
                   : done?`<span class="dim">FT</span>`
-                  : `<span class="dim">${new Date(x.ms).toLocaleString([],{weekday:'short',hour:'numeric',minute:'2-digit'})}</span>`;
+                  : `<span class="dim">${new Date(x.ms).toLocaleString([],{weekday:'short',month:'numeric',day:'numeric',hour:'numeric',minute:'2-digit'})}</span>`;
         const sc=(live||done)?`<b>${esc(x.hs)}–${esc(x.as)}</b>`:'';
         let mdl='';
         const th=_findRated(L,x.home), ta=_findRated(L,x.away);
@@ -639,16 +639,31 @@ function renderScores(){
             mdl=`<span class="dim" style="font-size:.78rem">${note}</span>`;
           }
         }
-        return `<tr style="${done&&!live?'opacity:.8':''}"><td>${stat}</td>
+        const clk=(th&&ta&&th!==ta)?` data-lab-lg="${k}" data-lab-h="${esc(th)}" data-lab-a="${esc(ta)}"
+          style="cursor:pointer" title="Open in Matchup Lab →"`:'';
+        return `<tr${clk} ${done&&!live?'class="dim"':''}><td>${stat}</td>
           <td><b style="${x.hWin?'color:var(--acc2)':''}">${esc(x.home)}</b> <span class="dim">v</span>
-              <b style="${x.aWin?'color:var(--acc2)':''}">${esc(x.away)}</b></td>
+              <b style="${x.aWin?'color:var(--acc2)':''}">${esc(x.away)}</b>${th&&ta?' <span class="dim" style="font-size:.72rem">↗ lab</span>':''}</td>
           <td class="num">${sc}</td><td class="hide-m">${mdl}</td></tr>`;
       }).join('')+`</table></div>`;
   }).join('');
   el.innerHTML=`<div class="card"><h3>Scoreboard — the day's games, live</h3>
     <div class="sub">Same live feed as the World Cup tool (ESPN's open scoreboard), auto-refreshing
     every 2 minutes. Where both clubs map onto the model's ratings the pre-match favorite prints
-    beside the score — <b>and gets graded ✓/✗ in public when the whistle goes</b>.</div>${body}</div>`;
+    beside the score — <b>and gets graded ✓/✗ in public when the whistle goes</b>.
+    Click any matchup to open it in the Matchup Lab.</div>${body}</div>`;
+  el.querySelectorAll&&el.querySelectorAll('[data-lab-h]').forEach(r=>r.addEventListener&&r.addEventListener('click',()=>gotoLab(r.dataset.labLg,r.dataset.labH,r.dataset.labA)));
+}
+/* Scoreboard row -> Matchup Lab with that fixture loaded, same as the World
+   Cup tool. Order matters: switching the league rebuilds both team selects. */
+function gotoLab(div,h,a){
+  const b=document.querySelector&&document.querySelector('#nav button[data-t="lab"]');
+  if(b&&b.click) b.click();
+  const lg=$('labLg'); if(!lg) return;
+  lg.value=div; if(lg.onchange) lg.onchange();
+  if($('labH')) $('labH').value=h;
+  if($('labA')) $('labA').value=a;
+  labDraw();
 }
 /* ---- Bet Tracker: a written-down record beats a remembered one. ----------
    Stored in THIS browser (localStorage) — private, survives visits, never
