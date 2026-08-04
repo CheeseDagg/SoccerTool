@@ -251,12 +251,31 @@ function render(d){
   } else {
     $('meta').textContent=_meta;
   }
+  // A one-line résumé above the tabs. Preseason especially, the first thing a
+  // visitor sees must be what this thing IS, not an empty-fixtures apology.
+  const _agg=LG_ORDER.map(k=>d.leagues[k]).filter(Boolean);
+  const _nm=_agg.reduce((s,L)=>s+(L.n_matches||0),0);
+  const _btn=_agg.reduce((s,L)=>s+((L.backtest||{}).n||0),0);
+  const totalFx=_agg.reduce((s,L)=>s+((L.fixtures||[]).length),0);
+  // insertAdjacentHTML is absent from selftest.js's minimal DOM stub — the
+  // hero is presentation, so its absence under test must not fail render().
+  if(document.querySelectorAll) document.querySelectorAll('.hero-strip').forEach(e=>e.remove&&e.remove());
+  if($('meta').insertAdjacentHTML) $('meta').insertAdjacentHTML('afterend',
+    `<div class="verdict hero-strip" style="margin:10px 0 4px">Fitted on <b>${_nm.toLocaleString()}</b> matches
+    across four leagues, xG-blended, and graded <b>walk-forward</b> on <b>${_btn.toLocaleString()}</b> of them —
+    every number here is checked against what actually happened (see <b>Calibration</b>).`
+    +(totalFx? '' : ` <b>Preseason:</b> the European seasons kick off mid-August — priced fixtures and legs
+    appear the morning books post lines. Until then the <b>Matchup Lab</b> prices any fixture you invent,
+    and each league tab holds full team ratings.`)+`</div>`);
   const tabs=[], nav=$('nav'), host=$('tabs');
   tabs.push(["legs","Legs"],["build","Builder"],["lab","Matchup Lab"]);
   LG_ORDER.forEach(div=>{ if(d.leagues[div]) tabs.push([div, d.leagues[div].name||div]); });
   tabs.push(["props","Props"],["cal","Calibration"],["method","Method"]);
-  nav.innerHTML=tabs.map(([k,n],i)=>`<button data-t="${k}" class="${i===0?'on':''}">${n}</button>`).join('');
-  host.innerHTML=tabs.map(([k])=>`<section id="t-${k}" style="display:${k===tabs[0][0]?'':'none'}"></section>`).join('');
+  // Preseason, the Legs tab is an apology and the Lab is the show. Open on the
+  // tab that has something to say.
+  const first= totalFx ? "legs" : "lab";
+  nav.innerHTML=tabs.map(([k,n])=>`<button data-t="${k}" class="${k===first?'on':''}">${n}</button>`).join('');
+  host.innerHTML=tabs.map(([k])=>`<section id="t-${k}" style="display:${k===first?'':'none'}"></section>`).join('');
   nav.querySelectorAll('button').forEach(b=>b.onclick=()=>{
     nav.querySelectorAll('button').forEach(x=>x.classList.remove('on'));
     b.classList.add('on');
@@ -580,7 +599,11 @@ function renderLab(){
 }
 function labDraw(){
   const out=$('labOut'); if(!out) return;
-  const L=D.leagues[$('labLg').value];
+  // The select can miss (harness DOM has no default value; a league could be
+  // absent from a hand-edited slate). A miss must be a stated condition, not a
+  // crash that takes the whole render() down with it.
+  const L=D.leagues[$('labLg').value] || D.leagues[LG_ORDER.find(k=>D.leagues[k]&&hasMu(D.leagues[k]))];
+  if(!L){ out.innerHTML=`<div class="empty">no league with a baseline goal rate in this build</div>`; return; }
   const lam=lamFor(L,$('labH').value,$('labA').value,$('labN').classList.contains('on'));
   if(!lam){ out.innerHTML=`<div class="empty">pick two different teams</div>`; return; }
   const g=scoreGrid(lam.lh,lam.la,L.rho||0), M=marketsFor(g).sort((a,b)=>b.p-a.p);
@@ -644,7 +667,22 @@ function renderProps(){
   <td class="hide-m dim">${r.ha==='H'?'v':'@'} ${esc(r.opp)} · ${esc(r.date)}</td>
   <td class="num"><b>${pct(r.p)}%</b></td><td>${bar(r.p*140)}</td>
   <td class="num dim">${amFromP(r.p)}</td></tr>`).join('')+`</table>`
-  :`<div class="empty">${propsEmptyReason(d)}</div>`)+`</div>`;
+  :`<div class="empty">${propsEmptyReason(d)}</div>`+propsPreviewHTML(d))+`</div>`;
+}
+/* Preseason: no fixtures means no anytime board, but the SHARES themselves are
+   live data worth showing — who actually scores each club's goals, from ~2,200
+   understat player-seasons. Renders only when the board above is empty. */
+function propsPreviewHTML(d){
+  const pv=d.props_preview||{}; const divs=LG_ORDER.filter(k=>(pv[k]||[]).length);
+  if(!divs.length) return '';
+  return `<div class="sub" style="margin-top:14px"><b>Meanwhile, the shares behind that board are live.</b>
+    Each league's most concentrated scorers — the share of their club's goals they account for
+    (goals blended with xG). When a fixture posts, these shares × the match's goal rate become the board above.</div>`
+    +divs.map(k=>`<div style="margin-top:10px"><b>${esc((d.leagues[k]||{}).name||k)}</b>
+      <table><tr><th>player</th><th class="hide-m">club</th><th class="num">share of club goals</th><th></th></tr>`+
+      pv[k].map(r=>`<tr><td><b>${esc(r.name)}</b></td><td class="hide-m dim">${esc(r.team)}</td>
+        <td class="num"><b>${pc1(r.share)}%</b></td><td style="width:110px">${bar(100*r.share*2.2)}</td></tr>`).join('')
+      +`</table></div>`).join('');
 }
 
 /* An empty Props tab has two completely different causes and used to give one

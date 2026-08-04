@@ -280,11 +280,23 @@ def main():
     # Real freshness signal = the fixtures' own dates, not wall-clock `generated`. If the
     # build stalls, slate_end falls into the past and the dashboard can warn.
     _fx_dates = sorted(r["date"][:10] for v in leagues_out.values() for r in v.get("fixtures", []))
+    # Preseason props preview. With zero fixtures the Props tab was an empty
+    # message even though the pin holds ~2,200 players of goal shares -- the one
+    # dataset on this site that is ALWAYS current. Ship each league's top
+    # shares so the tab demonstrates the pipeline the moment anyone looks,
+    # fixtures or not. Tiny: 4 leagues x 8 rows.
+    preview = {}
+    for div, sh in shares_by_div.items():
+        rows = [{"team": t, "name": r["name"], "share": r["share"]}
+                for t, rs in sh.items() for r in rs[:3]]
+        rows.sort(key=lambda r: -r["share"])
+        if rows:
+            preview[div] = rows[:8]
     out = {"props_src": props_src,
            "generated": dt.datetime.now(dt.timezone.utc).isoformat(timespec="seconds"),
            "slate_date": _fx_dates[0] if _fx_dates else None,
            "slate_end": _fx_dates[-1] if _fx_dates else None,
-           "leagues": leagues_out,
+           "leagues": leagues_out, "props_preview": preview,
            "note": note + " · " + xg_note + " · props " + " ".join(props_note), "cal": cal}
     with open(os.path.join(DATA, "slate.json"), "w") as f:
         json.dump(_scrub(out), f, indent=1, allow_nan=False)
