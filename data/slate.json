@@ -1,6 +1,6 @@
 {
  "props_src": "E0:pin2025(537p,1d) \u00b7 SP1:pin2025(600p,1d) \u00b7 D1:pin2025(499p,1d) \u00b7 F1:pin2025(553p,1d)",
- "generated": "2026-08-04T01:49:45+00:00",
+ "generated": "2026-08-04T11:35:45+00:00",
  "slate_date": null,
  "slate_end": null,
  "leagues": {
@@ -538,22 +538,22 @@
    "latest_result": "2026-05-17",
    "home_adv": 0.188,
    "rho": -0.041,
-   "mu": 0.219062,
+   "mu": 0.218967,
    "rho_source": "goals",
    "level_scale": [
-    0.91,
-    0.944
+    0.9098,
+    0.9433
    ],
    "ratings": [
     {
      "team": "Paris SG",
-     "att": 0.507,
+     "att": 0.506,
      "dfn": 0.376,
-     "idx": 241.8
+     "idx": 241.7
     },
     {
      "team": "Lens",
-     "att": 0.351,
+     "att": 0.35,
      "dfn": 0.179,
      "idx": 169.8
     },
@@ -566,7 +566,7 @@
     {
      "team": "Monaco",
      "att": 0.282,
-     "dfn": 0.118,
+     "dfn": 0.119,
      "idx": 149.2
     },
     {
@@ -578,25 +578,25 @@
     {
      "team": "Lyon",
      "att": 0.156,
-     "dfn": 0.085,
+     "dfn": 0.086,
      "idx": 127.3
     },
     {
      "team": "Toulouse",
-     "att": -0.023,
-     "dfn": 0.228,
-     "idx": 122.8
+     "att": -0.016,
+     "dfn": 0.226,
+     "idx": 123.4
     },
     {
      "team": "Strasbourg",
      "att": 0.114,
-     "dfn": 0.03,
+     "dfn": 0.031,
      "idx": 115.5
     },
     {
      "team": "Rennes",
-     "att": 0.135,
-     "dfn": -0.051,
+     "att": 0.134,
+     "dfn": -0.05,
      "idx": 108.8
     },
     {
@@ -607,20 +607,20 @@
     },
     {
      "team": "Paris FC",
-     "att": 0.063,
+     "att": 0.062,
      "dfn": -0.017,
      "idx": 104.7
     },
     {
      "team": "Lorient",
-     "att": -0.008,
+     "att": -0.009,
      "dfn": 0.015,
      "idx": 100.7
     },
     {
      "team": "Brest",
      "att": -0.017,
-     "dfn": -0.055,
+     "dfn": -0.054,
      "idx": 93.1
     },
     {
@@ -631,32 +631,32 @@
     },
     {
      "team": "Nantes",
-     "att": -0.19,
-     "dfn": 0.023,
-     "idx": 84.6
+     "att": -0.188,
+     "dfn": 0.018,
+     "idx": 84.3
     },
     {
      "team": "Le Havre",
-     "att": -0.169,
+     "att": -0.17,
      "dfn": -0.089,
-     "idx": 77.3
+     "idx": 77.2
     },
     {
      "team": "Reims",
      "att": -0.195,
-     "dfn": -0.104,
+     "dfn": -0.103,
      "idx": 74.2
     },
     {
      "team": "Angers",
      "att": -0.322,
-     "dfn": -0.119,
+     "dfn": -0.118,
      "idx": 64.4
     },
     {
      "team": "Montpellier",
      "att": -0.201,
-     "dfn": -0.247,
+     "dfn": -0.246,
      "idx": 63.9
     },
     {
@@ -673,8 +673,8 @@
     },
     {
      "team": "St Etienne",
-     "att": -0.162,
-     "dfn": -0.432,
+     "att": -0.163,
+     "dfn": -0.431,
      "idx": 55.2
     }
    ],
@@ -867,7 +867,7 @@
    }
   ]
  },
- "note": "E0: 1140 results \u00b7 SP1: 1140 results \u00b7 D1: 918 results \u00b7 F1: 918 results \u00b7 fixtures: 0 \u00b7 xG overlay: 4114/4116 matches fit on xG (through 2026-05-24) \u00b7 props E0:pin2025(537p,1d) SP1:pin2025(600p,1d) D1:pin2025(499p,1d) F1:pin2025(553p,1d)",
+ "note": "E0: 1140 results \u00b7 SP1: 1140 results \u00b7 D1: 918 results \u00b7 F1: 918 results \u00b7 fixtures: 0 \u00b7 xG overlay: 4115/4116 matches fit on xG (through 2026-05-24) \u00b7 props E0:pin2025(537p,1d) SP1:pin2025(600p,1d) D1:pin2025(499p,1d) F1:pin2025(553p,1d)",
  "cal": {
   "n": 0
  }
