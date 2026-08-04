@@ -571,7 +571,14 @@ function renderSlip(){
    not a blank. */
 const ESPN_LG={E0:'eng.1',SP1:'esp.1',D1:'ger.1',F1:'fra.1'};
 let SCORES={state:'load',games:[]}, _scoresTimer=null;
-function _normTeam(s){return String(s||'').toLowerCase().replace(/[^a-z]/g,'');}
+function _normTeam(s){
+  // Fold accents BEFORE stripping non-letters: "Alavés" must normalize to
+  // "alaves", not "alavs", or it never matches the unaccented ratings name —
+  // seen live on the deployed scoreboard, 2026-08-04.
+  let t=String(s||'');
+  try{ t=t.normalize('NFKD').replace(/[̀-ͯ]/g,''); }catch(_){}
+  return t.toLowerCase().replace(/[^a-z]/g,'');
+}
 function _findRated(L,name){
   const n=_normTeam(name); if(!n) return null;
   let best=null;
