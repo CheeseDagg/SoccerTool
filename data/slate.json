@@ -1,6 +1,6 @@
 {
- "props_src": "E0:pin2025(537p,1d) \u00b7 SP1:pin2025(600p,1d) \u00b7 D1:pin2025(499p,1d) \u00b7 F1:pin2025(553p,1d)",
- "generated": "2026-08-04T11:35:45+00:00",
+ "props_src": "E0:pin2025(537p,2d) \u00b7 SP1:pin2025(600p,2d) \u00b7 D1:pin2025(499p,2d) \u00b7 F1:pin2025(553p,2d)",
+ "generated": "2026-08-05T11:31:59+00:00",
  "slate_date": null,
  "slate_end": null,
  "leagues": {
@@ -867,7 +867,7 @@
    }
   ]
  },
- "note": "E0: 1140 results \u00b7 SP1: 1140 results \u00b7 D1: 918 results \u00b7 F1: 918 results \u00b7 fixtures: 0 \u00b7 xG overlay: 4115/4116 matches fit on xG (through 2026-05-24) \u00b7 props E0:pin2025(537p,1d) SP1:pin2025(600p,1d) D1:pin2025(499p,1d) F1:pin2025(553p,1d)",
+ "note": "E0: 1140 results \u00b7 SP1: 1140 results \u00b7 D1: 918 results \u00b7 F1: 918 results \u00b7 fixtures: 0 \u00b7 xG overlay: 4115/4116 matches fit on xG (through 2026-05-24) \u00b7 props E0:pin2025(537p,2d) SP1:pin2025(600p,2d) D1:pin2025(499p,2d) F1:pin2025(553p,2d)",
  "cal": {
   "n": 0
  }
