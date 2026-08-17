@@ -1,6 +1,6 @@
 {
- "props_src": "E0:pin2025(537p,13d) \u00b7 SP1:pin2025(600p,13d) \u00b7 D1:pin2025(499p,13d) \u00b7 F1:pin2025(553p,13d)",
- "generated": "2026-08-16T09:45:40+00:00",
+ "props_src": "E0:pin2025(537p,14d) \u00b7 SP1:128p/7t \u00b7 D1:pin2025(499p,14d) \u00b7 F1:pin2025(553p,14d)",
+ "generated": "2026-08-17T10:00:16+00:00",
  "slate_date": null,
  "slate_end": null,
  "leagues": {
@@ -754,44 +754,44 @@
   ],
   "SP1": [
    {
-    "team": "Mallorca",
-    "name": "Vedat Muriqi",
-    "share": 0.469
+    "team": "Vallecano",
+    "name": "\u00c1lvaro Garc\u00eda",
+    "share": 0.6694
    },
    {
-    "team": "Osasuna",
-    "name": "Ante Budimir",
-    "share": 0.3903
+    "team": "Espanol",
+    "name": "Roberto Fern\u00e1ndez",
+    "share": 0.6335
    },
    {
-    "team": "Real Madrid",
-    "name": "Kylian Mbappe-Lottin",
-    "share": 0.3201
+    "team": "Sevilla",
+    "name": "Peque",
+    "share": 0.4648
+   },
+   {
+    "team": "Sevilla",
+    "name": "Jon Guridi",
+    "share": 0.4564
+   },
+   {
+    "team": "Villarreal",
+    "name": "Nicolas Pepe",
+    "share": 0.4142
+   },
+   {
+    "team": "Villarreal",
+    "name": "Pape Alassane Gueye",
+    "share": 0.4036
+   },
+   {
+    "team": "Levante",
+    "name": "Adri\u00e1n De la Fuente",
+    "share": 0.3658
    },
    {
     "team": "Alaves",
-    "name": "Antonio Mart\u00ednez",
-    "share": 0.2925
-   },
-   {
-    "team": "Oviedo",
-    "name": "Federico Vi\u00f1as",
-    "share": 0.2836
-   },
-   {
-    "team": "Sociedad",
-    "name": "Mikel Oyarzabal",
-    "share": 0.2459
-   },
-   {
-    "team": "Celta",
-    "name": "Borja Iglesias",
-    "share": 0.2453
-   },
-   {
-    "team": "Alaves",
-    "name": "Lucas Boy\u00e9",
-    "share": 0.2386
+    "name": "Mikel Rodr\u00edguez",
+    "share": 0.3175
    }
   ],
   "D1": [
@@ -879,7 +879,7 @@
    }
   ]
  },
- "note": "E0: 1140 results \u00b7 SP1: 1140 results \u00b7 D1: 918 results \u00b7 F1: 918 results \u00b7 fixtures: 0 \u00b7 xG overlay: 4115/4116 matches fit on xG (through 2026-05-24) \u00b7 props E0:pin2025(537p,13d) SP1:pin2025(600p,13d) D1:pin2025(499p,13d) F1:pin2025(553p,13d)",
+ "note": "E0: 1140 results \u00b7 SP1: 1140 results \u00b7 D1: 918 results \u00b7 F1: 918 results \u00b7 fixtures: 0 \u00b7 xG overlay: 4115/4116 matches fit on xG (through 2026-05-24) \u00b7 props E0:pin2025(537p,14d) SP1:128p/7t D1:pin2025(499p,14d) F1:pin2025(553p,14d)",
  "cal": {
   "n": 0
  }
