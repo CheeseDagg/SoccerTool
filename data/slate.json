@@ -1,6 +1,6 @@
 {
- "props_src": "E0:pin2025(537p,14d) \u00b7 SP1:128p/7t \u00b7 D1:pin2025(499p,14d) \u00b7 F1:pin2025(553p,14d)",
- "generated": "2026-08-17T10:00:16+00:00",
+ "props_src": "E0:pin2025(537p,15d) \u00b7 SP1:160p/8t \u00b7 D1:pin2025(499p,15d) \u00b7 F1:pin2025(553p,15d)",
+ "generated": "2026-08-18T09:50:49+00:00",
  "slate_date": null,
  "slate_end": null,
  "leagues": {
@@ -764,6 +764,11 @@
     "share": 0.6335
    },
    {
+    "team": "Elche",
+    "name": "Marc Aguado",
+    "share": 0.5099
+   },
+   {
     "team": "Sevilla",
     "name": "Peque",
     "share": 0.4648
@@ -787,11 +792,6 @@
     "team": "Levante",
     "name": "Adri\u00e1n De la Fuente",
     "share": 0.3658
-   },
-   {
-    "team": "Alaves",
-    "name": "Mikel Rodr\u00edguez",
-    "share": 0.3175
    }
   ],
   "D1": [
@@ -879,7 +879,7 @@
    }
   ]
  },
- "note": "E0: 1140 results \u00b7 SP1: 1140 results \u00b7 D1: 918 results \u00b7 F1: 918 results \u00b7 fixtures: 0 \u00b7 xG overlay: 4115/4116 matches fit on xG (through 2026-05-24) \u00b7 props E0:pin2025(537p,14d) SP1:128p/7t D1:pin2025(499p,14d) F1:pin2025(553p,14d)",
+ "note": "E0: 1140 results \u00b7 SP1: 1140 results \u00b7 D1: 918 results \u00b7 F1: 918 results \u00b7 fixtures: 0 \u00b7 xG overlay: 4115/4116 matches fit on xG (through 2026-05-24) \u00b7 props E0:pin2025(537p,15d) SP1:160p/8t D1:pin2025(499p,15d) F1:pin2025(553p,15d)",
  "cal": {
   "n": 0
  }
