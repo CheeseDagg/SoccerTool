@@ -1,6 +1,6 @@
 {
- "props_src": "E0:pin2025(537p,18d) \u00b7 SP1:192p/9t \u00b7 D1:pin2025(499p,18d) \u00b7 F1:pin2025(553p,18d)",
- "generated": "2026-08-21T09:54:20+00:00",
+ "props_src": "E0:31p/1t \u00b7 SP1:226p/11t \u00b7 D1:pin2025(499p,19d) \u00b7 F1:32p/2t",
+ "generated": "2026-08-22T09:45:48+00:00",
  "slate_date": null,
  "slate_end": null,
  "leagues": {
@@ -712,51 +712,26 @@
  "props_preview": {
   "E0": [
    {
-    "team": "Man City",
-    "name": "Erling Haaland",
-    "share": 0.4022
+    "team": "Arsenal",
+    "name": "Bukayo Saka",
+    "share": 0.3582
    },
    {
-    "team": "Brentford",
-    "name": "Thiago",
-    "share": 0.3948
+    "team": "Arsenal",
+    "name": "Martin Odegaard",
+    "share": 0.2724
    },
    {
-    "team": "Aston Villa",
-    "name": "Ollie Watkins",
-    "share": 0.3058
-   },
-   {
-    "team": "Leeds",
-    "name": "Dominic Calvert-Lewin",
-    "share": 0.2962
-   },
-   {
-    "team": "Burnley",
-    "name": "Zian Flemming",
-    "share": 0.2899
-   },
-   {
-    "team": "Nott'm Forest",
-    "name": "Morgan Gibbs-White",
-    "share": 0.2858
-   },
-   {
-    "team": "Crystal Palace",
-    "name": "Jean-Philippe Mateta",
-    "share": 0.2547
-   },
-   {
-    "team": "Chelsea",
-    "name": "Jo\u00e3o Pedro",
-    "share": 0.2398
+    "team": "Arsenal",
+    "name": "Kai Havertz",
+    "share": 0.2515
    }
   ],
   "SP1": [
    {
-    "team": "Vallecano",
-    "name": "\u00c1lvaro Garc\u00eda",
-    "share": 0.6694
+    "team": "Sociedad",
+    "name": "Orri \u00d3skarsson",
+    "share": 0.7111
    },
    {
     "team": "Espanol",
@@ -769,6 +744,11 @@
     "share": 0.5099
    },
    {
+    "team": "Betis",
+    "name": "Rodrigo Riquelme",
+    "share": 0.5063
+   },
+   {
     "team": "Sevilla",
     "name": "Peque",
     "share": 0.4648
@@ -779,19 +759,14 @@
     "share": 0.4564
    },
    {
+    "team": "Vallecano",
+    "name": "\u00c1lvaro Garc\u00eda",
+    "share": 0.4247
+   },
+   {
     "team": "Villarreal",
     "name": "Nicolas Pepe",
     "share": 0.4142
-   },
-   {
-    "team": "Villarreal",
-    "name": "Pape Alassane Gueye",
-    "share": 0.4036
-   },
-   {
-    "team": "Levante",
-    "name": "Adri\u00e1n De la Fuente",
-    "share": 0.3658
    }
   ],
   "D1": [
@@ -838,48 +813,38 @@
   ],
   "F1": [
    {
-    "team": "Angers",
-    "name": "Esteban Lepaul",
-    "share": 0.3897
-   },
-   {
-    "team": "Auxerre",
-    "name": "Lassine Sinayoko",
-    "share": 0.3485
-   },
-   {
-    "team": "Le Havre",
-    "name": "Issa Soumar\u00e9",
-    "share": 0.3012
-   },
-   {
     "team": "Strasbourg",
-    "name": "Joaqu\u00edn Panichelli",
-    "share": 0.2699
-   },
-   {
-    "team": "Metz",
-    "name": "Gauthier Hein",
-    "share": 0.2393
-   },
-   {
-    "team": "Rennes",
-    "name": "Breel Embolo",
-    "share": 0.2373
+    "name": "Gessime Yassine",
+    "share": 0.5404
    },
    {
     "team": "Marseille",
-    "name": "Mason Greenwood",
-    "share": 0.2334
+    "name": "Amine Gouiri",
+    "share": 0.5323
    },
    {
-    "team": "Monaco",
-    "name": "Folarin Balogun",
-    "share": 0.2266
+    "team": "Marseille",
+    "name": "Pierre-Emile H\u00f8jbjerg",
+    "share": 0.1879
+   },
+   {
+    "team": "Marseille",
+    "name": "Keyliane Abdallah",
+    "share": 0.1862
+   },
+   {
+    "team": "Strasbourg",
+    "name": "Guela Dou\u00e9",
+    "share": 0.1842
+   },
+   {
+    "team": "Strasbourg",
+    "name": "Diogo Sousa",
+    "share": 0.1593
    }
   ]
  },
- "note": "E0: 1140 results \u00b7 SP1: 1140 results \u00b7 D1: 918 results \u00b7 F1: 918 results \u00b7 fixtures: 0 \u00b7 xG overlay: 4115/4116 matches fit on xG (through 2026-05-24) \u00b7 props E0:pin2025(537p,18d) SP1:192p/9t D1:pin2025(499p,18d) F1:pin2025(553p,18d)",
+ "note": "E0: 1140 results \u00b7 SP1: 1140 results \u00b7 D1: 918 results \u00b7 F1: 918 results \u00b7 fixtures: 0 \u00b7 xG overlay: 4115/4116 matches fit on xG (through 2026-05-24) \u00b7 props E0:31p/1t SP1:226p/11t D1:pin2025(499p,19d) F1:32p/2t",
  "cal": {
   "n": 0
  }
