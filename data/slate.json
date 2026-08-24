@@ -1,6 +1,6 @@
 {
- "props_src": "E0:186p/10t \u00b7 SP1:294p/15t \u00b7 D1:pin2025(499p,20d) \u00b7 F1:187p/10t",
- "generated": "2026-08-23T09:46:03+00:00",
+ "props_src": "E0:279p/16t \u00b7 SP1:323p/16t \u00b7 D1:pin2025(499p,21d) \u00b7 F1:282p/16t",
+ "generated": "2026-08-24T10:06:51+00:00",
  "slate_date": null,
  "slate_end": null,
  "leagues": {
@@ -712,6 +712,11 @@
  "props_preview": {
   "E0": [
    {
+    "team": "Bournemouth",
+    "name": "Marcus Tavernier",
+    "share": 0.8966
+   },
+   {
     "team": "Leeds",
     "name": "Anton Stach",
     "share": 0.8191
@@ -732,6 +737,11 @@
     "share": 0.5912
    },
    {
+    "team": "Brighton",
+    "name": "Jack Hinshelwood",
+    "share": 0.5176
+   },
+   {
     "team": "Everton",
     "name": "Thierno Barry",
     "share": 0.4693
@@ -740,19 +750,14 @@
     "team": "Ipswich",
     "name": "Emersonn",
     "share": 0.4613
-   },
-   {
-    "team": "Nott'm Forest",
-    "name": "Igor Jesus",
-    "share": 0.4236
-   },
-   {
-    "team": "Everton",
-    "name": "Kiernan Dewsbury-Hall",
-    "share": 0.38
    }
   ],
   "SP1": [
+   {
+    "team": "Getafe",
+    "name": "Enes \u00dcnal",
+    "share": 0.8409
+   },
    {
     "team": "Sociedad",
     "name": "Orri \u00d3skarsson",
@@ -767,11 +772,6 @@
     "team": "Espanol",
     "name": "Roberto Fern\u00e1ndez",
     "share": 0.5133
-   },
-   {
-    "team": "Elche",
-    "name": "Marc Aguado",
-    "share": 0.5099
    },
    {
     "team": "Betis",
@@ -853,9 +853,19 @@
     "share": 0.4969
    },
    {
+    "team": "Monaco",
+    "name": "Eric Dier",
+    "share": 0.4942
+   },
+   {
     "team": "Paris FC",
     "name": "Zabi Gueu",
     "share": 0.494
+   },
+   {
+    "team": "Angers",
+    "name": "Prosper Peter",
+    "share": 0.4768
    },
    {
     "team": "Auxerre",
@@ -866,20 +876,10 @@
     "team": "Brest",
     "name": "Kamory Doumbia",
     "share": 0.4486
-   },
-   {
-    "team": "Lorient",
-    "name": "Jean-Victor Makengo",
-    "share": 0.4423
-   },
-   {
-    "team": "Lyon",
-    "name": "Malick Fofana",
-    "share": 0.4196
    }
   ]
  },
- "note": "E0: 1140 results \u00b7 SP1: 1140 results \u00b7 D1: 918 results \u00b7 F1: 918 results \u00b7 fixtures: 0 \u00b7 xG overlay: 4115/4116 matches fit on xG (through 2026-05-24) \u00b7 props E0:186p/10t SP1:294p/15t D1:pin2025(499p,20d) F1:187p/10t",
+ "note": "E0: 1140 results \u00b7 SP1: 1140 results \u00b7 D1: 918 results \u00b7 F1: 918 results \u00b7 fixtures: 0 \u00b7 xG overlay: 4115/4116 matches fit on xG (through 2026-05-24) \u00b7 props E0:279p/16t SP1:323p/16t D1:pin2025(499p,21d) F1:282p/16t",
  "cal": {
   "n": 0
  }
