@@ -1,6 +1,6 @@
 {
- "props_src": "E0:279p/16t \u00b7 SP1:323p/16t \u00b7 D1:pin2025(499p,21d) \u00b7 F1:282p/16t",
- "generated": "2026-08-24T10:06:51+00:00",
+ "props_src": "E0:310p/18t \u00b7 SP1:346p/17t \u00b7 D1:pin2025(499p,22d) \u00b7 F1:282p/16t",
+ "generated": "2026-08-25T09:53:41+00:00",
  "slate_date": null,
  "slate_end": null,
  "leagues": {
@@ -742,14 +742,14 @@
     "share": 0.5176
    },
    {
+    "team": "Fulham",
+    "name": "Gonzalo Garc\u00eda",
+    "share": 0.5155
+   },
+   {
     "team": "Everton",
     "name": "Thierno Barry",
     "share": 0.4693
-   },
-   {
-    "team": "Ipswich",
-    "name": "Emersonn",
-    "share": 0.4613
    }
   ],
   "SP1": [
@@ -767,6 +767,11 @@
     "team": "Ath Bilbao",
     "name": "Aitor Paredes",
     "share": 0.6749
+   },
+   {
+    "team": "Osasuna",
+    "name": "Ante Budimir",
+    "share": 0.6501
    },
    {
     "team": "Espanol",
@@ -787,11 +792,6 @@
     "team": "Celta",
     "name": "Jones El Abdellaoui",
     "share": 0.4641
-   },
-   {
-    "team": "Vallecano",
-    "name": "\u00c1lvaro Garc\u00eda",
-    "share": 0.4247
    }
   ],
   "D1": [
@@ -879,7 +879,7 @@
    }
   ]
  },
- "note": "E0: 1140 results \u00b7 SP1: 1140 results \u00b7 D1: 918 results \u00b7 F1: 918 results \u00b7 fixtures: 0 \u00b7 xG overlay: 4115/4116 matches fit on xG (through 2026-05-24) \u00b7 props E0:279p/16t SP1:323p/16t D1:pin2025(499p,21d) F1:282p/16t",
+ "note": "E0: 1140 results \u00b7 SP1: 1140 results \u00b7 D1: 918 results \u00b7 F1: 918 results \u00b7 fixtures: 0 \u00b7 xG overlay: 4115/4116 matches fit on xG (through 2026-05-24) \u00b7 props E0:310p/18t SP1:346p/17t D1:pin2025(499p,22d) F1:282p/16t",
  "cal": {
   "n": 0
  }
