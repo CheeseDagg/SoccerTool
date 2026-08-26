@@ -1,6 +1,6 @@
 {
- "props_src": "E0:310p/18t \u00b7 SP1:346p/17t \u00b7 D1:pin2025(499p,22d) \u00b7 F1:282p/16t",
- "generated": "2026-08-25T09:53:41+00:00",
+ "props_src": "E0:310p/18t \u00b7 SP1:353p/17t \u00b7 D1:pin2025(499p,23d) \u00b7 F1:282p/16t",
+ "generated": "2026-08-26T10:00:11+00:00",
  "slate_date": null,
  "slate_end": null,
  "leagues": {
@@ -779,19 +779,19 @@
     "share": 0.5133
    },
    {
-    "team": "Betis",
-    "name": "Rodrigo Riquelme",
-    "share": 0.5063
-   },
-   {
-    "team": "Valencia",
-    "name": "Arnaut Danjuma Groeneveld",
-    "share": 0.4651
-   },
-   {
     "team": "Celta",
     "name": "Jones El Abdellaoui",
     "share": 0.4641
+   },
+   {
+    "team": "Vallecano",
+    "name": "\u00c1lvaro Garc\u00eda",
+    "share": 0.4247
+   },
+   {
+    "team": "Barcelona",
+    "name": "Raphinha",
+    "share": 0.3987
    }
   ],
   "D1": [
@@ -879,7 +879,7 @@
    }
   ]
  },
- "note": "E0: 1140 results \u00b7 SP1: 1140 results \u00b7 D1: 918 results \u00b7 F1: 918 results \u00b7 fixtures: 0 \u00b7 xG overlay: 4115/4116 matches fit on xG (through 2026-05-24) \u00b7 props E0:310p/18t SP1:346p/17t D1:pin2025(499p,22d) F1:282p/16t",
+ "note": "E0: 1140 results \u00b7 SP1: 1140 results \u00b7 D1: 918 results \u00b7 F1: 918 results \u00b7 fixtures: 0 \u00b7 xG overlay: 4115/4116 matches fit on xG (through 2026-05-24) \u00b7 props E0:310p/18t SP1:353p/17t D1:pin2025(499p,23d) F1:282p/16t",
  "cal": {
   "n": 0
  }
