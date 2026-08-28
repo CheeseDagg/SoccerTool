@@ -1,6 +1,6 @@
 {
- "props_src": "E0:310p/18t \u00b7 SP1:357p/17t \u00b7 D1:pin2025(499p,24d) \u00b7 F1:282p/16t",
- "generated": "2026-08-27T19:52:54+00:00",
+ "props_src": "E0:310p/18t \u00b7 SP1:369p/17t \u00b7 D1:pin2025(499p,25d) \u00b7 F1:282p/16t",
+ "generated": "2026-08-28T20:56:25+00:00",
  "slate_date": null,
  "slate_end": null,
  "leagues": {
@@ -759,19 +759,24 @@
     "share": 0.8409
    },
    {
-    "team": "Ath Bilbao",
-    "name": "Aitor Paredes",
-    "share": 0.6749
+    "team": "Celta",
+    "name": "Iago Aspas",
+    "share": 0.7168
    },
    {
-    "team": "Osasuna",
-    "name": "Ante Budimir",
-    "share": 0.6501
+    "team": "Ath Bilbao",
+    "name": "Aitor Paredes",
+    "share": 0.6286
    },
    {
     "team": "Sociedad",
     "name": "Luka Sucic",
     "share": 0.5547
+   },
+   {
+    "team": "Osasuna",
+    "name": "Ante Budimir",
+    "share": 0.5298
    },
    {
     "team": "Espanol",
@@ -782,11 +787,6 @@
     "team": "Real Madrid",
     "name": "Kylian Mbappe-Lottin",
     "share": 0.5124
-   },
-   {
-    "team": "Celta",
-    "name": "Jones El Abdellaoui",
-    "share": 0.4641
    },
    {
     "team": "Vallecano",
@@ -879,7 +879,7 @@
    }
   ]
  },
- "note": "E0: 1140 results \u00b7 SP1: 1140 results \u00b7 D1: 918 results \u00b7 F1: 918 results \u00b7 fixtures: 0 \u00b7 xG overlay: 4115/4116 matches fit on xG (through 2026-05-24) \u00b7 props E0:310p/18t SP1:357p/17t D1:pin2025(499p,24d) F1:282p/16t",
+ "note": "E0: 1140 results \u00b7 SP1: 1140 results \u00b7 D1: 918 results \u00b7 F1: 918 results \u00b7 fixtures: 0 \u00b7 xG overlay: 4115/4116 matches fit on xG (through 2026-05-24) \u00b7 props E0:310p/18t SP1:369p/17t D1:pin2025(499p,25d) F1:282p/16t",
  "cal": {
   "n": 0
  }
