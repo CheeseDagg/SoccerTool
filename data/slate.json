@@ -1,6 +1,6 @@
 {
- "props_src": "E0:310p/18t \u00b7 SP1:369p/17t \u00b7 D1:pin2025(499p,25d) \u00b7 F1:282p/16t",
- "generated": "2026-08-28T20:56:25+00:00",
+ "props_src": "E0:322p/18t \u00b7 SP1:370p/17t \u00b7 D1:32p/2t \u00b7 F1:300p/16t",
+ "generated": "2026-08-29T14:31:27+00:00",
  "slate_date": null,
  "slate_end": null,
  "leagues": {
@@ -732,11 +732,6 @@
     "share": 0.6039
    },
    {
-    "team": "Crystal Palace",
-    "name": "Jean-Philippe Mateta",
-    "share": 0.5912
-   },
-   {
     "team": "Brighton",
     "name": "Jack Hinshelwood",
     "share": 0.5176
@@ -750,6 +745,11 @@
     "team": "Everton",
     "name": "Thierno Barry",
     "share": 0.4693
+   },
+   {
+    "team": "Ipswich",
+    "name": "Emersonn",
+    "share": 0.4613
    }
   ],
   "SP1": [
@@ -796,44 +796,34 @@
   ],
   "D1": [
    {
-    "team": "M'gladbach",
-    "name": "Haris Tabakovic",
-    "share": 0.3143
+    "team": "Stuttgart",
+    "name": "Joshua Vagnoman",
+    "share": 0.5684
    },
    {
     "team": "Bayern Munich",
-    "name": "Harry Kane",
-    "share": 0.2933
+    "name": "Luis D\u00edaz",
+    "share": 0.2767
+   },
+   {
+    "team": "Bayern Munich",
+    "name": "Michael Olise",
+    "share": 0.262
    },
    {
     "team": "Stuttgart",
-    "name": "Deniz Undav",
-    "share": 0.2733
+    "name": "Tiago Tom\u00e1s",
+    "share": 0.2348
    },
    {
-    "team": "Dortmund",
-    "name": "Serhou Guirassy",
-    "share": 0.2639
+    "team": "Bayern Munich",
+    "name": "Aleksandar Pavlovic",
+    "share": 0.2219
    },
    {
-    "team": "Mainz",
-    "name": "Nadiem Amiri",
-    "share": 0.255
-   },
-   {
-    "team": "FC Koln",
-    "name": "Said El Mala",
-    "share": 0.2525
-   },
-   {
-    "team": "Leverkusen",
-    "name": "Patrik Schick",
-    "share": 0.2475
-   },
-   {
-    "team": "Ein Frankfurt",
-    "name": "Jonathan Burkardt",
-    "share": 0.228
+    "team": "Stuttgart",
+    "name": "Julian Chabot",
+    "share": 0.0887
    }
   ],
   "F1": [
@@ -879,7 +869,7 @@
    }
   ]
  },
- "note": "E0: 1140 results \u00b7 SP1: 1140 results \u00b7 D1: 918 results \u00b7 F1: 918 results \u00b7 fixtures: 0 \u00b7 xG overlay: 4115/4116 matches fit on xG (through 2026-05-24) \u00b7 props E0:310p/18t SP1:369p/17t D1:pin2025(499p,25d) F1:282p/16t",
+ "note": "E0: 1140 results \u00b7 SP1: 1140 results \u00b7 D1: 918 results \u00b7 F1: 918 results \u00b7 fixtures: 0 \u00b7 xG overlay: 4115/4116 matches fit on xG (through 2026-05-24) \u00b7 props E0:322p/18t SP1:370p/17t D1:32p/2t F1:300p/16t",
  "cal": {
   "n": 0
  }
