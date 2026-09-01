@@ -1,6 +1,6 @@
 {
- "props_src": "E0:358p/18t \u00b7 SP1:385p/17t \u00b7 D1:285p/15t \u00b7 F1:357p/16t",
- "generated": "2026-08-31T17:05:59+00:00",
+ "props_src": "E0:364p/18t \u00b7 SP1:390p/17t \u00b7 D1:285p/15t \u00b7 F1:357p/16t",
+ "generated": "2026-09-01T14:10:54+00:00",
  "slate_date": null,
  "slate_end": null,
  "leagues": {
@@ -727,14 +727,14 @@
     "share": 0.5124
    },
    {
+    "team": "Arsenal",
+    "name": "Bukayo Saka",
+    "share": 0.5066
+   },
+   {
     "team": "Sunderland",
     "name": "Wilson Isidor",
     "share": 0.4387
-   },
-   {
-    "team": "Aston Villa",
-    "name": "Emiliano Buend\u00eda",
-    "share": 0.4269
    },
    {
     "team": "Everton",
@@ -754,14 +754,19 @@
   ],
   "SP1": [
    {
-    "team": "Getafe",
-    "name": "Enes \u00dcnal",
-    "share": 0.8409
-   },
-   {
     "team": "Valencia",
     "name": "Umar Sadiq",
     "share": 0.6054
+   },
+   {
+    "team": "Osasuna",
+    "name": "Ante Budimir",
+    "share": 0.5894
+   },
+   {
+    "team": "Vallecano",
+    "name": "Sergio Camello",
+    "share": 0.5781
    },
    {
     "team": "Espanol",
@@ -769,9 +774,9 @@
     "share": 0.573
    },
    {
-    "team": "Osasuna",
-    "name": "Ante Budimir",
-    "share": 0.5298
+    "team": "Getafe",
+    "name": "Enes \u00dcnal",
+    "share": 0.5672
    },
    {
     "team": "Real Madrid",
@@ -787,11 +792,6 @@
     "team": "Sociedad",
     "name": "Orri \u00d3skarsson",
     "share": 0.4456
-   },
-   {
-    "team": "Vallecano",
-    "name": "\u00c1lvaro Garc\u00eda",
-    "share": 0.4247
    }
   ],
   "D1": [
@@ -879,7 +879,7 @@
    }
   ]
  },
- "note": "E0: 1140 results \u00b7 SP1: 1140 results \u00b7 D1: 918 results \u00b7 F1: 918 results \u00b7 fixtures: 0 \u00b7 xG overlay: 4115/4116 matches fit on xG (through 2026-05-24) \u00b7 props E0:358p/18t SP1:385p/17t D1:285p/15t F1:357p/16t",
+ "note": "E0: 1140 results \u00b7 SP1: 1140 results \u00b7 D1: 918 results \u00b7 F1: 918 results \u00b7 fixtures: 0 \u00b7 xG overlay: 4115/4116 matches fit on xG (through 2026-05-24) \u00b7 props E0:364p/18t SP1:390p/17t D1:285p/15t F1:357p/16t",
  "cal": {
   "n": 0
  }
