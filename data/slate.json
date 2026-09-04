@@ -1,6 +1,6 @@
 {
- "props_src": "E0:364p/18t \u00b7 SP1:390p/17t \u00b7 D1:285p/15t \u00b7 F1:357p/16t",
- "generated": "2026-09-03T13:37:59+00:00",
+ "props_src": "E0:364p/18t \u00b7 SP1:392p/17t \u00b7 D1:285p/15t \u00b7 F1:360p/16t",
+ "generated": "2026-09-04T13:34:37+00:00",
  "slate_date": null,
  "slate_end": null,
  "leagues": {
@@ -779,19 +779,19 @@
     "share": 0.5672
    },
    {
+    "team": "Celta",
+    "name": "Iago Aspas",
+    "share": 0.4899
+   },
+   {
     "team": "Real Madrid",
     "name": "Kylian Mbappe-Lottin",
     "share": 0.465
    },
    {
-    "team": "Celta",
-    "name": "Iago Aspas",
-    "share": 0.4639
-   },
-   {
-    "team": "Sociedad",
-    "name": "Orri \u00d3skarsson",
-    "share": 0.4456
+    "team": "Barcelona",
+    "name": "Raphinha",
+    "share": 0.4083
    }
   ],
   "D1": [
@@ -868,18 +868,18 @@
     "share": 0.4568
    },
    {
-    "team": "Toulouse",
-    "name": "Christ Tap\u00e9",
-    "share": 0.4343
-   },
-   {
     "team": "Lens",
     "name": "Florian Thauvin",
     "share": 0.4134
+   },
+   {
+    "team": "Lyon",
+    "name": "Lo\u00efs Openda",
+    "share": 0.3591
    }
   ]
  },
- "note": "E0: 1140 results \u00b7 SP1: 1140 results \u00b7 D1: 918 results \u00b7 F1: 918 results \u00b7 fixtures: 0 \u00b7 xG overlay: 4115/4116 matches fit on xG (through 2026-05-24) \u00b7 props E0:364p/18t SP1:390p/17t D1:285p/15t F1:357p/16t",
+ "note": "E0: 1140 results \u00b7 SP1: 1140 results \u00b7 D1: 918 results \u00b7 F1: 918 results \u00b7 fixtures: 0 \u00b7 xG overlay: 4115/4116 matches fit on xG (through 2026-05-24) \u00b7 props E0:364p/18t SP1:392p/17t D1:285p/15t F1:360p/16t",
  "cal": {
   "n": 0
  }
