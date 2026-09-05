@@ -1,6 +1,6 @@
 {
- "props_src": "E0:364p/18t \u00b7 SP1:392p/17t \u00b7 D1:285p/15t \u00b7 F1:360p/16t",
- "generated": "2026-09-04T13:34:37+00:00",
+ "props_src": "E0:366p/18t \u00b7 SP1:393p/17t \u00b7 D1:291p/15t \u00b7 F1:370p/16t",
+ "generated": "2026-09-05T12:45:56+00:00",
  "slate_date": null,
  "slate_end": null,
  "leagues": {
@@ -732,6 +732,11 @@
     "share": 0.5066
    },
    {
+    "team": "Liverpool",
+    "name": "Alexander Isak",
+    "share": 0.4889
+   },
+   {
     "team": "Sunderland",
     "name": "Wilson Isidor",
     "share": 0.4387
@@ -745,11 +750,6 @@
     "team": "Crystal Palace",
     "name": "Jean-Philippe Mateta",
     "share": 0.4177
-   },
-   {
-    "team": "Newcastle",
-    "name": "Anthony Elanga",
-    "share": 0.3952
    }
   ],
   "SP1": [
@@ -786,7 +786,7 @@
    {
     "team": "Real Madrid",
     "name": "Kylian Mbappe-Lottin",
-    "share": 0.465
+    "share": 0.4788
    },
    {
     "team": "Barcelona",
@@ -821,19 +821,19 @@
     "share": 0.5848
    },
    {
-    "team": "Stuttgart",
-    "name": "Joshua Vagnoman",
-    "share": 0.5684
-   },
-   {
-    "team": "FC Koln",
-    "name": "Thijs Dallinga",
-    "share": 0.5064
-   },
-   {
     "team": "Leverkusen",
     "name": "Patrik Schick",
     "share": 0.4479
+   },
+   {
+    "team": "M'gladbach",
+    "name": "Hugo Bolin",
+    "share": 0.4155
+   },
+   {
+    "team": "Union Berlin",
+    "name": "Tim Skarke",
+    "share": 0.3688
    }
   ],
   "F1": [
@@ -846,11 +846,6 @@
     "team": "Le Havre",
     "name": "Mbwana Samatta",
     "share": 0.69
-   },
-   {
-    "team": "Monaco",
-    "name": "Paris Brunner",
-    "share": 0.5974
    },
    {
     "team": "Lorient",
@@ -868,18 +863,23 @@
     "share": 0.4568
    },
    {
+    "team": "Paris SG",
+    "name": "Marquinhos",
+    "share": 0.4459
+   },
+   {
+    "team": "Monaco",
+    "name": "Paris Brunner",
+    "share": 0.4152
+   },
+   {
     "team": "Lens",
     "name": "Florian Thauvin",
     "share": 0.4134
-   },
-   {
-    "team": "Lyon",
-    "name": "Lo\u00efs Openda",
-    "share": 0.3591
    }
   ]
  },
- "note": "E0: 1140 results \u00b7 SP1: 1140 results \u00b7 D1: 918 results \u00b7 F1: 918 results \u00b7 fixtures: 0 \u00b7 xG overlay: 4115/4116 matches fit on xG (through 2026-05-24) \u00b7 props E0:364p/18t SP1:392p/17t D1:285p/15t F1:360p/16t",
+ "note": "E0: 1140 results \u00b7 SP1: 1140 results \u00b7 D1: 918 results \u00b7 F1: 918 results \u00b7 fixtures: 0 \u00b7 xG overlay: 4115/4116 matches fit on xG (through 2026-05-24) \u00b7 props E0:366p/18t SP1:393p/17t D1:291p/15t F1:370p/16t",
  "cal": {
   "n": 0
  }
