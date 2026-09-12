@@ -1,6 +1,6 @@
 {
- "props_src": "E0:387p/18t \u00b7 SP1:427p/17t \u00b7 D1:335p/15t \u00b7 F1:395p/16t",
- "generated": "2026-09-11T13:38:08+00:00",
+ "props_src": "E0:387p/18t \u00b7 SP1:428p/17t \u00b7 D1:338p/15t \u00b7 F1:396p/16t",
+ "generated": "2026-09-12T12:54:03+00:00",
  "slate_date": null,
  "slate_end": null,
  "leagues": {
@@ -766,7 +766,7 @@
    {
     "team": "Valencia",
     "name": "Umar Sadiq",
-    "share": 0.5355
+    "share": 0.5267
    },
    {
     "team": "Real Madrid",
@@ -823,7 +823,7 @@
    {
     "team": "Union Berlin",
     "name": "Tim Skarke",
-    "share": 0.3597
+    "share": 0.4457
    },
    {
     "team": "Leverkusen",
@@ -840,7 +840,7 @@
    {
     "team": "Marseille",
     "name": "Amine Gouiri",
-    "share": 0.5983
+    "share": 0.5543
    },
    {
     "team": "Paris FC",
@@ -863,11 +863,6 @@
     "share": 0.4459
    },
    {
-    "team": "Rennes",
-    "name": "Esteban Lepaul",
-    "share": 0.4197
-   },
-   {
     "team": "Monaco",
     "name": "Paris Brunner",
     "share": 0.4152
@@ -876,10 +871,15 @@
     "team": "Lens",
     "name": "Florian Thauvin",
     "share": 0.4104
+   },
+   {
+    "team": "Lorient",
+    "name": "Mamadou Kon\u00e9",
+    "share": 0.3919
    }
   ]
  },
- "note": "E0: 1140 results \u00b7 SP1: 1140 results \u00b7 D1: 918 results \u00b7 F1: 918 results \u00b7 fixtures: 0 \u00b7 xG overlay: 4115/4116 matches fit on xG (through 2026-05-24) \u00b7 props E0:387p/18t SP1:427p/17t D1:335p/15t F1:395p/16t",
+ "note": "E0: 1140 results \u00b7 SP1: 1140 results \u00b7 D1: 918 results \u00b7 F1: 918 results \u00b7 fixtures: 0 \u00b7 xG overlay: 4115/4116 matches fit on xG (through 2026-05-24) \u00b7 props E0:387p/18t SP1:428p/17t D1:338p/15t F1:396p/16t",
  "cal": {
   "n": 0
  }
