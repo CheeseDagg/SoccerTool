@@ -1,6 +1,6 @@
 {
- "props_src": "E0:401p/18t \u00b7 SP1:436p/17t \u00b7 D1:352p/15t \u00b7 F1:405p/16t",
- "generated": "2026-09-13T13:49:27+00:00",
+ "props_src": "E0:405p/18t \u00b7 SP1:444p/17t \u00b7 D1:357p/15t \u00b7 F1:413p/16t",
+ "generated": "2026-09-14T15:55:05+00:00",
  "slate_date": null,
  "slate_end": null,
  "leagues": {
@@ -717,14 +717,14 @@
     "share": 0.4733
    },
    {
+    "team": "Man City",
+    "name": "Erling Haaland",
+    "share": 0.4704
+   },
+   {
     "team": "Bournemouth",
     "name": "Marcus Tavernier",
     "share": 0.42
-   },
-   {
-    "team": "Man United",
-    "name": "Bruno Fernandes",
-    "share": 0.4112
    },
    {
     "team": "Arsenal",
@@ -732,9 +732,9 @@
     "share": 0.4007
    },
    {
-    "team": "Man City",
-    "name": "Erling Haaland",
-    "share": 0.3969
+    "team": "Man United",
+    "name": "Bruno Fernandes",
+    "share": 0.3903
    },
    {
     "team": "Aston Villa",
@@ -779,19 +779,19 @@
     "share": 0.4721
    },
    {
-    "team": "Getafe",
-    "name": "Mart\u00edn Satriano",
-    "share": 0.4143
-   },
-   {
-    "team": "Barcelona",
-    "name": "Raphinha",
-    "share": 0.3603
-   },
-   {
     "team": "Levante",
     "name": "Roger Brugu\u00e9",
-    "share": 0.352
+    "share": 0.3683
+   },
+   {
+    "team": "Betis",
+    "name": "Rodrigo Riquelme",
+    "share": 0.3435
+   },
+   {
+    "team": "Getafe",
+    "name": "Mart\u00edn Satriano",
+    "share": 0.3131
    }
   ],
   "D1": [
@@ -801,14 +801,14 @@
     "share": 0.5388
    },
    {
-    "team": "Hamburg",
-    "name": "Patson Daka",
-    "share": 0.518
-   },
-   {
     "team": "Union Berlin",
     "name": "Tim Skarke",
     "share": 0.4457
+   },
+   {
+    "team": "Hamburg",
+    "name": "Patson Daka",
+    "share": 0.4305
    },
    {
     "team": "Mainz",
@@ -850,7 +850,7 @@
    {
     "team": "Brest",
     "name": "Kamory Doumbia",
-    "share": 0.5054
+    "share": 0.5075
    },
    {
     "team": "Monaco",
@@ -863,23 +863,23 @@
     "share": 0.4497
    },
    {
-    "team": "Paris SG",
-    "name": "Marquinhos",
-    "share": 0.4459
+    "team": "Le Havre",
+    "name": "Mbwana Samatta",
+    "share": 0.3609
+   },
+   {
+    "team": "Auxerre",
+    "name": "Cameron Archer",
+    "share": 0.3571
    },
    {
     "team": "Lens",
     "name": "Florian Thauvin",
-    "share": 0.4104
-   },
-   {
-    "team": "Le Havre",
-    "name": "Mbwana Samatta",
-    "share": 0.3609
+    "share": 0.3552
    }
   ]
  },
- "note": "E0: 1140 results \u00b7 SP1: 1140 results \u00b7 D1: 918 results \u00b7 F1: 918 results \u00b7 fixtures: 0 \u00b7 xG overlay: 4115/4116 matches fit on xG (through 2026-05-24) \u00b7 props E0:401p/18t SP1:436p/17t D1:352p/15t F1:405p/16t",
+ "note": "E0: 1140 results \u00b7 SP1: 1140 results \u00b7 D1: 918 results \u00b7 F1: 918 results \u00b7 fixtures: 0 \u00b7 xG overlay: 4115/4116 matches fit on xG (through 2026-05-24) \u00b7 props E0:405p/18t SP1:444p/17t D1:357p/15t F1:413p/16t",
  "cal": {
   "n": 0
  }
