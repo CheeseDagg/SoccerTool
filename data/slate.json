@@ -1,6 +1,6 @@
 {
- "props_src": "E0:405p/18t \u00b7 SP1:444p/17t \u00b7 D1:357p/15t \u00b7 F1:413p/16t",
- "generated": "2026-09-14T15:55:05+00:00",
+ "props_src": "E0:406p/18t \u00b7 SP1:448p/17t \u00b7 D1:357p/15t \u00b7 F1:413p/16t",
+ "generated": "2026-09-15T14:21:19+00:00",
  "slate_date": null,
  "slate_end": null,
  "leagues": {
@@ -737,14 +737,14 @@
     "share": 0.3903
    },
    {
+    "team": "Leeds",
+    "name": "Dominic Calvert-Lewin",
+    "share": 0.3724
+   },
+   {
     "team": "Aston Villa",
     "name": "Alysson Edward",
     "share": 0.3641
-   },
-   {
-    "team": "Leeds",
-    "name": "Dominic Calvert-Lewin",
-    "share": 0.3409
    },
    {
     "team": "Everton",
@@ -784,14 +784,14 @@
     "share": 0.3683
    },
    {
-    "team": "Betis",
-    "name": "Rodrigo Riquelme",
-    "share": 0.3435
-   },
-   {
     "team": "Getafe",
     "name": "Mart\u00edn Satriano",
     "share": 0.3131
+   },
+   {
+    "team": "Getafe",
+    "name": "Ram\u00f3n Terrats",
+    "share": 0.3066
    }
   ],
   "D1": [
@@ -879,7 +879,7 @@
    }
   ]
  },
- "note": "E0: 1140 results \u00b7 SP1: 1140 results \u00b7 D1: 918 results \u00b7 F1: 918 results \u00b7 fixtures: 0 \u00b7 xG overlay: 4115/4116 matches fit on xG (through 2026-05-24) \u00b7 props E0:405p/18t SP1:444p/17t D1:357p/15t F1:413p/16t",
+ "note": "E0: 1140 results \u00b7 SP1: 1140 results \u00b7 D1: 918 results \u00b7 F1: 918 results \u00b7 fixtures: 0 \u00b7 xG overlay: 4115/4116 matches fit on xG (through 2026-05-24) \u00b7 props E0:406p/18t SP1:448p/17t D1:357p/15t F1:413p/16t",
  "cal": {
   "n": 0
  }
