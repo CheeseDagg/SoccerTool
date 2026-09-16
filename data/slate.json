@@ -1,6 +1,6 @@
 {
- "props_src": "E0:406p/18t \u00b7 SP1:448p/17t \u00b7 D1:357p/15t \u00b7 F1:413p/16t",
- "generated": "2026-09-15T14:21:19+00:00",
+ "props_src": "E0:406p/18t \u00b7 SP1:450p/17t \u00b7 D1:357p/15t \u00b7 F1:413p/16t",
+ "generated": "2026-09-16T14:13:53+00:00",
  "slate_date": null,
  "slate_end": null,
  "leagues": {
@@ -759,24 +759,19 @@
     "share": 0.6785
    },
    {
-    "team": "Vallecano",
-    "name": "Sergio Camello",
-    "share": 0.589
-   },
-   {
     "team": "Espanol",
     "name": "Roberto Fern\u00e1ndez",
-    "share": 0.5737
+    "share": 0.5848
    },
    {
-    "team": "Valencia",
-    "name": "Umar Sadiq",
-    "share": 0.5267
+    "team": "Vallecano",
+    "name": "Sergio Camello",
+    "share": 0.4885
    },
    {
     "team": "Real Madrid",
     "name": "Kylian Mbappe-Lottin",
-    "share": 0.4721
+    "share": 0.4458
    },
    {
     "team": "Levante",
@@ -784,14 +779,19 @@
     "share": 0.3683
    },
    {
-    "team": "Getafe",
-    "name": "Mart\u00edn Satriano",
-    "share": 0.3131
+    "team": "Valencia",
+    "name": "Umar Sadiq",
+    "share": 0.3557
+   },
+   {
+    "team": "Elche",
+    "name": "Fernando Ni\u00f1o",
+    "share": 0.3192
    },
    {
     "team": "Getafe",
-    "name": "Ram\u00f3n Terrats",
-    "share": 0.3066
+    "name": "Mart\u00edn Satriano",
+    "share": 0.3131
    }
   ],
   "D1": [
@@ -879,7 +879,7 @@
    }
   ]
  },
- "note": "E0: 1140 results \u00b7 SP1: 1140 results \u00b7 D1: 918 results \u00b7 F1: 918 results \u00b7 fixtures: 0 \u00b7 xG overlay: 4115/4116 matches fit on xG (through 2026-05-24) \u00b7 props E0:406p/18t SP1:448p/17t D1:357p/15t F1:413p/16t",
+ "note": "E0: 1140 results \u00b7 SP1: 1140 results \u00b7 D1: 918 results \u00b7 F1: 918 results \u00b7 fixtures: 0 \u00b7 xG overlay: 4115/4116 matches fit on xG (through 2026-05-24) \u00b7 props E0:406p/18t SP1:450p/17t D1:357p/15t F1:413p/16t",
  "cal": {
   "n": 0
  }
