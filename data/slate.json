@@ -1,6 +1,6 @@
 {
- "props_src": "E0:406p/18t \u00b7 SP1:456p/17t \u00b7 D1:357p/15t \u00b7 F1:413p/16t",
- "generated": "2026-09-18T13:38:35+00:00",
+ "props_src": "E0:409p/18t \u00b7 SP1:458p/17t \u00b7 D1:358p/15t \u00b7 F1:418p/16t",
+ "generated": "2026-09-19T13:12:42+00:00",
  "slate_date": null,
  "slate_end": null,
  "leagues": {
@@ -761,7 +761,7 @@
    {
     "team": "Espanol",
     "name": "Roberto Fern\u00e1ndez",
-    "share": 0.5848
+    "share": 0.5719
    },
    {
     "team": "Vallecano",
@@ -772,6 +772,11 @@
     "team": "Real Madrid",
     "name": "Kylian Mbappe-Lottin",
     "share": 0.4458
+   },
+   {
+    "team": "Elche",
+    "name": "Fernando Ni\u00f1o",
+    "share": 0.3888
    },
    {
     "team": "Levante",
@@ -787,11 +792,6 @@
     "team": "Barcelona",
     "name": "Raphinha",
     "share": 0.3337
-   },
-   {
-    "team": "Elche",
-    "name": "Fernando Ni\u00f1o",
-    "share": 0.3192
    }
   ],
   "D1": [
@@ -801,14 +801,14 @@
     "share": 0.5388
    },
    {
-    "team": "Union Berlin",
-    "name": "Tim Skarke",
-    "share": 0.4457
-   },
-   {
     "team": "Hamburg",
     "name": "Patson Daka",
     "share": 0.4305
+   },
+   {
+    "team": "Union Berlin",
+    "name": "Tim Skarke",
+    "share": 0.4266
    },
    {
     "team": "Mainz",
@@ -848,14 +848,14 @@
     "share": 0.5366
    },
    {
+    "team": "Monaco",
+    "name": "Paris Brunner",
+    "share": 0.5241
+   },
+   {
     "team": "Brest",
     "name": "Kamory Doumbia",
     "share": 0.5075
-   },
-   {
-    "team": "Monaco",
-    "name": "Paris Brunner",
-    "share": 0.4716
    },
    {
     "team": "Nice",
@@ -873,13 +873,13 @@
     "share": 0.3571
    },
    {
-    "team": "Lens",
-    "name": "Florian Thauvin",
-    "share": 0.3552
+    "team": "Paris SG",
+    "name": "Marquinhos",
+    "share": 0.3428
    }
   ]
  },
- "note": "E0: 1140 results \u00b7 SP1: 1140 results \u00b7 D1: 918 results \u00b7 F1: 918 results \u00b7 fixtures: 0 \u00b7 xG overlay: 4115/4116 matches fit on xG (through 2026-05-24) \u00b7 props E0:406p/18t SP1:456p/17t D1:357p/15t F1:413p/16t",
+ "note": "E0: 1140 results \u00b7 SP1: 1140 results \u00b7 D1: 918 results \u00b7 F1: 918 results \u00b7 fixtures: 0 \u00b7 xG overlay: 4115/4116 matches fit on xG (through 2026-05-24) \u00b7 props E0:409p/18t SP1:458p/17t D1:358p/15t F1:418p/16t",
  "cal": {
   "n": 0
  }
