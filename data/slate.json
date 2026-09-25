@@ -1,6 +1,6 @@
 {
  "props_src": "E0:421p/18t \u00b7 SP1:461p/17t \u00b7 D1:367p/15t \u00b7 F1:424p/16t",
- "generated": "2026-09-24T14:16:03+00:00",
+ "generated": "2026-09-25T14:38:10+00:00",
  "slate_date": null,
  "slate_end": null,
  "leagues": {
@@ -543,142 +543,148 @@
   },
   "F1": {
    "name": "Ligue 1",
-   "n_matches": 612,
+   "n_matches": 918,
    "latest_result": "2026-05-17",
-   "home_adv": 0.198,
-   "rho": -0.044,
-   "mu": 0.198519,
+   "home_adv": 0.188,
+   "rho": -0.041,
+   "mu": 0.218967,
    "rho_source": "goals",
    "level_scale": [
-    0.9142,
-    0.9542
+    0.9098,
+    0.9433
    ],
    "ratings": [
     {
      "team": "Paris SG",
-     "att": 0.426,
-     "dfn": 0.34,
-     "idx": 215.1
+     "att": 0.506,
+     "dfn": 0.376,
+     "idx": 241.7
     },
     {
      "team": "Lens",
-     "att": 0.396,
-     "dfn": 0.164,
-     "idx": 175.0
+     "att": 0.35,
+     "dfn": 0.179,
+     "idx": 169.8
     },
     {
      "team": "Lille",
-     "att": 0.072,
-     "dfn": 0.354,
-     "idx": 153.0
-    },
-    {
-     "team": "Marseille",
-     "att": 0.337,
-     "dfn": 0.005,
-     "idx": 140.7
+     "att": 0.104,
+     "dfn": 0.34,
+     "idx": 155.9
     },
     {
      "team": "Monaco",
-     "att": 0.225,
-     "dfn": 0.021,
-     "idx": 127.8
+     "att": 0.282,
+     "dfn": 0.119,
+     "idx": 149.2
     },
     {
-     "team": "Strasbourg",
-     "att": 0.119,
-     "dfn": 0.038,
-     "idx": 117.0
+     "team": "Marseille",
+     "att": 0.342,
+     "dfn": 0.053,
+     "idx": 148.5
     },
     {
      "team": "Lyon",
+     "att": 0.156,
+     "dfn": 0.086,
+     "idx": 127.3
+    },
+    {
+     "team": "Toulouse",
+     "att": -0.016,
+     "dfn": 0.226,
+     "idx": 123.4
+    },
+    {
+     "team": "Strasbourg",
      "att": 0.114,
      "dfn": 0.031,
      "idx": 115.5
     },
     {
-     "team": "Toulouse",
-     "att": -0.063,
-     "dfn": 0.164,
-     "idx": 110.6
-    },
-    {
      "team": "Rennes",
-     "att": 0.135,
-     "dfn": -0.126,
-     "idx": 101.0
-    },
-    {
-     "team": "Paris FC",
-     "att": 0.05,
-     "dfn": -0.07,
-     "idx": 98.0
-    },
-    {
-     "team": "Lorient",
-     "att": -0.019,
-     "dfn": -0.035,
-     "idx": 94.8
-    },
-    {
-     "team": "Reims",
-     "att": -0.071,
-     "dfn": 0.014,
-     "idx": 94.4
-    },
-    {
-     "team": "Montpellier",
-     "att": 0.028,
-     "dfn": -0.132,
-     "idx": 90.1
-    },
-    {
-     "team": "Brest",
-     "att": -0.056,
-     "dfn": -0.057,
-     "idx": 89.3
+     "att": 0.134,
+     "dfn": -0.05,
+     "idx": 108.8
     },
     {
      "team": "Nice",
-     "att": -0.022,
-     "dfn": -0.109,
-     "idx": 87.7
+     "att": 0.072,
+     "dfn": -0.014,
+     "idx": 106.0
+    },
+    {
+     "team": "Paris FC",
+     "att": 0.062,
+     "dfn": -0.017,
+     "idx": 104.7
+    },
+    {
+     "team": "Lorient",
+     "att": -0.009,
+     "dfn": 0.015,
+     "idx": 100.7
+    },
+    {
+     "team": "Brest",
+     "att": -0.017,
+     "dfn": -0.054,
+     "idx": 93.1
     },
     {
      "team": "Auxerre",
-     "att": -0.196,
-     "dfn": 0.046,
-     "idx": 86.1
+     "att": -0.181,
+     "dfn": 0.03,
+     "idx": 86.0
     },
     {
      "team": "Nantes",
-     "att": -0.226,
-     "dfn": 0.015,
-     "idx": 81.0
+     "att": -0.188,
+     "dfn": 0.018,
+     "idx": 84.3
     },
     {
      "team": "Le Havre",
-     "att": -0.219,
-     "dfn": -0.083,
-     "idx": 73.9
+     "att": -0.17,
+     "dfn": -0.089,
+     "idx": 77.2
+    },
+    {
+     "team": "Reims",
+     "att": -0.195,
+     "dfn": -0.103,
+     "idx": 74.2
     },
     {
      "team": "Angers",
-     "att": -0.362,
-     "dfn": -0.147,
-     "idx": 60.1
+     "att": -0.322,
+     "dfn": -0.118,
+     "idx": 64.4
+    },
+    {
+     "team": "Montpellier",
+     "att": -0.201,
+     "dfn": -0.246,
+     "idx": 63.9
     },
     {
      "team": "Metz",
-     "att": -0.371,
-     "dfn": -0.16,
-     "idx": 58.8
+     "att": -0.359,
+     "dfn": -0.11,
+     "idx": 62.6
     },
     {
      "team": "Clermont",
-     "att": -0.297,
-     "dfn": -0.271,
-     "idx": 56.6
+     "att": -0.3,
+     "dfn": -0.241,
+     "idx": 58.2
+    },
+    {
+     "team": "St Etienne",
+     "att": -0.163,
+     "dfn": -0.431,
+     "idx": 55.2
     }
    ],
    "fixtures": [],
@@ -873,7 +879,7 @@
    }
   ]
  },
- "note": "E0: 1140 results \u00b7 SP1: 1140 results \u00b7 D1: 918 results \u00b7 F1 2425: TimeoutError \u00b7 F1: 612 results \u00b7 fixtures: 0 \u00b7 xG overlay: 3809/3810 matches fit on xG (through 2026-05-24) \u00b7 props E0:421p/18t SP1:461p/17t D1:367p/15t F1:424p/16t",
+ "note": "E0: 1140 results \u00b7 SP1: 1140 results \u00b7 D1: 918 results \u00b7 F1: 918 results \u00b7 fixtures: 0 \u00b7 xG overlay: 4115/4116 matches fit on xG (through 2026-05-24) \u00b7 props E0:421p/18t SP1:461p/17t D1:367p/15t F1:424p/16t",
  "cal": {
   "n": 0
  }
