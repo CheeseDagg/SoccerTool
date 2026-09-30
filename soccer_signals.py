@@ -64,20 +64,46 @@ def trim_patterns(pdoc, keep=140):
 def trim_players(pdoc, keep=90):
     """socplayers.json -> player rows for the list.
 
-    Streaks first (per-match, the shape a reader wants) then rates. Both name
-    their source, because one can say "in 5 of last 6" and the other cannot
-    and the page should never blur that.
+    Three families, in the order a reader can use them, and each one names its
+    source because they cannot all make the same kind of claim:
+
+      Player        per-match streaks -- the only one that can say "of the
+                    last 6", and the only one that expires
+      Player split  home/away and head-to-head -- a standing record, so it is
+                    built from a completed season and carries the span it
+                    covers rather than being stale-refused
+      Player rate   season totals -- cannot say WHICH games, only how many
+
+    The page must never blur those, which is why the category rides on every
+    row instead of being inferred from the wording.
     """
     d = pdoc or {}
     rows = []
-    for r in (d.get('streaks') or []):
+
+    # PER-FAMILY CAPS, NOT ONE CAP ON THE TOTAL. The families arrive ranked and
+    # concatenated, so a single `keep` lets whichever family is longest eat the
+    # list: 118 splits against a keep of 90 would have pushed every season rate
+    # off the page and left the tab looking like it only does home/away. Each
+    # family gets its own room and the total is still bounded.
+    CAP = {'streaks': 30, 'splits': 40, 'rates': 40}
+
+    def ev(r, n=6):
+        return [{'date': e.get('date'), 'opp': e.get('opp'),
+                 'gf': e.get('goals', 0), 'ga': 0, 'side': e.get('venue', '')}
+                for e in (r.get('evidence') or [])[:n]]
+
+    for r in (d.get('streaks') or [])[:CAP['streaks']]:
         rows.append({'club': r.get('player'), 'team': r.get('team'),
                      'league': r.get('league'), 'category': 'Player',
                      'text': r.get('text'), 'source': r.get('source'),
-                     'evidence': [{'date': e['date'], 'opp': e['opp'],
-                                   'gf': e.get('goals', 0), 'ga': 0, 'side': ''}
-                                  for e in (r.get('evidence') or [])[:6]]})
-    for r in (d.get('rates') or []):
+                     'evidence': ev(r)})
+    for r in (d.get('splits') or [])[:CAP['splits']]:
+        rows.append({'club': r.get('player'), 'team': r.get('team'),
+                     'league': r.get('league'), 'category': 'Player split',
+                     'text': r.get('text'), 'source': r.get('source'),
+                     'split': r.get('split'), 'span': r.get('span'),
+                     'evidence': ev(r)})
+    for r in (d.get('rates') or [])[:CAP['rates']]:
         rows.append({'club': r.get('player'), 'team': r.get('team'),
                      'league': r.get('league'), 'category': 'Player rate',
                      'text': r.get('text'), 'source': r.get('source'),

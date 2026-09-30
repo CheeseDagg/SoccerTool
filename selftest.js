@@ -370,7 +370,9 @@ console.log('7) Signals: measured rows carry numbers, dark rows carry reasons');
     'NO rarity language reaches the page — it ranks the list and stays out of it');
   check(/histories, not forecasts/.test(L),
     'the list says outright that a run is not a prediction');
-  check(/most unusual of 2 live records/.test(L),
+  // "most unusual of N" was the old wording and it is rarity language by another
+  // name, which is the thing the list is not allowed to say.
+  check(/Showing 2 of 2 records/.test(L),
     'the footer says how many were found and that the top of the list is shown');
   const PLAYPAY = Object.assign({}, PAY, { _patterns: { chances: 2140, rows: [
     { league:'England Premier League', club:'Erling Haaland', team:'Manchester City',
@@ -380,6 +382,12 @@ console.log('7) Signals: measured rows carry numbers, dark rows carry reasons');
       category:'Player', text:"scored in 4 of Bournemouth's last 6",
       source:'openfootball per-match',
       evidence:[{date:'2026-09-20',opp:'Everton',gf:1,ga:0,side:''}] },
+    { league:'England Premier League', club:'Harry Wilson', team:'Fulham',
+      category:'Player split', split:'venue', span:'2025-08 to 2026-05',
+      text:"scored in 8 of Fulham's 19 home matches, 2 of 19 away",
+      source:'openfootball per-match',
+      evidence:[{date:'2026-03-14',opp:'Everton',gf:1,ga:0,side:'home'},
+                {opp:'Leeds',gf:1,ga:0,side:'home'}] },
   ]}});
   let PL = sigListOut(PLAYPAY);
   check(/Erling Haaland/.test(PL) && /leads the league with 5 goals in 5 games/.test(PL),
@@ -388,9 +396,24 @@ console.log('7) Signals: measured rows carry numbers, dark rows carry reasons');
     "a player row shows his CLUB, not the league name");
   check(/scored in 4 of Bournemouth&#x27;s last 6|scored in 4 of Bournemouth's last 6/.test(PL),
     'a per-match player streak names the team as the denominator');
+  check(/scored in 8 of Fulham&#x27;s 19 home matches, 2 of 19 away|scored in 8 of Fulham's 19 home matches, 2 of 19 away/.test(PL),
+    'a venue split states BOTH sides in one sentence — 8 of 19 alone is half a price');
+  check(/2025-08 to 2026-05/.test(PL),
+    'a split prints the span it covers, or a finished record reads as this season');
+  check(!/last 6[^<]*Fulham/.test(PL) && !/Fulham[^<]*of the last/.test(PL),
+    'a split never borrows the language of form');
+  // A null opp in the evidence list used to throw on e.date.slice and take the
+  // whole tab down with it; a bad row is dropped, the rest still render.
+  check(/03-14 home 1-0 Everton/.test(PL), 'split evidence renders with its venue');
   PL = sigListOut(PLAYPAY, 'Player rate');
-  check(/Haaland/.test(PL) && !/Semenyo/.test(PL),
-    'the two player kinds filter apart — one can say "of last 6", the other cannot');
+  check(/Haaland/.test(PL) && !/Semenyo/.test(PL) && !/Fulham/.test(PL),
+    'the three player kinds filter apart — only one of them can say "of last 6"');
+  const PS = sigListOut(PLAYPAY, 'Player split');
+  check(/Fulham/.test(PS) && !/Haaland/.test(PS) && !/Semenyo/.test(PS),
+    'Player split is its own filter, not folded into the other two');
+  const FLAT = PL.replace(/\s+/g, ' ');
+  check(/three kinds/.test(FLAT) && /not who played/.test(FLAT),
+    'the footer states the denominator limit instead of leaving it to be inferred');
 
   L = sigListOut(PATPAY, 'Head-to-head');
   check(/Boston River/.test(L) && !/failed to win in all/.test(L),

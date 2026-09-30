@@ -1055,21 +1055,29 @@ function sigList(){
   const rows=P.filter(r=>cat==='All'||r.category===cat);
   const chips=cats.map(c=>`<button class="btn sigcat${c===cat?' on':''}" data-c="${c}">${c}</button>`).join(' ');
   const body=rows.slice(0,60).map(r=>{
-    const ev=(r.evidence||[]).map(e=>
+    const ev=(r.evidence||[]).filter(e=>e&&e.date).map(e=>
       `${e.date.slice(5)}${e.side?' '+e.side:''} ${e.gf}-${e.ga} ${esc(e.opp)}`).join(' · ');
     const who = r.team ? `${esc(r.club)}<div class="sub">${esc(r.team)}</div>`
                        : `${esc(r.club)}<div class="sub">${esc(r.league||'')}</div>`;
+    // A split is a completed record, not a run in progress. Without the span
+    // printed beside it, "scored in 8 of 19 home matches" reads as this season.
+    const when = r.span ? `<span class="sub"> · ${esc(r.span)}</span>` : '';
     return `<tr>
       <td><b>${who}</b></td>
-      <td>${esc(r.text)}${ev?`<div class="sub">${ev}</div>`:''}</td></tr>`;
+      <td>${esc(r.text)}${when}${ev?`<div class="sub">${ev}</div>`:''}</td></tr>`;
   }).join('');
   return `<div class="ctl" style="margin-bottom:6px">${chips}</div>
     <table><tr><th>club</th><th>what is happening</th></tr>${body}</table>
     <div class="sub" style="margin-top:8px">
-      Showing the ${Math.min(60,rows.length)} most unusual of ${P.length} live records.
-      Club records are measured against that club’s own league. Player records come from
-      two sources: per-match goal data, which can say “in N of last M”, and season totals,
-      which cannot and never pretend to.
+      Showing ${Math.min(60,rows.length)} of ${P.length} records.
+      Club records are measured against that club’s own league. Player records come in
+      three kinds, and they cannot all make the same claim: <b>Player</b> is per-match
+      goal data, the only kind that can say “in N of the last M”, and the only kind that
+      goes stale; <b>Player split</b> is a finished home/away or head-to-head record over
+      the span printed beside it, which does not expire because it is not about now;
+      <b>Player rate</b> is season totals, which know how many but never which games.
+      A split counts the club’s matches at that venue — a goal feed knows who scored,
+      not who played.
       <b>These are histories, not forecasts</b> — nothing here says a run continues.</div>`;
 }
 function renderSignals(){
@@ -1085,9 +1093,9 @@ function renderSignals(){
   const aSel=el.dataset.a&&teams.includes(el.dataset.a)?el.dataset.a:teams[1]||teams[0];
   const opt=(list,sel)=>list.map(x=>`<option${x===sel?' selected':''}>${esc(x)}</option>`).join('');
   el.innerHTML=`<div class="card"><h3>Signals</h3>
-    <div class="sub">Runs and splits that are live right now across five South American
-    leagues the European model does not cover. Ranked by how unlikely each is against
-    its own league.</div>
+    <div class="sub">What is happening consistently — club runs across five South
+    American leagues the European model does not cover, and player records from the
+    big four. Longest and most one-sided first.</div>
     ${sigList()}</div>
     <div class="card"><h3>Look up a fixture</h3>
     <div class="ctl">
