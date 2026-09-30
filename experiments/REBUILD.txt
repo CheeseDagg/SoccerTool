@@ -1,3 +1,4 @@
 rebuild for props_preview + preseason showcase
 2026-09-30T17:10Z signals tab: first live build
 2026-09-30T17:26Z signals list
+2026-09-30T17:37Z plain signals
