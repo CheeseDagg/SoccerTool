@@ -350,30 +350,34 @@ console.log('7) Signals: measured rows carry numbers, dark rows carry reasons');
     return new Function(...names, '__P__', src + '\n;SIG=__P__; return sigList();')(
       ...names.map(n => sandbox[n]), payload);
   }
-  const PATPAY = Object.assign({}, PAY, { _patterns: { chances: 870, rows: [
-    { league:'Peru Liga 1', club:'UTC', category:'Form', text:'winless in 21', k:21,
-      one_in:24698, expected_by_chance:0.04, notable:true, newest:'2026-09-23',
+  const PATPAY = Object.assign({}, PAY, { _patterns: { chances: 2140, rows: [
+    { league:'Peru Liga 1', club:'UTC', category:'Form',
+      text:'failed to win in all of the last 10 \u2014 21 in a row',
+      hits:10, n:10, streak:21, rate:1, newest:'2026-09-23',
       evidence:[{date:'2026-09-23',gf:0,ga:1,opp:'Alianza',side:'A'}] },
-    { league:'Chile', club:'Deportes Concepcion', category:'Goals',
-      text:'under 2.5 in 6 straight', k:6, one_in:124, expected_by_chance:7.02,
-      notable:false, newest:'2026-09-20', evidence:[] },
+    { league:'Uruguay Primera', club:'Liverpool', category:'Head-to-head',
+      text:'kept a clean sheet in all 3 meetings with Boston River',
+      hits:3, n:3, streak:3, rate:1, opponent:'Boston River',
+      newest:'2026-09-20', evidence:[] },
   ]}});
   let L = sigListOut(PATPAY);
-  check(/winless in 21/.test(L) && /24,698/.test(L),
-    'the list leads with the rarest live run and prints its rarity');
-  check(/0\.04 expected by chance/.test(L) && /7\.02 expected by chance/.test(L),
-    'EVERY rarity is printed beside how many chance alone would produce');
-  check(/870 club-and-pattern chances examined/.test(L),
-    'the list states how many chances were examined — what makes the rarity honest');
+  check(/failed to win in all of the last 10/.test(L),
+    'a record reads as a plain sentence a person would say');
+  check(/kept a clean sheet in all 3 meetings with Boston River/.test(L),
+    'head-to-head records name the opponent');
+  // \b so "21 in a row" does not read as the rarity phrase "1 in 481".
+  check(!/unlikely/i.test(L) && !/\b1 in \d/.test(L) && !/expected by chance/.test(L),
+    'NO rarity language reaches the page — it ranks the list and stays out of it');
   check(/histories, not forecasts/.test(L),
     'the list says outright that a run is not a prediction');
-  check((L.match(/pill">clear/g) || []).length === 1,
-    'only the run that clears the look-elsewhere bar is marked');
-  L = sigListOut(PATPAY, 'Goals');
-  check(/under 2\.5 in 6 straight/.test(L) && !/winless in 21/.test(L),
+  check(/most unusual of 2 live records/.test(L),
+    'the footer says how many were found and that the top of the list is shown');
+  L = sigListOut(PATPAY, 'Head-to-head');
+  check(/Boston River/.test(L) && !/failed to win in all/.test(L),
     'the category filter narrows the list');
   check(/no pattern scan/.test(sigListOut(Object.assign({}, PAY, {_patterns:{rows:[]}}))),
     'an empty scan says so rather than rendering an empty table');
+
   {
     // Scope to the head-to-head ROW. A wide character window spills into the next
     // row, which legitimately uses class="num" -- that assertion passed on the bug
@@ -400,8 +404,10 @@ console.log('7) Signals: measured rows carry numbers, dark rows carry reasons');
       'the committed payload carries no per-match rows (the page never shows them)');
     check(real._patterns && Array.isArray(real._patterns.rows) && real._patterns.rows.length,
       `the committed payload carries ${(real._patterns||{rows:[]}).rows.length} ranked patterns`);
-    check(real._patterns.rows.every(r => r.one_in == null || r.expected_by_chance != null),
-      'no committed pattern carries a rarity without its look-elsewhere figure');
+    check(real._patterns.rows.every(r => r.one_in == null && r.expected_by_chance == null),
+      'the committed payload carries NO rarity fields at all — that stat ranks upstream');
+    check(real._patterns.rows.every(r => typeof r.text === 'string' && /\d/.test(r.text)),
+      'every committed record is a sentence carrying its own counts');
   }
 }
 

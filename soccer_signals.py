@@ -48,8 +48,10 @@ def trim_patterns(pdoc, keep=140):
     chances examined. The count is what makes a rarity honest: a run that
     chance alone would produce a dozen times over is not a finding."""
     rows = (pdoc or {}).get('patterns') or []
-    keepers = ('league', 'club', 'category', 'text', 'k', 'one_in',
-               'expected_by_chance', 'notable', 'newest')
+    # 'text' IS the finding. The rarity fields the first build carried are gone
+    # from upstream: that statistic ranks the list and never reaches a reader.
+    keepers = ('league', 'club', 'category', 'text', 'hits', 'n', 'streak',
+               'rate', 'opponent', 'newest')
     out = []
     for r in rows[:keep]:
         row = {k: r[k] for k in keepers if k in r}
@@ -135,18 +137,20 @@ def selftest():
     chk(t['src'] == 'dated rounds', 'provenance is carried to the page, not hidden')
 
     pd = {'chances': 870, 'patterns': [
-        {'league':'L','club':'UTC','category':'Form','key':'winless','text':'winless in 21',
-         'k':21,'base':0.62,'one_in':24698,'newest':'2026-09-23','notable':True,
-         'expected_by_chance':0.04,
+        {'league':'L','club':'UTC','category':'Form','key':'winless',
+         'text':'failed to win in all of the last 10 - 21 in a row',
+         'hits':10,'n':10,'streak':21,'rate':1.0,'newest':'2026-09-23',
          'evidence':[{'date':'2026-09-23','gf':0,'ga':1,'opp':'X','side':'A'}]*9},
-        {'league':'L','club':'Y','category':'Goals','key':'under','text':'under 2.5 in 6',
-         'k':6,'one_in':124,'newest':'2026-09-20','notable':False,
-         'expected_by_chance':7.02,'evidence':[]}]}
+        {'league':'L','club':'Y','category':'Goals','key':'under',
+         'text':'under 2.5 in 8 of last 10','hits':8,'n':10,'streak':2,'rate':0.8,
+         'newest':'2026-09-20','evidence':[]}]}
     tp = trim_patterns(pd)
     chk(tp['chances'] == 870, 'the chances-examined count reaches the page')
     chk(len(tp['rows']) == 2 and tp['rows'][0]['club'] == 'UTC', 'rows carry through in order')
-    chk(tp['rows'][0]['expected_by_chance'] == 0.04 and tp['rows'][0]['notable'] is True,
-        'the look-elsewhere figure travels WITH the rarity, never separated from it')
+    chk('one_in' not in tp['rows'][0] and 'expected_by_chance' not in tp['rows'][0],
+        'no rarity field survives the trim -- the page never sees that statistic')
+    chk(tp['rows'][0]['text'].startswith('failed to win'),
+        'the sentence is what carries through')
     chk(len(tp['rows'][0]['evidence']) == 6, 'evidence is capped so the payload stays small')
     chk('base' not in tp['rows'][0] and 'key' not in tp['rows'][0],
         'fields the page does not render are dropped')
