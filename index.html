@@ -1052,7 +1052,25 @@ function sigList(){
   if(!P.length) return '<div class="empty">no pattern scan in this payload</div>';
   const el=$('t-signals'), cat=el.dataset.cat||'All';
   const cats=['All',...[...new Set(P.map(r=>r.category))].sort()];
-  const rows=P.filter(r=>cat==='All'||r.category===cat);
+  // "All" ROUND-ROBINS THE CATEGORIES. The payload concatenates the families —
+  // player rows, then club runs — so taking the first 60 of a flat list showed
+  // sixty player rows and not one club run, and the tab looked like it had
+  // quietly stopped covering the South American leagues it was built for.
+  // Each family keeps its own ranking; the interleave only decides who is
+  // visible above the fold.
+  let rows;
+  if(cat!=='All'){ rows=P.filter(r=>r.category===cat); }
+  else{
+    const buckets=new Map();
+    P.forEach(r=>{ const k=r.category||'?';
+      if(!buckets.has(k)) buckets.set(k,[]); buckets.get(k).push(r); });
+    const qs=[...buckets.values()]; rows=[];
+    for(let i=0; rows.length<P.length; i++){
+      let moved=false;
+      qs.forEach(q=>{ if(i<q.length){ rows.push(q[i]); moved=true; } });
+      if(!moved) break;
+    }
+  }
   const chips=cats.map(c=>`<button class="btn sigcat${c===cat?' on':''}" data-c="${c}">${c}</button>`).join(' ');
   const body=rows.slice(0,60).map(r=>{
     const ev=(r.evidence||[]).filter(e=>e&&e.date).map(e=>

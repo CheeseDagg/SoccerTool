@@ -415,6 +415,19 @@ console.log('7) Signals: measured rows carry numbers, dark rows carry reasons');
   check(/three kinds/.test(FLAT) && /not who played/.test(FLAT),
     'the footer states the denominator limit instead of leaving it to be inferred');
 
+  // "All" must not let one family monopolise the visible rows.
+  const MIXPAY = Object.assign({}, PAY, { _patterns: { chances: 10, rows: [
+    ...Array.from({length: 70}, (_,i)=>({ league:'L', club:`P${i}`, team:'T',
+      category:'Player rate', text:`rate ${i}`, source:'understat season totals',
+      evidence:[] })),
+    { league:'Peru Liga 1', club:'UTC', category:'Form',
+      text:'failed to win in all of the last 10', evidence:[] },
+  ]}});
+  const MIX = sigListOut(MIXPAY);
+  check(/failed to win in all of the last 10/.test(MIX),
+    'a lone club run is still visible beside seventy player rows — "All" interleaves');
+  check(/rate 0/.test(MIX), 'and the top of the crowded family is shown too');
+
   L = sigListOut(PATPAY, 'Head-to-head');
   check(/Boston River/.test(L) && !/failed to win in all/.test(L),
     'the category filter narrows the list');
