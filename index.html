@@ -1058,18 +1058,23 @@ function sigList(){
   // quietly stopped covering the South American leagues it was built for.
   // Each family keeps its own ranking; the interleave only decides who is
   // visible above the fold.
-  let rows;
-  if(cat!=='All'){ rows=P.filter(r=>r.category===cat); }
-  else{
-    const buckets=new Map();
-    P.forEach(r=>{ const k=r.category||'?';
-      if(!buckets.has(k)) buckets.set(k,[]); buckets.get(k).push(r); });
-    const qs=[...buckets.values()]; rows=[];
-    for(let i=0; rows.length<P.length; i++){
-      let moved=false;
-      qs.forEach(q=>{ if(i<q.length){ rows.push(q[i]); moved=true; } });
-      if(!moved) break;
-    }
+  // ROUND-ROBIN BY CATEGORY *AND* BY SUBJECT. The payload concatenates its
+  // sources — player rows, then club rows — so taking the first N of a flat
+  // array shows whichever came first and nothing else. That hid every club run
+  // under "All", and once player splits moved into Home/Away it also meant
+  // opening that category listed forty player rows before the first club split.
+  // Interleaving on both keys puts the top of each kind above the fold; every
+  // bucket keeps its own ranking internally.
+  const pool=cat==='All'?P:P.filter(r=>r.category===cat);
+  const kind=r=>(r.team?'player':'club');
+  const buckets=new Map();
+  pool.forEach(r=>{ const k=(cat==='All'?(r.category||'?')+'|':'')+kind(r);
+    if(!buckets.has(k)) buckets.set(k,[]); buckets.get(k).push(r); });
+  const qs=[...buckets.values()]; let rows=[];
+  for(let i=0; rows.length<pool.length; i++){
+    let moved=false;
+    qs.forEach(q=>{ if(i<q.length){ rows.push(q[i]); moved=true; } });
+    if(!moved) break;
   }
   const chips=cats.map(c=>`<button class="btn sigcat${c===cat?' on':''}" data-c="${c}">${c}</button>`).join(' ');
   const body=rows.slice(0,60).map(r=>{

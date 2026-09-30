@@ -455,6 +455,22 @@ console.log('7) Signals: measured rows carry numbers, dark rows carry reasons');
     'a club venue split reads as counts on both sides');
   check(!/points per game/.test(HA),
     'no points-per-game differential reaches the page — it counts nothing');
+  // Inside one category the two kinds interleave too: opening Home/Away with
+  // forty player rows in front of the club splits buried every club row.
+  const MANY = Object.assign({}, PAY, { _patterns: { chances: 100, rows: [
+    ...Array.from({length: 70}, (_,i)=>({ league:'L', club:`P${i}`, team:'T',
+      category:'Home/Away', split:'venue', span:'s',
+      text:`scored in ${i} of T's 19 home matches, 1 of 19 away`, evidence:[] })),
+    { league:'Peru Liga 1', club:'Sport Huancayo', category:'Home/Away',
+      key:'split_win', text:'won 8 of 10 at home, 2 of 10 away', evidence:[] },
+  ]}});
+  const MANYHA = sigListOut(MANY, 'Home/Away');
+  // 70 player rows exceeds the 60 the list renders, so without the kind
+  // interleave the club row falls off the page entirely.
+  check(/Sport Huancayo/.test(MANYHA),
+    'a single club split is visible beside seventy player rows in the same category');
+  check(/P0/.test(MANYHA), 'and the top of the player side is shown too');
+
   const H2 = sigListOut(HAPAY, 'Head-to-head');
   check(/A. Nemesis/.test(H2) && !/Sport Huancayo/.test(H2),
     'a player head-to-head files under Head-to-head');
