@@ -412,8 +412,12 @@ console.log('7) Signals: measured rows carry numbers, dark rows carry reasons');
   check(/Fulham/.test(PS) && !/Haaland/.test(PS) && !/Semenyo/.test(PS),
     'Player split is its own filter, not folded into the other two');
   const FLAT = PL.replace(/\s+/g, ' ');
-  check(/three kinds/.test(FLAT) && /not who played/.test(FLAT),
+  check(/not who played/.test(FLAT),
     'the footer states the denominator limit instead of leaving it to be inferred');
+  check(/hold both clubs and players/.test(FLAT),
+    'and says the two split categories carry players as well as clubs');
+  check(/over 45 days old/.test(FLAT),
+    'and which rows expire, since a finished split sits beside a live run');
 
   // "All" must not let one family monopolise the visible rows.
   const MIXPAY = Object.assign({}, PAY, { _patterns: { chances: 10, rows: [
@@ -427,6 +431,35 @@ console.log('7) Signals: measured rows carry numbers, dark rows carry reasons');
   check(/failed to win in all of the last 10/.test(MIX),
     'a lone club run is still visible beside seventy player rows — "All" interleaves');
   check(/rate 0/.test(MIX), 'and the top of the crowded family is shown too');
+
+  // HOME/AWAY MUST HOLD BOTH KINDS. The club rows alone read as vague team
+  // stats, which is what the category looked like while the player rows sat in
+  // a bucket of their own.
+  const HAPAY = Object.assign({}, PAY, { _patterns: { chances: 100, rows: [
+    { league:'L', club:'H. Wilson', team:'Fulham', category:'Home/Away',
+      split:'venue', span:'2025-08 to 2026-05',
+      text:"scored in 8 of Fulham's 19 home matches, 2 of 19 away",
+      source:'openfootball per-match', evidence:[] },
+    { league:'Peru Liga 1', club:'Sport Huancayo', category:'Home/Away',
+      key:'split_win', text:'won 8 of 10 at home, 2 of 10 away',
+      home_hits:8, home_n:10, away_hits:2, away_n:10, evidence:[] },
+    { league:'L', club:'A. Nemesis', team:'Cats', category:'Head-to-head',
+      split:'h2h', span:'2025-08 to 2026-05',
+      text:"scored in 3 of Cats' 4 meetings with Rival",
+      source:'openfootball per-match', evidence:[] },
+  ]}});
+  const HA = sigListOut(HAPAY, 'Home/Away');
+  check(/H. Wilson/.test(HA) && /Sport Huancayo/.test(HA),
+    'Home/Away holds the player record AND the club record, not just the club one');
+  check(/won 8 of 10 at home, 2 of 10 away/.test(HA),
+    'a club venue split reads as counts on both sides');
+  check(!/points per game/.test(HA),
+    'no points-per-game differential reaches the page — it counts nothing');
+  const H2 = sigListOut(HAPAY, 'Head-to-head');
+  check(/A. Nemesis/.test(H2) && !/Sport Huancayo/.test(H2),
+    'a player head-to-head files under Head-to-head');
+  check(!/Player split/.test(sigListOut(HAPAY)),
+    'the "Player split" category name is gone from the chips entirely');
 
   L = sigListOut(PATPAY, 'Head-to-head');
   check(/Boston River/.test(L) && !/failed to win in all/.test(L),

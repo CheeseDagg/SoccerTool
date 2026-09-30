@@ -1088,14 +1088,16 @@ function sigList(){
     <table><tr><th>club</th><th>what is happening</th></tr>${body}</table>
     <div class="sub" style="margin-top:8px">
       Showing ${Math.min(60,rows.length)} of ${P.length} records.
-      Club records are measured against that club’s own league. Player records come in
-      three kinds, and they cannot all make the same claim: <b>Player</b> is per-match
-      goal data, the only kind that can say “in N of the last M”, and the only kind that
-      goes stale; <b>Player split</b> is a finished home/away or head-to-head record over
-      the span printed beside it, which does not expire because it is not about now;
+      Club records are measured against that club’s own league. <b>Home/Away</b> and
+      <b>Head-to-head</b> hold both clubs and players, because a player’s venue record
+      is a venue record — each row names whose it is. Those two are finished records
+      over the span printed beside them, so they do not expire; a run under
+      <b>Form</b>, <b>Goals</b>, <b>Attack</b> or <b>Defence</b> is a claim about now
+      and is dropped once its newest match is over 45 days old. <b>Player</b> rows are
+      per-match goal data, the only kind that can say “in N of the last M”;
       <b>Player rate</b> is season totals, which know how many but never which games.
-      A split counts the club’s matches at that venue — a goal feed knows who scored,
-      not who played.
+      A player split counts the club’s matches at that venue — a goal feed knows who
+      scored, not who played.
       <b>These are histories, not forecasts</b> — nothing here says a run continues.</div>`;
 }
 function renderSignals(){

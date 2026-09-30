@@ -97,9 +97,19 @@ def trim_players(pdoc, keep=90):
                      'league': r.get('league'), 'category': 'Player',
                      'text': r.get('text'), 'source': r.get('source'),
                      'evidence': ev(r)})
+    # A PLAYER'S HOME/AWAY RECORD IS A HOME/AWAY RECORD. These rode in a
+    # category of their own called 'Player split', so clicking "Home/Away"
+    # showed only club season averages and clicking "Head-to-head" only
+    # club-vs-club -- the player rows were filed under a third name nobody would
+    # think to open, and the two categories a reader actually wants were left
+    # looking like vague team stats. The category is what the split IS, not who
+    # the subject happens to be; the row already names a player rather than a
+    # club, so nothing is lost by filing it where it belongs.
+    SPLIT_CAT = {'venue': 'Home/Away', 'h2h': 'Head-to-head'}
     for r in (d.get('splits') or [])[:CAP['splits']]:
         rows.append({'club': r.get('player'), 'team': r.get('team'),
-                     'league': r.get('league'), 'category': 'Player split',
+                     'league': r.get('league'),
+                     'category': SPLIT_CAT.get(r.get('split'), 'Home/Away'),
                      'text': r.get('text'), 'source': r.get('source'),
                      'split': r.get('split'), 'span': r.get('span'),
                      'evidence': ev(r)})
@@ -221,6 +231,28 @@ def selftest():
     chk(pl[0]['evidence'][0]['date'] == '2026-09-20', 'streak evidence carries through')
     chk(trim_players({}) == [] and trim_players(None) == [],
         'a missing player file yields nothing, not a crash')
+
+    # A PLAYER'S HOME/AWAY RECORD FILES UNDER Home/Away. These rode in a
+    # category called 'Player split', so the two categories a reader actually
+    # opens showed only club rows and read as vague team stats. Nothing asserted
+    # the category, which is why moving it broke no test.
+    ps = trim_players({'splits': [
+        {'player': 'H. Wilson', 'team': 'Fulham', 'league': 'L', 'split': 'venue',
+         'span': '2025-08 to 2026-05', 'source': 'openfootball per-match',
+         'text': "scored in 8 of Fulham's 19 home matches, 2 of 19 away"},
+        {'player': 'A. Nemesis', 'team': 'Cats', 'league': 'L', 'split': 'h2h',
+         'span': '2025-08 to 2026-05', 'source': 'openfootball per-match',
+         'text': "scored in 3 of Cats' 4 meetings with Rival"}]})
+    chk([r['category'] for r in ps] == ['Home/Away', 'Head-to-head'],
+        'a player venue split is Home/Away and a player h2h is Head-to-head')
+    chk(not any(r['category'] == 'Player split' for r in ps),
+        "no row is filed under a third name a reader would not think to open")
+    chk(all(r.get('span') for r in ps),
+        'and each still carries the span, because it is a finished record')
+    odd = trim_players({'splits': [{'player': 'P', 'team': 'T', 'split': 'something_new',
+                                    'text': 't', 'source': 's'}]})
+    chk(odd[0]['category'] == 'Home/Away',
+        'an unrecognised split kind lands in a real category rather than inventing one')
 
     mixed = dict(trim({'L': {'rates': {'result': {'home':.4,'draw':.3,'away':.3,
                                                   'mean_goals':2,'n':9}},
