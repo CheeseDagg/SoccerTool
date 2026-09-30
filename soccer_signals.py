@@ -34,6 +34,11 @@ OUT = os.path.join(HERE, 'data', 'signals.json')
 SRC = 'https://raw.githubusercontent.com/CheeseDagg/parlay/main/socextra.json'
 PAT = 'https://raw.githubusercontent.com/CheeseDagg/parlay/main/socpatterns.json'
 PLY = 'https://raw.githubusercontent.com/CheeseDagg/parlay/main/socplayers.json'
+# Player head-to-head is a SEPARATE file because it comes from a separate
+# source. socplayers is openfootball, which has one season of scorers and
+# therefore cannot produce a head-to-head at all; socph2h is understat's
+# per-match appearance record, which spans seasons and can.
+H2H = 'https://raw.githubusercontent.com/CheeseDagg/parlay/main/socph2h.json'
 UA = 'Mozilla/5.0 (compatible; soccertool-signals/1.0)'
 
 
@@ -85,7 +90,7 @@ def trim_players(pdoc, keep=90):
     # list: 118 splits against a keep of 90 would have pushed every season rate
     # off the page and left the tab looking like it only does home/away. Each
     # family gets its own room and the total is still bounded.
-    CAP = {'streaks': 30, 'splits': 40, 'rates': 40}
+    CAP = {'streaks': 30, 'splits': 40, 'h2h': 40, 'rates': 40}
 
     def ev(r, n=6):
         return [{'date': e.get('date'), 'opp': e.get('opp'),
@@ -113,6 +118,11 @@ def trim_players(pdoc, keep=90):
                      'text': r.get('text'), 'source': r.get('source'),
                      'split': r.get('split'), 'span': r.get('span'),
                      'evidence': ev(r)})
+    for r in (d.get('h2h') or [])[:CAP['h2h']]:
+        rows.append({'club': r.get('player'), 'team': r.get('team'),
+                     'league': r.get('league'), 'category': 'Head-to-head',
+                     'text': r.get('text'), 'source': r.get('source'),
+                     'split': 'h2h', 'span': r.get('span'), 'evidence': ev(r)})
     for r in (d.get('rates') or [])[:CAP['rates']]:
         rows.append({'club': r.get('player'), 'team': r.get('team'),
                      'league': r.get('league'), 'category': 'Player rate',
@@ -249,6 +259,28 @@ def selftest():
         "no row is filed under a third name a reader would not think to open")
     chk(all(r.get('span') for r in ps),
         'and each still carries the span, because it is a finished record')
+    # Player head-to-head arrives as its own family from its own source, and
+    # lands in the Head-to-head category beside the club records.
+    ph = trim_players({'h2h': [
+        {'player': 'E. Haaland', 'team': 'Manchester City', 'league': 'L',
+         'span': '2023-08 to 2026-02', 'source': 'understat per-match appearances',
+         'text': 'scored in 5 of his 6 against Wolves — 8 goals',
+         'evidence': [{'date': '2026-02-01', 'opp': 'Wolves', 'goals': 2,
+                       'venue': 'home'}]}]})
+    chk(len(ph) == 1 and ph[0]['category'] == 'Head-to-head',
+        'a player head-to-head record files under Head-to-head')
+    chk(ph[0]['span'] == '2023-08 to 2026-02' and 'appearances' in ph[0]['source'],
+        'it carries a multi-season span and names the appearance source that '
+        'makes "his" an honest denominator')
+    chk(ph[0]['evidence'][0]['side'] == 'home',
+        'and the venue of each meeting rides along')
+    both = trim_players({'splits': [{'player': 'A', 'team': 'T', 'split': 'venue',
+                                     'text': 'v', 'source': 's'}],
+                         'h2h': [{'player': 'B', 'team': 'T', 'text': 'h',
+                                  'source': 's'}]})
+    chk([r['category'] for r in both] == ['Home/Away', 'Head-to-head'],
+        'the two split families do not collide -- each lands in its own category')
+
     odd = trim_players({'splits': [{'player': 'P', 'team': 'T', 'split': 'something_new',
                                     'text': 't', 'source': 's'}]})
     chk(odd[0]['category'] == 'Home/Away',
@@ -286,7 +318,17 @@ def main():
     except Exception as e:
         print(f'signals: patterns unavailable ({type(e).__name__}) -- fixture card only')
     try:
-        pl = trim_players(fetch(PLY))
+        pdoc = fetch(PLY)
+        # Merge the head-to-head file in as another family. Fail-soft on its own:
+        # it is a different source with a different failure mode, and losing it
+        # must not cost the splits and rates that did come back.
+        try:
+            pdoc = dict(pdoc, h2h=(fetch(H2H) or {}).get('h2h') or [])
+            print(f"signals: {len(pdoc['h2h'])} player head-to-head records fetched")
+        except Exception as e:
+            print(f'signals: player head-to-head unavailable ({type(e).__name__}) '
+                  f'-- the other player families are unaffected')
+        pl = trim_players(pdoc)
         payload.setdefault('_patterns', {'chances': None, 'rows': []})
         payload['_patterns']['rows'] = pl + payload['_patterns']['rows']
         payload['_players'] = len(pl)
