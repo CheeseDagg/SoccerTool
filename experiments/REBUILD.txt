@@ -8,3 +8,4 @@ splits into signals 2026-09-30T19:27:18Z
 clean splits 2026-09-30T19:34:00Z
 verified splits 2026-09-30T19:46:57Z
 final ordering 2026-09-30T19:48:02Z
+ha counts + interleave 2026-09-30T20:38:18Z
