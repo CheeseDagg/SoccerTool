@@ -270,7 +270,7 @@ function render(d){
   const tabs=[], nav=$('nav'), host=$('tabs');
   tabs.push(["scores","Scoreboard"],["legs","Legs"],["build","Builder"],["lab","Matchup Lab"],["track","Tracker"]);
   LG_ORDER.forEach(div=>{ if(d.leagues[div]) tabs.push([div, d.leagues[div].name||div]); });
-  tabs.push(["props","Props"],["cal","Calibration"],["method","Method"]);
+  tabs.push(["signals","Signals"],["props","Props"],["cal","Calibration"],["method","Method"]);
   // Preseason, the Legs tab is an apology and the Lab is the show. Open on the
   // tab that has something to say.
   const first= totalFx ? "legs" : "lab";
@@ -283,6 +283,7 @@ function render(d){
   });
 
   renderLegs(); renderBuilder(); renderLab(); renderTrack(); startScores();
+  renderSignals();
 
   LG_ORDER.forEach(div=>{
     const L=d.leagues[div]; if(!L) return;
@@ -959,10 +960,123 @@ function renderMethod(){
   measured, not inferred. Win% is decision support; the tool never claims an edge the table doesn't show.</div></div>`;
 }
 
+/* ---- Signals -------------------------------------------------------------
+   Five South American leagues that football-data.co.uk does not publish at
+   all, so the European model above has nothing to say about them. The data is
+   built in the parlay repo (socextra) and read here; soccer_signals.py trims
+   it. Six signals per fixture, and the three that cannot be measured print
+   the REASON instead of an empty cell -- a card with two invented rows is
+   worse than one with two honest blanks. */
+let SIG=null;
+const SIG_MAX_AGE=45;
+function sigRanks(L){
+  const t={};
+  for(const side of ['home','away'])
+    for(const [team,v] of Object.entries(L[side]||{})){
+      const d=t[team]||(t[team]={p:0,pts:0,gd:0});
+      d.p+=v.p; d.pts+=v.w*3+v.d; d.gd+=v.gf-v.ga;
+    }
+  const order=Object.keys(t).sort((x,y)=>(t[y].pts/t[y].p)-(t[x].pts/t[x].p)||t[y].gd-t[x].gd);
+  order.forEach((k,i)=>{t[k].rank=i+1;t[k].ppg=t[k].pts/t[k].p;});
+  return [t,order.length];
+}
+function sigRow(name,html,why){
+  return `<tr><td class="dim" style="white-space:nowrap">${name}</td><td>`+
+         (why?`<span class="dim">—</span><div class="sub">${why}</div>`:html)+`</td></tr>`;
+}
+function sigCard(lg,hm,aw){
+  const L=SIG[lg]; if(!L) return '<div class="empty">no data for that league</div>';
+  const b=L.base, pc=x=>(100*x).toFixed(1)+'%';
+  let live=2, rows='';
+  rows+=sigRow('league base',
+    `<span class="num">home ${pc(b.home)} · draw ${pc(b.draw)} · away ${pc(b.away)}</span>`+
+    `<div class="sub">${b.mean_goals} goals per match · n=${b.n}</div>`);
+  const rungs=Object.keys(L.under).sort((x,y)=>parseFloat(x)-parseFloat(y));
+  rows+=sigRow('under ladder', rungs.map(r=>
+     `<span class="pill">U${r} ${pc(L.under[r])}</span>`).join(' '));
+  const H=L.home[hm], A=L.away[aw];
+  if(H&&A){
+    rows+=sigRow('home / away split',
+      `<div><b>${esc(hm)}</b> home <span class="num">${H.w}-${H.d}-${H.l}</span>
+       <span class="dim">(${H.gf}gf ${H.ga}ga, ${H.ppg.toFixed(2)} ppg)</span></div>
+       <div><b>${esc(aw)}</b> away <span class="num">${A.w}-${A.d}-${A.l}</span>
+       <span class="dim">(${A.gf}gf ${A.ga}ga, ${A.ppg.toFixed(2)} ppg)</span></div>`);
+    live++;
+    const met=L.h2h[[hm,aw].sort().join('|')];
+    if(met&&met.length){
+      rows+=sigRow('head to head', met.map(m=>
+        `<div class="num">${esc(m.home)} ${m.hg}-${m.ag} ${esc(m.away)}</div>`).join(''));
+      live++;
+    } else rows+=sigRow('head to head','','These two have not met in the results on file this season.');
+    const [T,n]=sigRanks(L);
+    rows+=sigRow('opponent rank',
+      `<div>${esc(hm)} <span class="num">#${T[hm].rank}/${n}</span>
+       <span class="dim">(${T[hm].ppg.toFixed(2)} ppg)</span></div>
+       <div>${esc(aw)} <span class="num">#${T[aw].rank}/${n}</span>
+       <span class="dim">(${T[aw].ppg.toFixed(2)} ppg)</span></div>`);
+    live++;
+  } else {
+    ['home / away split','head to head','opponent rank'].forEach(k=>{
+      rows+=sigRow(k,'','One of these clubs has no rows in this league.');});
+  }
+  const fh=L.form[hm], fa=L.form[aw];
+  if(fh&&fa){
+    const age=s=>Math.round((Date.now()-Date.parse(s+'T00:00:00Z'))/86400000);
+    const worst=age(fh.newest)>age(fa.newest)?[hm,fh]:[aw,fa];
+    if(age(worst[1].newest)>SIG_MAX_AGE)
+      rows+=sigRow('recent form','',
+        `Stale. The newest dated result for ${esc(worst[0])} is ${worst[1].newest}, `+
+        `${age(worst[1].newest)} days old (limit ${SIG_MAX_AGE}). This league dates only part `+
+        `of its season, and last half's form under a "recent" label is worse than none.`);
+    else{
+      const F=f=>`<span class="num" style="letter-spacing:.12em">${f}</span>`;
+      rows+=sigRow('recent form',
+        `<div>${esc(hm)} ${F(fh.form)} <span class="dim">(${fh.gf}gf ${fh.ga}ga, last ${fh.newest})</span></div>
+         <div>${esc(aw)} ${F(fa.form)} <span class="dim">(${fa.gf}gf ${fa.ga}ga, last ${fa.newest})</span></div>`);
+      live++;
+    }
+  } else rows+=sigRow('recent form','','No dated results for one of these clubs.');
+  const news='Not in any results table. This lives in per-fixture team news — predicted XI, '+
+             'injuries, suspensions — which no season page carries.';
+  rows+=sigRow('injury impact','',news);
+  rows+=sigRow('starter','',news);
+  return `<div class="sub" style="margin-bottom:6px"><b>${live}</b>/8 signals measured — `+
+         `the rest state why they are dark</div><table>${rows}</table>`+
+         `<div class="sub">${esc(L.src||'season pages')}. Measured off published season `+
+         `results, not off closing odds: there is no de-vig in these and they are not a market price.</div>`;
+}
+function renderSignals(){
+  const el=$('t-signals'); if(!el) return;
+  if(!SIG){ el.innerHTML=`<div class="card"><h3>Signals</h3>
+    <div class="empty">loading five South American leagues…</div></div>`; return; }
+  const lgs=Object.keys(SIG);
+  if(!lgs.length){ el.innerHTML=`<div class="card"><h3>Signals</h3>
+    <div class="empty">signals.json carried no leagues — run soccer_signals.py</div></div>`; return; }
+  const cur=el.dataset.lg&&SIG[el.dataset.lg]?el.dataset.lg:lgs[0];
+  const teams=SIG[cur].teams;
+  const hSel=el.dataset.h&&teams.includes(el.dataset.h)?el.dataset.h:teams[0];
+  const aSel=el.dataset.a&&teams.includes(el.dataset.a)?el.dataset.a:teams[1]||teams[0];
+  const opt=(list,sel)=>list.map(x=>`<option${x===sel?' selected':''}>${esc(x)}</option>`).join('');
+  el.innerHTML=`<div class="card"><h3>Signals</h3>
+    <div class="sub">Leagues the European model does not cover. Built from published season
+    results in the parlay repo and refreshed by the daily Action.</div>
+    <div class="ctl">
+      <label>league <select id="sigLg">${opt(lgs,cur)}</select></label>
+      <label>home <select id="sigH">${opt(teams,hSel)}</select></label>
+      <label>away <select id="sigA">${opt(teams,aSel)}</select></label>
+    </div>
+    <div id="sigOut">${sigCard(cur,hSel,aSel)}</div></div>`;
+  $('sigLg').onchange=e=>{el.dataset.lg=e.target.value;el.dataset.h='';el.dataset.a='';renderSignals();};
+  $('sigH').onchange=e=>{el.dataset.lg=cur;el.dataset.h=e.target.value;el.dataset.a=aSel;renderSignals();};
+  $('sigA').onchange=e=>{el.dataset.lg=cur;el.dataset.h=hSel;el.dataset.a=e.target.value;renderSignals();};
+}
+
 /* no-store. The daily Action republishes data/slate.json at the same URL every
    morning, so a browser is free to serve yesterday's fixtures on a page whose whole
    value is that it is today's -- and nothing would look wrong, because a stale slate
    renders perfectly. */
 fetch('data/slate.json',{cache:'no-store'}).then(r=>r.json()).then(render)
  .catch(()=>{$('meta').textContent='could not load slate.json — run soccer_publish.py (or wait for the daily Action)';});
+fetch('data/signals.json',{cache:'no-store'}).then(r=>r.json()).then(s=>{SIG=s;renderSignals();})
+ .catch(()=>{SIG={};renderSignals();});
 </script></body></html>

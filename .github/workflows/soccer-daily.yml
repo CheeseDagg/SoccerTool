@@ -32,14 +32,22 @@ jobs:
           python soccer_props.py --selftest
           python soccer_grade.py --selftest
           python soccer_publish.py --selftest-overlay
+          python soccer_signals.py --selftest
           node selftest.js
       - name: Refresh xG cache (fail-soft — keeps committed cache if understat is walled)
         run: python soccer_xg_experiment.py --refresh-cache || true
       - name: Fetch, fit, grade, publish
         run: python soccer_publish.py
+      # Signals reads the parlay repo's socextra.json (Colombia, Peru, Chile,
+      # Uruguay, Bolivia -- leagues football-data.co.uk does not publish). It is
+      # fail-soft by construction: a bad fetch keeps the committed file rather
+      # than emptying the tab, so this does not need `|| true` hiding a crash.
+      - name: Refresh Signals payload
+        run: python soccer_signals.py
       - name: Validate slate.json is browser-parseable
         run: |
           node -e "JSON.parse(require('fs').readFileSync('data/slate.json','utf8')); console.log('slate.json OK for browsers')"
+          node -e "JSON.parse(require('fs').readFileSync('data/signals.json','utf8')); console.log('signals.json OK for browsers')"
       - name: Commit fresh slate
         run: |
           git config user.name "soccer-bot"
@@ -47,7 +55,7 @@ jobs:
           for attempt in 1 2 3 4 5; do
             git fetch origin main
             git reset --mixed origin/main
-            for f in data/slate.json data/soccer_predictions.csv data/soccer_graded.csv data/backtest_cache.json data/understat_xg.json; do
+            for f in data/slate.json data/signals.json data/soccer_predictions.csv data/soccer_graded.csv data/backtest_cache.json data/understat_xg.json; do
               git add "$f" 2>/dev/null || true
             done
             if git diff --cached --quiet; then

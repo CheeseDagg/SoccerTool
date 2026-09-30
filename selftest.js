@@ -259,6 +259,95 @@ console.log('6) the slate cannot be served from browser cache');
     (cacheable.length ? ' — CACHEABLE: ' + cacheable.join(', ') : ''));
 }
 
+/* --------------------------------------------- 7) the Signals tab is honest */
+console.log('7) Signals: measured rows carry numbers, dark rows carry reasons');
+{
+  // Drive sigCard() directly out of the SHIPPED script, against a payload whose
+  // shape is fixed on purpose: one club with fresh form, one whose newest dated
+  // result is four months old. The staleness gate is the whole point -- Colombia
+  // dates only half its season, and 159-day-old results under a "recent" label
+  // would be a signal that is not missing but WRONG.
+  const PAY = {
+    'Testland': {
+      base: { home: .45, draw: .30, away: .25, mean_goals: 2.5, n: 100 },
+      under: { '2.5': .5, '3.5': .75 },
+      teams: ['Alpha', 'Beta', 'Stale FC'],
+      home: { Alpha: {p:5,w:4,d:1,l:0,gf:10,ga:2,ppg:2.6},
+              'Stale FC': {p:5,w:1,d:1,l:3,gf:4,ga:8,ppg:0.8} },
+      away: { Beta: {p:5,w:1,d:1,l:3,gf:3,ga:9,ppg:0.8},
+              'Stale FC': {p:5,w:0,d:2,l:3,gf:2,ga:9,ppg:0.4} },
+      form: { Alpha: {form:'WWDLW',gf:9,ga:4,newest:isoDaysAgo(6)},
+              Beta:  {form:'LLDWL',gf:3,ga:8,newest:isoDaysAgo(8)},
+              'Stale FC': {form:'WWWWW',gf:12,ga:1,newest:isoDaysAgo(159)} },
+      // Both pairs meet, so the ONLY difference between the two cards below is
+      // the form age -- otherwise a missing h2h would also darken a row and the
+      // count comparison would be measuring two things at once.
+      h2h: { 'Alpha|Beta': [{home:'Alpha',away:'Beta',hg:2,ag:0}],
+             'Beta|Stale FC': [{home:'Stale FC',away:'Beta',hg:1,ag:1}] },
+      src: 'dated rounds',
+    }
+  };
+  function isoDaysAgo(n){ return new Date(Date.now()-n*86400000).toISOString().slice(0,10); }
+
+  function sigOut(home, away) {
+    const { els, doc } = makeDom();
+    const sandbox = {
+      document: doc, window: { addEventListener(){}, location:{hash:''} },
+      location:{hash:''}, console, fetch: () => Promise.reject(new Error('no network')),
+      setTimeout, clearTimeout, Math, JSON, Date, Number, String, Array, Object,
+      isFinite, parseFloat, parseInt,
+      MutationObserver: function(){ this.observe=function(){}; this.disconnect=function(){}; },
+    };
+    const names = Object.keys(sandbox);
+    const body = src + '\n;SIG=__P__; return sigCard("Testland", __H__, __A__);';
+    return new Function(...names, '__P__','__H__','__A__', body)(
+      ...names.map(n => sandbox[n]), PAY, home, away);
+  }
+
+  let s = sigOut('Alpha', 'Beta');
+  check(/6<\/b>\/8 signals measured/.test(s),
+    'a fully covered fixture reports 6 of 8 measured, never 8');
+  check(/Alpha<\/b> home <span class="num">4-1-0/.test(s), 'the home split reads off the grid');
+  check(/Alpha 2-0 Beta/.test(s), 'head to head prints the actual result');
+  check(/#1\/3/.test(s) , 'opponent rank ranks across home and away');
+  check(/WWDLW/.test(s) && /LLDWL/.test(s), 'both recent-form strings render');
+
+  // The three that cannot be measured must never render as a bare blank.
+  for (const row of ['injury impact', 'starter']) {
+    const seg = s.split(row)[1] || '';
+    check(/per-fixture team news/.test(seg.slice(0, 400)),
+      `"${row}" states WHY it is dark instead of showing an empty cell`);
+  }
+
+  s = sigOut('Stale FC', 'Beta');
+  check(/Stale\. The newest dated result/.test(s),
+    'form older than the 45-day limit is REFUSED, not shown');
+  // Not pinned to an exact number: the age is rounded from a millisecond delta,
+  // so it lands on 159 or 160 depending on the time of day the suite runs.
+  check(/\d+ days old \(limit 45\)/.test(s), 'and the refusal names the age and the limit');
+  check(!/WWWWW/.test(s),
+    'the stale form string never reaches the page — this is the wrong-not-missing case');
+  check(/5<\/b>\/8 signals measured/.test(s),
+    'a stale-form fixture reports 5 of 8, one fewer than a fresh one');
+
+  // A club the payload does not carry darkens the grid signals rather than throwing.
+  s = sigOut('Alpha', 'Ghost FC');
+  check(/no rows in this league/.test(s), 'an unknown club darkens the grid rows with a reason');
+  check(/signals measured/.test(s), 'and the card still renders rather than throwing');
+
+  // The committed payload the page will actually fetch must be shaped right.
+  const sigPath = path.join(HERE, 'data', 'signals.json');
+  if (fs.existsSync(sigPath)) {
+    const real = JSON.parse(fs.readFileSync(sigPath, 'utf8'));
+    const lgs = Object.keys(real);
+    check(lgs.length > 0, `data/signals.json carries ${lgs.length} leagues`);
+    check(lgs.every(k => real[k].base && real[k].teams && real[k].teams.length >= 2),
+      'every league in the committed payload has a base and at least two clubs');
+    check(lgs.every(k => !('matches' in real[k]) && !('dated' in real[k])),
+      'the committed payload carries no per-match rows (the page never shows them)');
+  }
+}
+
 /* ------------------------------------------------------------------ report */
 console.log(failures ? `\nSOCCER UI SELFTEST: ${failures} FAILURE(S)`
                      : '\nSOCCER UI SELFTEST PASS — props empty-state tells the truth about a '
