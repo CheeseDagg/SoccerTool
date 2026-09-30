@@ -335,16 +335,73 @@ console.log('7) Signals: measured rows carry numbers, dark rows carry reasons');
   check(/no rows in this league/.test(s), 'an unknown club darkens the grid rows with a reason');
   check(/signals measured/.test(s), 'and the card still renders rather than throwing');
 
+  // ---- the ranked list, which is what the tab now leads with
+  function sigListOut(payload, cat) {
+    const host = { dataset: cat ? { cat } : {}, querySelectorAll: () => [] };
+    const sandbox = {
+      document: { getElementById: id => (id === 't-signals' ? host : null) },
+      window: { addEventListener(){}, location:{hash:''} }, location:{hash:''}, console,
+      fetch: () => Promise.reject(new Error('no network')),
+      setTimeout, clearTimeout, Math, JSON, Date, Number, String, Array, Object,
+      isFinite, parseFloat, parseInt,
+      MutationObserver: function(){ this.observe=function(){}; this.disconnect=function(){}; },
+    };
+    const names = Object.keys(sandbox);
+    return new Function(...names, '__P__', src + '\n;SIG=__P__; return sigList();')(
+      ...names.map(n => sandbox[n]), payload);
+  }
+  const PATPAY = Object.assign({}, PAY, { _patterns: { chances: 870, rows: [
+    { league:'Peru Liga 1', club:'UTC', category:'Form', text:'winless in 21', k:21,
+      one_in:24698, expected_by_chance:0.04, notable:true, newest:'2026-09-23',
+      evidence:[{date:'2026-09-23',gf:0,ga:1,opp:'Alianza',side:'A'}] },
+    { league:'Chile', club:'Deportes Concepcion', category:'Goals',
+      text:'under 2.5 in 6 straight', k:6, one_in:124, expected_by_chance:7.02,
+      notable:false, newest:'2026-09-20', evidence:[] },
+  ]}});
+  let L = sigListOut(PATPAY);
+  check(/winless in 21/.test(L) && /24,698/.test(L),
+    'the list leads with the rarest live run and prints its rarity');
+  check(/0\.04 expected by chance/.test(L) && /7\.02 expected by chance/.test(L),
+    'EVERY rarity is printed beside how many chance alone would produce');
+  check(/870 club-and-pattern chances examined/.test(L),
+    'the list states how many chances were examined — what makes the rarity honest');
+  check(/histories, not forecasts/.test(L),
+    'the list says outright that a run is not a prediction');
+  check((L.match(/pill">clear/g) || []).length === 1,
+    'only the run that clears the look-elsewhere bar is marked');
+  L = sigListOut(PATPAY, 'Goals');
+  check(/under 2\.5 in 6 straight/.test(L) && !/winless in 21/.test(L),
+    'the category filter narrows the list');
+  check(/no pattern scan/.test(sigListOut(Object.assign({}, PAY, {_patterns:{rows:[]}}))),
+    'an empty scan says so rather than rendering an empty table');
+  {
+    // Scope to the head-to-head ROW. A wide character window spills into the next
+    // row, which legitimately uses class="num" -- that assertion passed on the bug
+    // and failed on the fix, which is the wrong way round.
+    const card = sigOut('Alpha', 'Beta');
+    const i = card.indexOf('head to head');
+    const cell = card.slice(i, card.indexOf('</tr>', i));
+    check(i > 0 && !/class="num"/.test(cell),
+      'the head-to-head cell is not in the right-aligned numeric column');
+    check(/tabular-nums/.test(cell), 'but its digits still line up');
+  }
+
   // The committed payload the page will actually fetch must be shaped right.
   const sigPath = path.join(HERE, 'data', 'signals.json');
   if (fs.existsSync(sigPath)) {
     const real = JSON.parse(fs.readFileSync(sigPath, 'utf8'));
-    const lgs = Object.keys(real);
+    // '_patterns' shares the file and is NOT a league. Counting it as one is the
+    // same mistake the Python summary made the moment the key was added.
+    const lgs = Object.keys(real).filter(k => !k.startsWith('_'));
     check(lgs.length > 0, `data/signals.json carries ${lgs.length} leagues`);
     check(lgs.every(k => real[k].base && real[k].teams && real[k].teams.length >= 2),
       'every league in the committed payload has a base and at least two clubs');
     check(lgs.every(k => !('matches' in real[k]) && !('dated' in real[k])),
       'the committed payload carries no per-match rows (the page never shows them)');
+    check(real._patterns && Array.isArray(real._patterns.rows) && real._patterns.rows.length,
+      `the committed payload carries ${(real._patterns||{rows:[]}).rows.length} ranked patterns`);
+    check(real._patterns.rows.every(r => r.one_in == null || r.expected_by_chance != null),
+      'no committed pattern carries a rarity without its look-elsewhere figure');
   }
 }
 

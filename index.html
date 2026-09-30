@@ -1004,8 +1004,10 @@ function sigCard(lg,hm,aw){
     live++;
     const met=L.h2h[[hm,aw].sort().join('|')];
     if(met&&met.length){
+      // NOT class="num" -- that column rule right-aligns, which threw the whole
+      // head-to-head block to the far edge of the card (seen on the live page).
       rows+=sigRow('head to head', met.map(m=>
-        `<div class="num">${esc(m.home)} ${m.hg}-${m.ag} ${esc(m.away)}</div>`).join(''));
+        `<div style="font-variant-numeric:tabular-nums">${esc(m.home)} ${m.hg}-${m.ag} ${esc(m.away)}</div>`).join(''));
       live++;
     } else rows+=sigRow('head to head','','These two have not met in the results on file this season.');
     const [T,n]=sigRanks(L);
@@ -1045,11 +1047,41 @@ function sigCard(lg,hm,aw){
          `<div class="sub">${esc(L.src||'season pages')}. Measured off published season `+
          `results, not off closing odds: there is no de-vig in these and they are not a market price.</div>`;
 }
+function sigList(){
+  const P=(SIG._patterns&&SIG._patterns.rows)||[], chances=(SIG._patterns||{}).chances;
+  if(!P.length) return '<div class="empty">no pattern scan in this payload</div>';
+  const el=$('t-signals'), cat=el.dataset.cat||'All';
+  const cats=['All',...[...new Set(P.map(r=>r.category))].sort()];
+  const rows=P.filter(r=>cat==='All'||r.category===cat);
+  const chips=cats.map(c=>`<button class="btn sigcat${c===cat?' on':''}" data-c="${c}">${c}</button>`).join(' ');
+  const body=rows.slice(0,60).map(r=>{
+    const odds=r.one_in?`1 in ${r.one_in.toLocaleString()}`:'—';
+    const exp=r.expected_by_chance;
+    const ev=(r.evidence||[]).map(e=>
+      `${e.date.slice(5)} ${e.side} ${e.gf}-${e.ga} ${esc(e.opp)}`).join(' · ');
+    return `<tr>
+      <td>${r.notable?'<span class="pill">clear</span> ':''}<b>${esc(r.club)}</b>
+          <div class="sub">${esc(r.league)}</div></td>
+      <td>${esc(r.text)}<div class="sub">${ev}</div></td>
+      <td class="num" style="white-space:nowrap">${odds}
+          <div class="sub">${exp==null?'':exp+' expected by chance'}</div></td></tr>`;
+  }).join('');
+  return `<div class="ctl" style="margin-bottom:6px">${chips}</div>
+    <table><tr><th>club</th><th>what is happening</th><th class="num">how unlikely</th></tr>
+    ${body}</table>
+    <div class="sub" style="margin-top:8px">
+      ${P.length} live patterns from ${chances} club-and-pattern chances examined.
+      “How unlikely” is measured against that club’s OWN league rate, and the second
+      line says how many runs that rare chance alone would produce across everything
+      scanned — the longest run in a big sample is supposed to look unlikely, so a
+      figure above 1 is ordinary. <b>These are histories, not forecasts.</b> Nothing
+      here says a run continues.</div>`;
+}
 function renderSignals(){
   const el=$('t-signals'); if(!el) return;
   if(!SIG){ el.innerHTML=`<div class="card"><h3>Signals</h3>
     <div class="empty">loading five South American leagues…</div></div>`; return; }
-  const lgs=Object.keys(SIG);
+  const lgs=Object.keys(SIG).filter(k=>!k.startsWith('_'));
   if(!lgs.length){ el.innerHTML=`<div class="card"><h3>Signals</h3>
     <div class="empty">signals.json carried no leagues — run soccer_signals.py</div></div>`; return; }
   const cur=el.dataset.lg&&SIG[el.dataset.lg]?el.dataset.lg:lgs[0];
@@ -1058,14 +1090,20 @@ function renderSignals(){
   const aSel=el.dataset.a&&teams.includes(el.dataset.a)?el.dataset.a:teams[1]||teams[0];
   const opt=(list,sel)=>list.map(x=>`<option${x===sel?' selected':''}>${esc(x)}</option>`).join('');
   el.innerHTML=`<div class="card"><h3>Signals</h3>
-    <div class="sub">Leagues the European model does not cover. Built from published season
-    results in the parlay repo and refreshed by the daily Action.</div>
+    <div class="sub">Runs and splits that are live right now across five South American
+    leagues the European model does not cover. Ranked by how unlikely each is against
+    its own league.</div>
+    ${sigList()}</div>
+    <div class="card"><h3>Look up a fixture</h3>
     <div class="ctl">
       <label>league <select id="sigLg">${opt(lgs,cur)}</select></label>
       <label>home <select id="sigH">${opt(teams,hSel)}</select></label>
       <label>away <select id="sigA">${opt(teams,aSel)}</select></label>
     </div>
     <div id="sigOut">${sigCard(cur,hSel,aSel)}</div></div>`;
+  el.querySelectorAll('button.sigcat').forEach(b=>b.onclick=()=>{
+    el.dataset.cat=b.dataset.c; el.dataset.lg=cur; el.dataset.h=hSel; el.dataset.a=aSel;
+    renderSignals();});
   $('sigLg').onchange=e=>{el.dataset.lg=e.target.value;el.dataset.h='';el.dataset.a='';renderSignals();};
   $('sigH').onchange=e=>{el.dataset.lg=cur;el.dataset.h=e.target.value;el.dataset.a=aSel;renderSignals();};
   $('sigA').onchange=e=>{el.dataset.lg=cur;el.dataset.h=hSel;el.dataset.a=e.target.value;renderSignals();};

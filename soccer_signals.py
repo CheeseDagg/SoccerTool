@@ -32,12 +32,30 @@ import json, os, sys, urllib.request
 HERE = os.path.dirname(os.path.abspath(__file__))
 OUT = os.path.join(HERE, 'data', 'signals.json')
 SRC = 'https://raw.githubusercontent.com/CheeseDagg/parlay/main/socextra.json'
+PAT = 'https://raw.githubusercontent.com/CheeseDagg/parlay/main/socpatterns.json'
 UA = 'Mozilla/5.0 (compatible; soccertool-signals/1.0)'
 
 
 def fetch(url=SRC, timeout=40):
     req = urllib.request.Request(url, headers={'User-Agent': UA})
     return json.loads(urllib.request.urlopen(req, timeout=timeout).read().decode())
+
+
+def trim_patterns(pdoc, keep=140):
+    """socpatterns.json -> the ranked list the tab leads with.
+
+    Rarest-first upstream, so this keeps the head of the list AND the count of
+    chances examined. The count is what makes a rarity honest: a run that
+    chance alone would produce a dozen times over is not a finding."""
+    rows = (pdoc or {}).get('patterns') or []
+    keepers = ('league', 'club', 'category', 'text', 'k', 'one_in',
+               'expected_by_chance', 'notable', 'newest')
+    out = []
+    for r in rows[:keep]:
+        row = {k: r[k] for k in keepers if k in r}
+        row['evidence'] = (r.get('evidence') or [])[:6]
+        out.append(row)
+    return {'chances': (pdoc or {}).get('chances'), 'rows': out}
 
 
 def trim(doc):
@@ -116,6 +134,34 @@ def selftest():
         'the newest date rides along -- the page gates stale form on it')
     chk(t['src'] == 'dated rounds', 'provenance is carried to the page, not hidden')
 
+    pd = {'chances': 870, 'patterns': [
+        {'league':'L','club':'UTC','category':'Form','key':'winless','text':'winless in 21',
+         'k':21,'base':0.62,'one_in':24698,'newest':'2026-09-23','notable':True,
+         'expected_by_chance':0.04,
+         'evidence':[{'date':'2026-09-23','gf':0,'ga':1,'opp':'X','side':'A'}]*9},
+        {'league':'L','club':'Y','category':'Goals','key':'under','text':'under 2.5 in 6',
+         'k':6,'one_in':124,'newest':'2026-09-20','notable':False,
+         'expected_by_chance':7.02,'evidence':[]}]}
+    tp = trim_patterns(pd)
+    chk(tp['chances'] == 870, 'the chances-examined count reaches the page')
+    chk(len(tp['rows']) == 2 and tp['rows'][0]['club'] == 'UTC', 'rows carry through in order')
+    chk(tp['rows'][0]['expected_by_chance'] == 0.04 and tp['rows'][0]['notable'] is True,
+        'the look-elsewhere figure travels WITH the rarity, never separated from it')
+    chk(len(tp['rows'][0]['evidence']) == 6, 'evidence is capped so the payload stays small')
+    chk('base' not in tp['rows'][0] and 'key' not in tp['rows'][0],
+        'fields the page does not render are dropped')
+    chk(trim_patterns({})['rows'] == [] and trim_patterns(None)['rows'] == [],
+        'a missing patterns file yields an empty list, not a crash')
+    mixed = dict(trim({'L': {'rates': {'result': {'home':.4,'draw':.3,'away':.3,
+                                                  'mean_goals':2,'n':9}},
+                             'splits': {'home': {'A': {}}, 'away': {'B': {}}}}}))
+    mixed['_patterns'] = tp
+    lg_only = {k: v for k, v in mixed.items() if not k.startswith('_')}
+    chk(list(lg_only) == ['L'],
+        "'_patterns' rides in the same file but is never counted as a league")
+    chk(sum(v['base']['n'] for v in lg_only.values()) == 9,
+        'and the league summary still totals correctly beside it')
+
     small = json.dumps(p)
     chk(len(small) < len(json.dumps(doc)), 'the trim is actually smaller than the source')
     chk(json.loads(small) == p, 'the payload round-trips through JSON for the browser')
@@ -133,15 +179,24 @@ def main():
         print('signals: KEEPING the committed data/signals.json unchanged')
         return 0
     payload = trim(doc)
-    if not payload:
+    try:
+        payload['_patterns'] = trim_patterns(fetch(PAT))
+    except Exception as e:
+        print(f'signals: patterns unavailable ({type(e).__name__}) -- fixture card only')
+    if not any(k for k in payload if not k.startswith('_')):
         print('signals: source had no usable leagues -- keeping the committed file')
         return 0
     os.makedirs(os.path.dirname(OUT), exist_ok=True)
     with open(OUT, 'w', encoding='utf-8') as fh:
         json.dump(payload, fh, ensure_ascii=False, separators=(',', ':'))
-    tot = sum(v['base']['n'] for v in payload.values())
-    print(f'signals: {len(payload)} leagues, {tot} matches -> {OUT}')
-    for lg, v in sorted(payload.items()):
+    # Iterate LEAGUES only: '_patterns' shares this dict and is not a league,
+    # which broke this summary the moment it was added.
+    leagues = {k: v for k, v in payload.items() if not k.startswith('_')}
+    tot = sum(v['base']['n'] for v in leagues.values())
+    pats = (payload.get('_patterns') or {}).get('rows') or []
+    print(f'signals: {len(leagues)} leagues, {tot} matches, '
+          f'{len(pats)} ranked patterns -> {OUT}')
+    for lg, v in sorted(leagues.items()):
         newest = max((f['newest'] for f in v['form'].values() if f.get('newest')), default='—')
         print(f"  {lg:26} {v['base']['n']:4} matches, {len(v['teams']):2} clubs, form to {newest}")
     return 0
