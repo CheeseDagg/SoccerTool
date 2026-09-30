@@ -1057,16 +1057,20 @@ function sigList(){
   const body=rows.slice(0,60).map(r=>{
     const ev=(r.evidence||[]).map(e=>
       `${e.date.slice(5)}${e.side?' '+e.side:''} ${e.gf}-${e.ga} ${esc(e.opp)}`).join(' · ');
+    const who = r.team ? `${esc(r.club)}<div class="sub">${esc(r.team)}</div>`
+                       : `${esc(r.club)}<div class="sub">${esc(r.league||'')}</div>`;
     return `<tr>
-      <td><b>${esc(r.club)}</b><div class="sub">${esc(r.league)}</div></td>
+      <td><b>${who}</b></td>
       <td>${esc(r.text)}${ev?`<div class="sub">${ev}</div>`:''}</td></tr>`;
   }).join('');
   return `<div class="ctl" style="margin-bottom:6px">${chips}</div>
     <table><tr><th>club</th><th>what is happening</th></tr>${body}</table>
     <div class="sub" style="margin-top:8px">
-      Showing the ${Math.min(60,rows.length)} most unusual of ${P.length} live records,
-      measured against each club’s own league. <b>These are histories, not forecasts</b> —
-      nothing here says a run continues.</div>`;
+      Showing the ${Math.min(60,rows.length)} most unusual of ${P.length} live records.
+      Club records are measured against that club’s own league. Player records come from
+      two sources: per-match goal data, which can say “in N of last M”, and season totals,
+      which cannot and never pretend to.
+      <b>These are histories, not forecasts</b> — nothing here says a run continues.</div>`;
 }
 function renderSignals(){
   const el=$('t-signals'); if(!el) return;

@@ -33,6 +33,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 OUT = os.path.join(HERE, 'data', 'signals.json')
 SRC = 'https://raw.githubusercontent.com/CheeseDagg/parlay/main/socextra.json'
 PAT = 'https://raw.githubusercontent.com/CheeseDagg/parlay/main/socpatterns.json'
+PLY = 'https://raw.githubusercontent.com/CheeseDagg/parlay/main/socplayers.json'
 UA = 'Mozilla/5.0 (compatible; soccertool-signals/1.0)'
 
 
@@ -58,6 +59,30 @@ def trim_patterns(pdoc, keep=140):
         row['evidence'] = (r.get('evidence') or [])[:6]
         out.append(row)
     return {'chances': (pdoc or {}).get('chances'), 'rows': out}
+
+
+def trim_players(pdoc, keep=90):
+    """socplayers.json -> player rows for the list.
+
+    Streaks first (per-match, the shape a reader wants) then rates. Both name
+    their source, because one can say "in 5 of last 6" and the other cannot
+    and the page should never blur that.
+    """
+    d = pdoc or {}
+    rows = []
+    for r in (d.get('streaks') or []):
+        rows.append({'club': r.get('player'), 'team': r.get('team'),
+                     'league': r.get('league'), 'category': 'Player',
+                     'text': r.get('text'), 'source': r.get('source'),
+                     'evidence': [{'date': e['date'], 'opp': e['opp'],
+                                   'gf': e.get('goals', 0), 'ga': 0, 'side': ''}
+                                  for e in (r.get('evidence') or [])[:6]]})
+    for r in (d.get('rates') or []):
+        rows.append({'club': r.get('player'), 'team': r.get('team'),
+                     'league': r.get('league'), 'category': 'Player rate',
+                     'text': r.get('text'), 'source': r.get('source'),
+                     'evidence': []})
+    return rows[:keep]
 
 
 def trim(doc):
@@ -156,6 +181,21 @@ def selftest():
         'fields the page does not render are dropped')
     chk(trim_patterns({})['rows'] == [] and trim_patterns(None)['rows'] == [],
         'a missing patterns file yields an empty list, not a crash')
+    pl = trim_players({'streaks': [{'player':'A. Semenyo','team':'Bournemouth',
+            'league':'England Premier League','text':"scored in 4 of Bournemouth's last 6",
+            'source':'openfootball per-match','evidence':[{'date':'2026-09-20','opp':'X','goals':1}]}],
+        'rates': [{'player':'Erling Haaland','team':'Man City','league':'England Premier League',
+            'text':'leads the league with 5 goals in 5 games','source':'understat season totals'}]})
+    chk(len(pl) == 2 and pl[0]['club'] == 'A. Semenyo',
+        'streaks lead the player rows, rates follow')
+    chk(pl[0]['category'] == 'Player' and pl[1]['category'] == 'Player rate',
+        'the two kinds are separate categories so the filter can tell them apart')
+    chk(pl[0]['source'] != pl[1]['source'],
+        'each names its source -- one can say "of last 6", the other cannot')
+    chk(pl[0]['evidence'][0]['date'] == '2026-09-20', 'streak evidence carries through')
+    chk(trim_players({}) == [] and trim_players(None) == [],
+        'a missing player file yields nothing, not a crash')
+
     mixed = dict(trim({'L': {'rates': {'result': {'home':.4,'draw':.3,'away':.3,
                                                   'mean_goals':2,'n':9}},
                              'splits': {'home': {'A': {}}, 'away': {'B': {}}}}}))
@@ -187,6 +227,14 @@ def main():
         payload['_patterns'] = trim_patterns(fetch(PAT))
     except Exception as e:
         print(f'signals: patterns unavailable ({type(e).__name__}) -- fixture card only')
+    try:
+        pl = trim_players(fetch(PLY))
+        payload.setdefault('_patterns', {'chances': None, 'rows': []})
+        payload['_patterns']['rows'] = pl + payload['_patterns']['rows']
+        payload['_players'] = len(pl)
+        print(f'signals: {len(pl)} player rows merged in')
+    except Exception as e:
+        print(f'signals: player signals unavailable ({type(e).__name__})')
     if not any(k for k in payload if not k.startswith('_')):
         print('signals: source had no usable leagues -- keeping the committed file')
         return 0

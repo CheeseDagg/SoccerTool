@@ -372,6 +372,26 @@ console.log('7) Signals: measured rows carry numbers, dark rows carry reasons');
     'the list says outright that a run is not a prediction');
   check(/most unusual of 2 live records/.test(L),
     'the footer says how many were found and that the top of the list is shown');
+  const PLAYPAY = Object.assign({}, PAY, { _patterns: { chances: 2140, rows: [
+    { league:'England Premier League', club:'Erling Haaland', team:'Manchester City',
+      category:'Player rate', text:'leads the league with 5 goals in 5 games',
+      source:'understat season totals', evidence:[] },
+    { league:'England Premier League', club:'A. Semenyo', team:'Bournemouth',
+      category:'Player', text:"scored in 4 of Bournemouth's last 6",
+      source:'openfootball per-match',
+      evidence:[{date:'2026-09-20',opp:'Everton',gf:1,ga:0,side:''}] },
+  ]}});
+  let PL = sigListOut(PLAYPAY);
+  check(/Erling Haaland/.test(PL) && /leads the league with 5 goals in 5 games/.test(PL),
+    'player rate signals render');
+  check(/Manchester City/.test(PL) && /Bournemouth/.test(PL),
+    "a player row shows his CLUB, not the league name");
+  check(/scored in 4 of Bournemouth&#x27;s last 6|scored in 4 of Bournemouth's last 6/.test(PL),
+    'a per-match player streak names the team as the denominator');
+  PL = sigListOut(PLAYPAY, 'Player rate');
+  check(/Haaland/.test(PL) && !/Semenyo/.test(PL),
+    'the two player kinds filter apart — one can say "of last 6", the other cannot');
+
   L = sigListOut(PATPAY, 'Head-to-head');
   check(/Boston River/.test(L) && !/failed to win in all/.test(L),
     'the category filter narrows the list');
