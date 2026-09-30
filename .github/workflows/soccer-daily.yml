@@ -32,6 +32,7 @@ jobs:
           python soccer_props.py --selftest
           python soccer_grade.py --selftest
           python soccer_publish.py --selftest-overlay
+          python soccer_publish.py --selftest-pin
           python soccer_signals.py --selftest
           node selftest.js
       - name: Refresh xG cache (fail-soft — keeps committed cache if understat is walled)
@@ -48,6 +49,7 @@ jobs:
         run: |
           node -e "JSON.parse(require('fs').readFileSync('data/slate.json','utf8')); console.log('slate.json OK for browsers')"
           node -e "JSON.parse(require('fs').readFileSync('data/signals.json','utf8')); console.log('signals.json OK for browsers')"
+          node -e "const j=JSON.parse(require('fs').readFileSync('data/player_shares_pin.json','utf8')); if(!j.leagues||!Object.keys(j.leagues).length) throw new Error('pin has no leagues'); console.log('player_shares_pin.json OK, asof '+j.asof+' season '+j.season)"
       - name: Commit fresh slate
         run: |
           git config user.name "soccer-bot"
@@ -55,7 +57,7 @@ jobs:
           for attempt in 1 2 3 4 5; do
             git fetch origin main
             git reset --mixed origin/main
-            for f in data/slate.json data/signals.json data/soccer_predictions.csv data/soccer_graded.csv data/backtest_cache.json data/understat_xg.json; do
+            for f in data/slate.json data/signals.json data/player_shares_pin.json data/soccer_predictions.csv data/soccer_graded.csv data/backtest_cache.json data/understat_xg.json; do
               git add "$f" 2>/dev/null || true
             done
             if git diff --cached --quiet; then

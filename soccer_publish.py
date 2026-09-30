@@ -122,6 +122,56 @@ def _backtests(matches):
         pass
     return out
 
+def refresh_pin(fresh, expected, season_year, path, today=None):
+    """Rewrite the fallback pin from this run's LIVE props, or say why not.
+
+    The pin exists for the day the live fetch breaks. It was written only by
+    pull_props.py run by hand at home, so it sat at asof 2026-08-03 / season
+    2025 while the live feed served 2026 every morning: the safety net held
+    last season's goal shares under this season's label, and nobody would find
+    out until the morning it was needed.
+
+    Three conditions gate the write, each with its own failure story:
+
+      - EVERY league, or none. A partial write mixes this season's shares with
+        last season's under one asof date. That is worse than an honestly stale
+        file, because a stale file is at least uniformly stale.
+      - NON-EMPTY. On 2026-08-03 understat served 2026/27 pages with zero
+        minutes played league-wide. Four empty lists pass any count check and
+        silently empty the Props tab.
+      - ATOMIC. pull_props.py writes tmp+replace on purpose. A crash mid-write
+        must not be able to truncate the one file Props falls back to.
+
+    No fallback_season key is written: that field is an exception marker set
+    per league by pull_props.py when a league came from season-1. Everything
+    here came from season_year, so recording it would be a lie told in the
+    schema's own vocabulary.
+
+    Returns a one-line status for the run log; never raises.
+    """
+    today = today or dt.date.today()
+    if not fresh:
+        return "pin NOT refreshed: no league came back live"
+    missing = sorted(set(expected) - set(fresh))
+    if missing:
+        return (f"pin NOT refreshed: {','.join(missing)} did not come back live, "
+                f"and a partial pin mixes seasons")
+    empty = sorted(d for d, v in fresh.items() if not v)
+    if empty:
+        return (f"pin NOT refreshed: {','.join(empty)} came back with zero players, "
+                f"and a pin of empty lists is an empty Props tab")
+    try:
+        tmp = path + ".tmp"
+        with open(tmp, "w") as fh:
+            json.dump({"asof": today.isoformat(), "season": season_year,
+                       "leagues": fresh, "carried": {}}, fh)
+        os.replace(tmp, path)
+    except Exception as e:
+        return f"pin refresh failed ({type(e).__name__}) — the old pin still stands"
+    return (f"pin refreshed from live props ({sum(len(v) for v in fresh.values())} "
+            f"players, season {season_year}/{season_year + 1})")
+
+
 def main():
     os.makedirs(DATA, exist_ok=True)
     print("1) fetch results + fixtures (football-data)…")
@@ -140,6 +190,7 @@ def main():
     season_year = dt.date.today().year - (1 if dt.date.today().month < 8 else 0)
     props_note = []
     shares_by_div = {}
+    fresh_pin = {}
     pin = {}
     try:
         pin = json.load(open(os.path.join(DATA, "player_shares_pin.json")))
@@ -165,6 +216,12 @@ def main():
             players = PR.fetch_league_players(div, season_year)
             shares_by_div[div] = PR.team_shares(players, fd_teams)
             props_note.append(f"{div}:{len(players)}p/{len(shares_by_div[div])}t")
+            # KEEP THE FALLBACK CURRENT. The pin only matters on the day the
+            # live fetch breaks, and it was a season old -- so the safety net
+            # would have served last season's goal shares under this season's
+            # label. Refreshing it here costs nothing and needs no human to
+            # remember to run pull_props.py at home.
+            fresh_pin[div] = players
         except Exception as e:
             pinned = (pin.get("leagues") or {}).get(div) or []
             if pinned:
@@ -179,6 +236,8 @@ def main():
                 props_note.append(f"{div}:off({type(e).__name__})")
                 print(f"   {div} props source failed — {e}"[:900])
     print("   " + " · ".join(props_note))
+    print("   " + refresh_pin(fresh_pin, set(M.LEAGUES), season_year,
+                              os.path.join(DATA, "player_shares_pin.json")))
     # Every league off means the Props tab is EMPTY, and the site's empty state
     # ("no fixtures carry player shares yet") reads like an offseason message
     # rather than a broken feed. It was empty in production for weeks that way.
@@ -363,8 +422,68 @@ def _selftest_overlay():
     return 0
 
 
+def _selftest_pin():
+    """The pin's whole job is to be right on the one morning it is read."""
+    import tempfile, glob
+    d = tempfile.mkdtemp()
+    path = os.path.join(d, "pin.json")
+    exp = {"E0", "SP1", "D1", "F1"}
+    full = {k: [{"player": f"{k}1", "goals": 3}] for k in exp}
+    today = dt.date(2026, 9, 30)
+
+    def fresh_file():
+        return json.load(open(path))
+
+    # nothing live -> no file at all, old pin untouched
+    msg = refresh_pin({}, exp, 2026, path, today)
+    assert "no league came back live" in msg, msg
+    assert not os.path.exists(path), "a dead run must not create a pin"
+
+    # partial -> named, refused
+    msg = refresh_pin({k: full[k] for k in ("E0", "SP1")}, exp, 2026, path, today)
+    assert "D1,F1 did not come back live" in msg, msg
+    assert not os.path.exists(path), "a partial run must not write a pin"
+
+    # all four but one empty -> named, refused. This is the Aug-3 shape: the
+    # count check passes and the Props tab would go dark.
+    msg = refresh_pin(dict(full, D1=[]), exp, 2026, path, today)
+    assert "D1 came back with zero players" in msg, msg
+    assert not os.path.exists(path), "an empty league must not write a pin"
+
+    # full -> written, correct schema
+    msg = refresh_pin(full, exp, 2026, path, today)
+    assert "pin refreshed" in msg and "season 2026/2027" in msg, msg
+    j = fresh_file()
+    assert j["asof"] == "2026-09-30" and j["season"] == 2026, j
+    assert set(j["leagues"]) == exp and j["carried"] == {}, j
+    assert "fallback_season" not in j, \
+        "fallback_season marks a season-1 league; live rows must not claim it"
+    assert not glob.glob(path + ".tmp"), "the atomic temp file must be renamed away"
+
+    # an existing good pin survives a later bad run untouched
+    for bad in ({}, {k: full[k] for k in ("E0",)}, dict(full, F1=[])):
+        refresh_pin(bad, exp, 2026, path, today)
+        assert fresh_file() == j, "a refused refresh must leave the old pin byte-identical"
+
+    # unwritable path -> reported, not raised
+    msg = refresh_pin(full, exp, 2026, os.path.join(d, "nope", "pin.json"), today)
+    assert "pin refresh failed" in msg and "old pin still stands" in msg, msg
+
+    # the league set the publisher gates on must be the one props can actually
+    # fetch, or the all-four condition can never be satisfied and the pin
+    # quietly never refreshes again.
+    import soccer_model as _M, soccer_props as _PR
+    assert set(_M.LEAGUES) == set(_PR.UNDERSTAT), \
+        f"gate set {sorted(_M.LEAGUES)} != fetchable {sorted(_PR.UNDERSTAT)}"
+
+    print("PIN SELFTEST PASS — all-or-nothing, non-empty, atomic, schema-clean")
+    return 0
+
+
 if __name__ == "__main__":
     import sys
     if "--selftest-overlay" in sys.argv:
         sys.exit(_selftest_overlay())
+    if "--selftest-pin" in sys.argv:
+        sys.exit(_selftest_pin())
     main()
