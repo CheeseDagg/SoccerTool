@@ -29,7 +29,34 @@ LEAGUES = {  # div code -> display name
     "D1": "Bundesliga",
     "F1": "Ligue 1",
 }
-SEASONS = ["2324", "2425", "2526"]          # rolling window fetched each run
+# THE SEASON LIST MUST NOT BE HARDCODED. It read ["2324","2425","2526"] on
+# 2026-10-06, so the fitter had no match from the 2026/27 season at all, every
+# rating was anchored to results ending 2026-05-24, and the published slate
+# carried zero fixtures in all four leagues while those leagues were playing. A
+# hardcoded list goes stale every August and fails silently: the model still
+# fits, still publishes, and is simply five months out of date.
+SEASON_WINDOW = 3                            # how many seasons to fit on
+
+
+def season_code(d):
+    """football-data's 4-digit code for the season containing date `d`.
+
+    Their season runs July-June, so 2026-10-06 is '2627' and 2026-03-01 is
+    '2526'. July is the boundary: a June fixture still belongs to the season
+    that started the previous July."""
+    y = d.year if d.month >= 7 else d.year - 1
+    return f"{y % 100:02d}{(y + 1) % 100:02d}"
+
+
+def seasons(today=None, window=SEASON_WINDOW):
+    """The rolling window ending with the season now in progress."""
+    today = today or dt.date.today()
+    cur = today.year if today.month >= 7 else today.year - 1
+    return [season_code(dt.date(y, 8, 1))
+            for y in range(cur - window + 1, cur + 1)]
+
+
+SEASONS = seasons()                          # rolling window fetched each run
 BASE = "https://www.football-data.co.uk/mmz4281/{s}/{d}.csv"
 FIXTURES_URL = "https://www.football-data.co.uk/fixtures.csv"
 
@@ -426,6 +453,26 @@ def _synth_league(n_teams=16, rounds=2, seed=7, home=math.log(1.3), rho=-0.10, m
     return ms, truth, home, rho, mu
 
 def selftest():
+    # 0. THE SEASON WINDOW. A hardcoded list left the fitter with no match from
+    #    the season actually being played, and nothing noticed for five months.
+    assert season_code(dt.date(2026, 10, 6)) == "2627", season_code(dt.date(2026, 10, 6))
+    assert season_code(dt.date(2026, 7, 1)) == "2627"   # July starts the new one
+    assert season_code(dt.date(2026, 6, 30)) == "2526"  # June still belongs to the old
+    assert season_code(dt.date(2027, 1, 5)) == "2627"   # January is mid-season
+    assert season_code(dt.date(2000, 9, 1)) == "0001"   # the century roll keeps 2 digits
+    assert season_code(dt.date(1999, 9, 1)) == "9900"
+    w = seasons(dt.date(2026, 10, 6))
+    assert w == ["2425", "2526", "2627"], w
+    assert w[-1] == season_code(dt.date(2026, 10, 6)), \
+        "the window MUST end with the season in progress -- that is the bug"
+    assert len(w) == SEASON_WINDOW
+    assert seasons(dt.date(2026, 6, 30)) == ["2324", "2425", "2526"]
+    assert seasons(dt.date(2027, 8, 2))[-1] == "2728", \
+        "and it must roll forward on its own next August"
+    # the live list is derived, never a literal
+    assert SEASONS == seasons(), "SEASONS must be computed, not pasted in"
+    assert SEASONS[-1] == season_code(dt.date.today())
+
     # 1. PARSER on a representative football-data snippet (real column set)
     csv_text = ("Div,Date,Time,HomeTeam,AwayTeam,FTHG,FTAG,FTR,B365H,B365D,B365A,PSCH,PSCD,PSCA\n"
                 "E0,17/08/2025,12:30,Arsenal,Everton,2,0,H,1.45,4.50,7.00,1.44,4.60,7.40\n"
