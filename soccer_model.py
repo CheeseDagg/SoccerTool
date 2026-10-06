@@ -23,11 +23,47 @@ import numpy as np
 HERE = os.path.dirname(os.path.abspath(__file__))
 DATA = os.path.join(HERE, "data")
 
+# FOUR LEAGUES WAS A CHOICE NOBODY RE-MADE. football-data publishes ~20
+# divisions in this identical format and this fetched four, so on a weekend
+# carrying 113 priced fixtures the model had an opinion on a handful. The
+# engine is league-agnostic -- it fits home_adv, rho and mu per division
+# already -- so coverage was config, not capability.
+#
+# Adding a division is safe by construction: fetch_all() try/excepts per
+# division-season and logs rather than raising, and fit() refuses a division
+# with under 80 matches. A code that does not exist costs one 404 and a log
+# line. The runner's log names which ones actually returned results, so this
+# list is verified by running it, not by trusting the codes.
 LEAGUES = {  # div code -> display name
+    # England
     "E0": "Premier League",
-    "SP1": "La Liga",
+    "E1": "Championship",
+    "E2": "League One",
+    "E3": "League Two",
+    "EC": "National League",
+    # Scotland
+    "SC0": "Scottish Premiership",
+    "SC1": "Scottish Championship",
+    "SC2": "Scottish League One",
+    "SC3": "Scottish League Two",
+    # Germany
     "D1": "Bundesliga",
+    "D2": "2. Bundesliga",
+    # Italy
+    "I1": "Serie A",
+    "I2": "Serie B",
+    # Spain
+    "SP1": "La Liga",
+    "SP2": "La Liga 2",
+    # France
     "F1": "Ligue 1",
+    "F2": "Ligue 2",
+    # elsewhere
+    "N1": "Eredivisie",
+    "B1": "Belgian Pro League",
+    "P1": "Primeira Liga",
+    "T1": "Turkish Super Lig",
+    "G1": "Greek Super League",
 }
 # THE SEASON LIST MUST NOT BE HARDCODED. It read ["2324","2425","2526"] on
 # 2026-10-06, so the fitter had no match from the 2026/27 season at all, every
@@ -473,6 +509,19 @@ def selftest():
     assert SEASONS == seasons(), "SEASONS must be computed, not pasted in"
     assert SEASONS[-1] == season_code(dt.date.today())
 
+    # 0b. COVERAGE. Four divisions was config, not capability.
+    assert len(LEAGUES) >= 20, f"only {len(LEAGUES)} divisions configured"
+    for _d in ("E0", "SP1", "D1", "F1"):
+        assert _d in LEAGUES, f"{_d} must not be dropped while widening"
+    for _d in ("I1", "N1", "P1", "E1"):
+        assert _d in LEAGUES, f"{_d} is published in this format and must be fetched"
+    assert len(set(LEAGUES.values())) == len(LEAGUES), "duplicate display name"
+    assert all(v and v.strip() for v in LEAGUES.values()), "a division needs a name"
+    # every division must be reachable by the URL template -- a code that does
+    # not format is a silent zero-result league, not an error
+    for _d in LEAGUES:
+        assert BASE.format(s=SEASONS[-1], d=_d).endswith(f"/{_d}.csv"), _d
+
     # 1. PARSER on a representative football-data snippet (real column set)
     csv_text = ("Div,Date,Time,HomeTeam,AwayTeam,FTHG,FTAG,FTR,B365H,B365D,B365A,PSCH,PSCD,PSCA\n"
                 "E0,17/08/2025,12:30,Arsenal,Everton,2,0,H,1.45,4.50,7.00,1.44,4.60,7.40\n"
@@ -485,10 +534,17 @@ def selftest():
              "E0,17/08/2025,Arsenal,Everton,2,0,1.80,2.00,1.85,1.98\n")
     rt = parse_results_csv(csv_t, "E0")
     assert rt[0]["mo"] == 1.85 and rt[0]["mu"] == 1.98      # Pinnacle preferred
+    # SC0 used to be the "not ours" example here. It is a target division now,
+    # so the filter is tested against a code that is genuinely not configured --
+    # and against SC0 being KEPT, which is the behaviour that changed.
+    assert "ZZ9" not in LEAGUES and "SC0" in LEAGUES
     fx = parse_fixtures_csv("Div,Date,Time,HomeTeam,AwayTeam,B365H,B365D,B365A\n"
                             "E0,16/08/2026,12:30,Arsenal,Leeds,1.5,4.2,6.0\n"
-                            "SC0,16/08/2026,15:00,Celtic,Rangers,1.9,3.5,3.8\n")
-    assert len(fx) == 1 and fx[0]["div"] == "E0"                            # non-target league dropped
+                            "SC0,16/08/2026,15:00,Celtic,Rangers,1.9,3.5,3.8\n"
+                            "ZZ9,16/08/2026,15:00,Nowhere,Nobody,1.9,3.5,3.8\n")
+    assert len(fx) == 2, f"both configured divisions kept: {fx}"
+    assert {f["div"] for f in fx} == {"E0", "SC0"}
+    assert all(f["div"] != "ZZ9" for f in fx)                               # unconfigured league dropped
 
     # 2. SYNTHETIC RECOVERY — statistical, across seeds (single-seed thresholds
     #    are coin flips; medians and floors are the honest bar)
