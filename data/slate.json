@@ -1,6 +1,6 @@
 {
- "props_src": "E0:421p/18t \u00b7 SP1:461p/17t \u00b7 D1:367p/15t \u00b7 F1:424p/16t",
- "generated": "2026-10-09T16:17:22+00:00",
+ "props_src": "E0:421p/18t \u00b7 SP1:464p/17t \u00b7 D1:367p/15t \u00b7 F1:425p/16t",
+ "generated": "2026-10-10T15:25:07+00:00",
  "slate_date": null,
  "slate_end": null,
  "leagues": {
@@ -722,11 +722,6 @@
     "share": 0.4296
    },
    {
-    "team": "Arsenal",
-    "name": "Bukayo Saka",
-    "share": 0.4076
-   },
-   {
     "team": "Bournemouth",
     "name": "Marcus Tavernier",
     "share": 0.3947
@@ -742,14 +737,19 @@
     "share": 0.3835
    },
    {
-    "team": "Leeds",
-    "name": "Dominic Calvert-Lewin",
-    "share": 0.3714
-   },
-   {
     "team": "Man United",
     "name": "Bruno Fernandes",
     "share": 0.3537
+   },
+   {
+    "team": "Arsenal",
+    "name": "Bukayo Saka",
+    "share": 0.3388
+   },
+   {
+    "team": "Leeds",
+    "name": "Dominic Calvert-Lewin",
+    "share": 0.3207
    }
   ],
   "SP1": [
@@ -761,7 +761,7 @@
    {
     "team": "Espanol",
     "name": "Roberto Fern\u00e1ndez",
-    "share": 0.5719
+    "share": 0.5412
    },
    {
     "team": "Vallecano",
@@ -816,14 +816,14 @@
     "share": 0.3786
    },
    {
+    "team": "Werder Bremen",
+    "name": "Niclas F\u00fcllkrug",
+    "share": 0.3764
+   },
+   {
     "team": "Mainz",
     "name": "Phillip Tietz",
     "share": 0.348
-   },
-   {
-    "team": "Werder Bremen",
-    "name": "Niclas F\u00fcllkrug",
-    "share": 0.3461
    },
    {
     "team": "Freiburg",
@@ -879,7 +879,7 @@
    }
   ]
  },
- "note": "E0: 1140 results \u00b7 SP1: 1140 results \u00b7 D1: 918 results \u00b7 F1: 918 results \u00b7 fixtures: 0 \u00b7 xG overlay: 4115/4116 matches fit on xG (through 2026-05-24) \u00b7 props E0:421p/18t SP1:461p/17t D1:367p/15t F1:424p/16t",
+ "note": "E0: 1140 results \u00b7 SP1: 1140 results \u00b7 D1: 918 results \u00b7 F1: 918 results \u00b7 fixtures: 0 \u00b7 xG overlay: 4115/4116 matches fit on xG (through 2026-05-24) \u00b7 props E0:421p/18t SP1:464p/17t D1:367p/15t F1:425p/16t",
  "cal": {
   "n": 0
  }
