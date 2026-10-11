@@ -1,6 +1,6 @@
 {
- "props_src": "E0:421p/18t \u00b7 SP1:464p/17t \u00b7 D1:367p/15t \u00b7 F1:425p/16t",
- "generated": "2026-10-10T15:25:07+00:00",
+ "props_src": "E0:431p/18t \u00b7 SP1:466p/17t \u00b7 D1:383p/15t \u00b7 F1:436p/16t",
+ "generated": "2026-10-11T15:46:04+00:00",
  "slate_date": null,
  "slate_end": null,
  "leagues": {
@@ -722,29 +722,29 @@
     "share": 0.4296
    },
    {
-    "team": "Bournemouth",
-    "name": "Marcus Tavernier",
-    "share": 0.3947
-   },
-   {
     "team": "Everton",
     "name": "Thierno Barry",
-    "share": 0.3892
+    "share": 0.4256
    },
    {
     "team": "Sunderland",
     "name": "Brian Brobbey",
-    "share": 0.3835
-   },
-   {
-    "team": "Man United",
-    "name": "Bruno Fernandes",
-    "share": 0.3537
+    "share": 0.367
    },
    {
     "team": "Arsenal",
     "name": "Bukayo Saka",
     "share": 0.3388
+   },
+   {
+    "team": "Man United",
+    "name": "Bryan Mbeumo",
+    "share": 0.3285
+   },
+   {
+    "team": "Bournemouth",
+    "name": "Marcus Tavernier",
+    "share": 0.3282
    },
    {
     "team": "Leeds",
@@ -771,7 +771,7 @@
    {
     "team": "Real Madrid",
     "name": "Kylian Mbappe-Lottin",
-    "share": 0.4268
+    "share": 0.419
    },
    {
     "team": "Elche",
@@ -779,41 +779,26 @@
     "share": 0.3888
    },
    {
-    "team": "Barcelona",
-    "name": "Raphinha",
-    "share": 0.3707
-   },
-   {
     "team": "Levante",
     "name": "Roger Brugu\u00e9",
     "share": 0.3504
    },
    {
-    "team": "Levante",
-    "name": "Iv\u00e1n Romero",
-    "share": 0.2833
+    "team": "Barcelona",
+    "name": "Raphinha",
+    "share": 0.3365
+   },
+   {
+    "team": "Alaves",
+    "name": "Lucas Boy\u00e9",
+    "share": 0.3305
    }
   ],
   "D1": [
    {
-    "team": "Union Berlin",
-    "name": "Tim Skarke",
-    "share": 0.4266
-   },
-   {
     "team": "Ein Frankfurt",
     "name": "Younes Ebnoutalib",
-    "share": 0.3942
-   },
-   {
-    "team": "Leverkusen",
-    "name": "Patrik Schick",
-    "share": 0.3787
-   },
-   {
-    "team": "Hamburg",
-    "name": "Yussuf Poulsen",
-    "share": 0.3786
+    "share": 0.379
    },
    {
     "team": "Werder Bremen",
@@ -821,9 +806,19 @@
     "share": 0.3764
    },
    {
-    "team": "Mainz",
-    "name": "Phillip Tietz",
-    "share": 0.348
+    "team": "Hamburg",
+    "name": "Yussuf Poulsen",
+    "share": 0.356
+   },
+   {
+    "team": "Union Berlin",
+    "name": "Tim Skarke",
+    "share": 0.3463
+   },
+   {
+    "team": "Leverkusen",
+    "name": "Patrik Schick",
+    "share": 0.3391
    },
    {
     "team": "Freiburg",
@@ -833,19 +828,19 @@
    {
     "team": "Ein Frankfurt",
     "name": "Jonathan Burkardt",
-    "share": 0.3115
+    "share": 0.2944
+   },
+   {
+    "team": "Mainz",
+    "name": "Phillip Tietz",
+    "share": 0.2934
    }
   ],
   "F1": [
    {
-    "team": "Monaco",
-    "name": "Paris Brunner",
-    "share": 0.5241
-   },
-   {
-    "team": "Brest",
-    "name": "Kamory Doumbia",
-    "share": 0.4668
+    "team": "Paris FC",
+    "name": "Lassine Sinayoko",
+    "share": 0.4569
    },
    {
     "team": "Marseille",
@@ -853,33 +848,38 @@
     "share": 0.4561
    },
    {
-    "team": "Paris FC",
-    "name": "Lassine Sinayoko",
-    "share": 0.4552
-   },
-   {
     "team": "Auxerre",
     "name": "Cameron Archer",
     "share": 0.4275
    },
    {
-    "team": "Le Havre",
-    "name": "Mbwana Samatta",
-    "share": 0.3947
+    "team": "Monaco",
+    "name": "Paris Brunner",
+    "share": 0.4194
    },
    {
-    "team": "Nice",
-    "name": "Sepe Elye Wahi",
-    "share": 0.358
+    "team": "Le Havre",
+    "name": "Mbwana Samatta",
+    "share": 0.3926
    },
    {
     "team": "Toulouse",
     "name": "Casper Tengstedt",
-    "share": 0.3454
+    "share": 0.3768
+   },
+   {
+    "team": "Rennes",
+    "name": "Esteban Lepaul",
+    "share": 0.3385
+   },
+   {
+    "team": "Brest",
+    "name": "Kamory Doumbia",
+    "share": 0.3081
    }
   ]
  },
- "note": "E0: 1140 results \u00b7 SP1: 1140 results \u00b7 D1: 918 results \u00b7 F1: 918 results \u00b7 fixtures: 0 \u00b7 xG overlay: 4115/4116 matches fit on xG (through 2026-05-24) \u00b7 props E0:421p/18t SP1:464p/17t D1:367p/15t F1:425p/16t",
+ "note": "E0: 1140 results \u00b7 SP1: 1140 results \u00b7 D1: 918 results \u00b7 F1: 918 results \u00b7 fixtures: 0 \u00b7 xG overlay: 4115/4116 matches fit on xG (through 2026-05-24) \u00b7 props E0:431p/18t SP1:466p/17t D1:383p/15t F1:436p/16t",
  "cal": {
   "n": 0
  }
