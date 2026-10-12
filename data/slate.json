@@ -1,6 +1,6 @@
 {
- "props_src": "E0:431p/18t \u00b7 SP1:466p/17t \u00b7 D1:383p/15t \u00b7 F1:436p/16t",
- "generated": "2026-10-11T15:46:04+00:00",
+ "props_src": "E0:434p/18t \u00b7 SP1:470p/17t \u00b7 D1:384p/15t \u00b7 F1:441p/16t",
+ "generated": "2026-10-12T19:06:42+00:00",
  "slate_date": null,
  "slate_end": null,
  "leagues": {
@@ -714,17 +714,17 @@
    {
     "team": "Liverpool",
     "name": "Alexander Isak",
-    "share": 0.5174
-   },
-   {
-    "team": "Man City",
-    "name": "Erling Haaland",
-    "share": 0.4296
+    "share": 0.4972
    },
    {
     "team": "Everton",
     "name": "Thierno Barry",
     "share": 0.4256
+   },
+   {
+    "team": "Man City",
+    "name": "Erling Haaland",
+    "share": 0.4077
    },
    {
     "team": "Sunderland",
@@ -756,7 +756,7 @@
    {
     "team": "Osasuna",
     "name": "Ante Budimir",
-    "share": 0.6748
+    "share": 0.6343
    },
    {
     "team": "Espanol",
@@ -776,7 +776,7 @@
    {
     "team": "Elche",
     "name": "Fernando Ni\u00f1o",
-    "share": 0.3888
+    "share": 0.3825
    },
    {
     "team": "Levante",
@@ -821,11 +821,6 @@
     "share": 0.3391
    },
    {
-    "team": "Freiburg",
-    "name": "Yuito Suzuki",
-    "share": 0.3233
-   },
-   {
     "team": "Ein Frankfurt",
     "name": "Jonathan Burkardt",
     "share": 0.2944
@@ -834,23 +829,23 @@
     "team": "Mainz",
     "name": "Phillip Tietz",
     "share": 0.2934
+   },
+   {
+    "team": "Freiburg",
+    "name": "Yuito Suzuki",
+    "share": 0.2752
    }
   ],
   "F1": [
    {
+    "team": "Auxerre",
+    "name": "Cameron Archer",
+    "share": 0.4721
+   },
+   {
     "team": "Paris FC",
     "name": "Lassine Sinayoko",
     "share": 0.4569
-   },
-   {
-    "team": "Marseille",
-    "name": "Amine Gouiri",
-    "share": 0.4561
-   },
-   {
-    "team": "Auxerre",
-    "name": "Cameron Archer",
-    "share": 0.4275
    },
    {
     "team": "Monaco",
@@ -868,9 +863,14 @@
     "share": 0.3768
    },
    {
+    "team": "Marseille",
+    "name": "Amine Gouiri",
+    "share": 0.3724
+   },
+   {
     "team": "Rennes",
     "name": "Esteban Lepaul",
-    "share": 0.3385
+    "share": 0.3106
    },
    {
     "team": "Brest",
@@ -879,7 +879,7 @@
    }
   ]
  },
- "note": "E0: 1140 results \u00b7 SP1: 1140 results \u00b7 D1: 918 results \u00b7 F1: 918 results \u00b7 fixtures: 0 \u00b7 xG overlay: 4115/4116 matches fit on xG (through 2026-05-24) \u00b7 props E0:431p/18t SP1:466p/17t D1:383p/15t F1:436p/16t",
+ "note": "E0: 1140 results \u00b7 SP1: 1140 results \u00b7 D1: 918 results \u00b7 F1: 918 results \u00b7 fixtures: 0 \u00b7 xG overlay: 4115/4116 matches fit on xG (through 2026-05-24) \u00b7 props E0:434p/18t SP1:470p/17t D1:384p/15t F1:441p/16t",
  "cal": {
   "n": 0
  }
