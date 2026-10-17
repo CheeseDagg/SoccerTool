@@ -1,6 +1,6 @@
 {
  "props_src": "E0:436p/18t \u00b7 SP1:470p/17t \u00b7 D1:384p/15t \u00b7 F1:411p/16t",
- "generated": "2026-10-16T14:00:10+00:00",
+ "generated": "2026-10-17T13:00:33+00:00",
  "slate_date": null,
  "slate_end": null,
  "leagues": {
@@ -791,14 +791,14 @@
    {
     "team": "Levante",
     "name": "Roger Brugu\u00e9",
-    "share": 0.2896
+    "share": 0.27
    }
   ],
   "D1": [
    {
     "team": "Ein Frankfurt",
     "name": "Younes Ebnoutalib",
-    "share": 0.379
+    "share": 0.411
    },
    {
     "team": "Werder Bremen",
@@ -821,11 +821,6 @@
     "share": 0.3391
    },
    {
-    "team": "Ein Frankfurt",
-    "name": "Jonathan Burkardt",
-    "share": 0.2944
-   },
-   {
     "team": "Mainz",
     "name": "Phillip Tietz",
     "share": 0.2934
@@ -834,6 +829,11 @@
     "team": "Freiburg",
     "name": "Yuito Suzuki",
     "share": 0.2752
+   },
+   {
+    "team": "M'gladbach",
+    "name": "Hugo Bolin",
+    "share": 0.2686
    }
   ],
   "F1": [
@@ -865,7 +865,7 @@
    {
     "team": "Toulouse",
     "name": "Casper Tengstedt",
-    "share": 0.3768
+    "share": 0.3868
    },
    {
     "team": "Marseille",
