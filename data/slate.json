@@ -1,6 +1,6 @@
 {
- "props_src": "E0:442p/18t \u00b7 SP1:472p/17t \u00b7 D1:392p/15t \u00b7 F1:413p/16t",
- "generated": "2026-10-18T13:21:03+00:00",
+ "props_src": "E0:446p/18t \u00b7 SP1:474p/17t \u00b7 D1:394p/15t \u00b7 F1:418p/16t",
+ "generated": "2026-10-19T16:31:23+00:00",
  "slate_date": null,
  "slate_end": null,
  "leagues": {
@@ -727,36 +727,36 @@
     "share": 0.4186
    },
    {
-    "team": "Sunderland",
-    "name": "Brian Brobbey",
-    "share": 0.367
-   },
-   {
-    "team": "Arsenal",
-    "name": "Bukayo Saka",
-    "share": 0.3388
-   },
-   {
     "team": "Man United",
     "name": "Bryan Mbeumo",
-    "share": 0.3285
-   },
-   {
-    "team": "Bournemouth",
-    "name": "Marcus Tavernier",
-    "share": 0.3282
+    "share": 0.382
    },
    {
     "team": "Leeds",
     "name": "Dominic Calvert-Lewin",
-    "share": 0.3207
+    "share": 0.3734
+   },
+   {
+    "team": "Sunderland",
+    "name": "Brian Brobbey",
+    "share": 0.3653
+   },
+   {
+    "team": "Bournemouth",
+    "name": "Marcus Tavernier",
+    "share": 0.3243
+   },
+   {
+    "team": "Arsenal",
+    "name": "Bukayo Saka",
+    "share": 0.3108
    }
   ],
   "SP1": [
    {
     "team": "Osasuna",
     "name": "Ante Budimir",
-    "share": 0.6343
+    "share": 0.5816
    },
    {
     "team": "Espanol",
@@ -771,7 +771,7 @@
    {
     "team": "Real Madrid",
     "name": "Kylian Mbappe-Lottin",
-    "share": 0.419
+    "share": 0.4422
    },
    {
     "team": "Elche",
@@ -781,7 +781,7 @@
    {
     "team": "Alaves",
     "name": "Lucas Boy\u00e9",
-    "share": 0.3305
+    "share": 0.3205
    },
    {
     "team": "Barcelona",
@@ -808,7 +808,7 @@
    {
     "team": "Leverkusen",
     "name": "Patrik Schick",
-    "share": 0.3391
+    "share": 0.3564
    },
    {
     "team": "Union Berlin",
@@ -826,41 +826,36 @@
     "share": 0.3275
    },
    {
-    "team": "Freiburg",
-    "name": "Yuito Suzuki",
-    "share": 0.2752
+    "team": "Ein Frankfurt",
+    "name": "Jonathan Burkardt",
+    "share": 0.2661
    },
    {
-    "team": "M'gladbach",
-    "name": "Hugo Bolin",
-    "share": 0.2686
+    "team": "Freiburg",
+    "name": "Yuito Suzuki",
+    "share": 0.2534
    }
   ],
   "F1": [
    {
     "team": "Rennes",
     "name": "Boulaye Dia",
-    "share": 0.7636
-   },
-   {
-    "team": "Auxerre",
-    "name": "Cameron Archer",
-    "share": 0.4721
+    "share": 0.7436
    },
    {
     "team": "Paris FC",
     "name": "Lassine Sinayoko",
-    "share": 0.4569
+    "share": 0.4579
    },
    {
     "team": "Monaco",
     "name": "Paris Brunner",
-    "share": 0.4194
+    "share": 0.41
    },
    {
-    "team": "Le Havre",
-    "name": "Mbwana Samatta",
-    "share": 0.3926
+    "team": "Nice",
+    "name": "Sepe Elye Wahi",
+    "share": 0.3994
    },
    {
     "team": "Toulouse",
@@ -868,18 +863,23 @@
     "share": 0.3868
    },
    {
-    "team": "Marseille",
-    "name": "Amine Gouiri",
-    "share": 0.3724
+    "team": "Auxerre",
+    "name": "Cameron Archer",
+    "share": 0.3587
    },
    {
-    "team": "Brest",
-    "name": "Kamory Doumbia",
-    "share": 0.2885
+    "team": "Marseille",
+    "name": "Amine Gouiri",
+    "share": 0.3379
+   },
+   {
+    "team": "Le Havre",
+    "name": "Mbwana Samatta",
+    "share": 0.3361
    }
   ]
  },
- "note": "E0: 1140 results \u00b7 SP1: 1140 results \u00b7 D1: 918 results \u00b7 F1: 918 results \u00b7 fixtures: 0 \u00b7 xG overlay: 4115/4116 matches fit on xG (through 2026-05-24) \u00b7 props E0:442p/18t SP1:472p/17t D1:392p/15t F1:413p/16t",
+ "note": "E0: 1140 results \u00b7 SP1: 1140 results \u00b7 D1: 918 results \u00b7 F1: 918 results \u00b7 fixtures: 0 \u00b7 xG overlay: 4115/4116 matches fit on xG (through 2026-05-24) \u00b7 props E0:446p/18t SP1:474p/17t D1:394p/15t F1:418p/16t",
  "cal": {
   "n": 0
  }
