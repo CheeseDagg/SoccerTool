@@ -1,6 +1,6 @@
 {
- "props_src": "E0:446p/18t \u00b7 SP1:474p/17t \u00b7 D1:394p/15t \u00b7 F1:418p/16t",
- "generated": "2026-10-19T16:31:23+00:00",
+ "props_src": "E0:449p/18t \u00b7 SP1:475p/17t \u00b7 D1:394p/15t \u00b7 F1:418p/16t",
+ "generated": "2026-10-20T14:21:03+00:00",
  "slate_date": null,
  "slate_end": null,
  "leagues": {
@@ -766,7 +766,7 @@
    {
     "team": "Vallecano",
     "name": "Sergio Camello",
-    "share": 0.5191
+    "share": 0.4708
    },
    {
     "team": "Real Madrid",
@@ -779,6 +779,11 @@
     "share": 0.3807
    },
    {
+    "team": "Getafe",
+    "name": "Mart\u00edn Satriano",
+    "share": 0.35
+   },
+   {
     "team": "Alaves",
     "name": "Lucas Boy\u00e9",
     "share": 0.3205
@@ -787,11 +792,6 @@
     "team": "Barcelona",
     "name": "Raphinha",
     "share": 0.2981
-   },
-   {
-    "team": "Levante",
-    "name": "Roger Brugu\u00e9",
-    "share": 0.27
    }
   ],
   "D1": [
@@ -879,7 +879,7 @@
    }
   ]
  },
- "note": "E0: 1140 results \u00b7 SP1: 1140 results \u00b7 D1: 918 results \u00b7 F1: 918 results \u00b7 fixtures: 0 \u00b7 xG overlay: 4115/4116 matches fit on xG (through 2026-05-24) \u00b7 props E0:446p/18t SP1:474p/17t D1:394p/15t F1:418p/16t",
+ "note": "E0: 1140 results \u00b7 SP1: 1140 results \u00b7 D1: 918 results \u00b7 F1: 918 results \u00b7 fixtures: 0 \u00b7 xG overlay: 4115/4116 matches fit on xG (through 2026-05-24) \u00b7 props E0:449p/18t SP1:475p/17t D1:394p/15t F1:418p/16t",
  "cal": {
   "n": 0
  }
