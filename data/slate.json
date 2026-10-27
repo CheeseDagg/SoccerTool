@@ -1,6 +1,6 @@
 {
- "props_src": "E0:451p/18t \u00b7 SP1:482p/17t \u00b7 D1:403p/15t \u00b7 F1:424p/16t",
- "generated": "2026-10-26T16:10:11+00:00",
+ "props_src": "E0:451p/18t \u00b7 SP1:482p/17t \u00b7 D1:403p/15t \u00b7 F1:425p/16t",
+ "generated": "2026-10-27T15:24:14+00:00",
  "slate_date": null,
  "slate_end": null,
  "leagues": {
@@ -756,7 +756,7 @@
    {
     "team": "Osasuna",
     "name": "Ante Budimir",
-    "share": 0.5816
+    "share": 0.5725
    },
    {
     "team": "Espanol",
@@ -879,7 +879,7 @@
    }
   ]
  },
- "note": "E0: 1140 results \u00b7 SP1: 1140 results \u00b7 D1: 918 results \u00b7 F1: 918 results \u00b7 fixtures: 0 \u00b7 xG overlay: 4115/4116 matches fit on xG (through 2026-05-24) \u00b7 props E0:451p/18t SP1:482p/17t D1:403p/15t F1:424p/16t",
+ "note": "E0: 1140 results \u00b7 SP1: 1140 results \u00b7 D1: 918 results \u00b7 F1: 918 results \u00b7 fixtures: 0 \u00b7 xG overlay: 4115/4116 matches fit on xG (through 2026-05-24) \u00b7 props E0:451p/18t SP1:482p/17t D1:403p/15t F1:425p/16t",
  "cal": {
   "n": 0
  }
