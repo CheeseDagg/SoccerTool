@@ -1,6 +1,6 @@
 {
- "props_src": "E0:451p/18t \u00b7 SP1:482p/17t \u00b7 D1:403p/15t \u00b7 F1:425p/16t",
- "generated": "2026-10-30T15:58:49+00:00",
+ "props_src": "E0:451p/18t \u00b7 SP1:484p/17t \u00b7 D1:403p/15t \u00b7 F1:427p/16t",
+ "generated": "2026-10-31T15:22:31+00:00",
  "slate_date": null,
  "slate_end": null,
  "leagues": {
@@ -727,14 +727,14 @@
     "share": 0.4228
    },
    {
-    "team": "Man United",
-    "name": "Bryan Mbeumo",
-    "share": 0.3778
-   },
-   {
     "team": "Sunderland",
     "name": "Brian Brobbey",
     "share": 0.3653
+   },
+   {
+    "team": "Man United",
+    "name": "Bryan Mbeumo",
+    "share": 0.36
    },
    {
     "team": "Aston Villa",
@@ -759,14 +759,14 @@
     "share": 0.5725
    },
    {
-    "team": "Espanol",
-    "name": "Roberto Fern\u00e1ndez",
-    "share": 0.4979
-   },
-   {
     "team": "Real Madrid",
     "name": "Kylian Mbappe-Lottin",
     "share": 0.4792
+   },
+   {
+    "team": "Espanol",
+    "name": "Roberto Fern\u00e1ndez",
+    "share": 0.4653
    },
    {
     "team": "Vallecano",
@@ -789,9 +789,9 @@
     "share": 0.3079
    },
    {
-    "team": "Levante",
-    "name": "Roger Brugu\u00e9",
-    "share": 0.2997
+    "team": "Alaves",
+    "name": "Lucas Boy\u00e9",
+    "share": 0.2956
    }
   ],
   "D1": [
@@ -811,11 +811,6 @@
     "share": 0.3549
    },
    {
-    "team": "Mainz",
-    "name": "Phillip Tietz",
-    "share": 0.2938
-   },
-   {
     "team": "Hamburg",
     "name": "Yussuf Poulsen",
     "share": 0.2922
@@ -831,6 +826,11 @@
     "share": 0.2877
    },
    {
+    "team": "Mainz",
+    "name": "Phillip Tietz",
+    "share": 0.27
+   },
+   {
     "team": "Ein Frankfurt",
     "name": "Jonathan Burkardt",
     "share": 0.2606
@@ -840,17 +840,17 @@
    {
     "team": "Rennes",
     "name": "Boulaye Dia",
-    "share": 0.7977
+    "share": 0.8383
+   },
+   {
+    "team": "Nice",
+    "name": "Sepe Elye Wahi",
+    "share": 0.5079
    },
    {
     "team": "Paris FC",
     "name": "Lassine Sinayoko",
     "share": 0.4279
-   },
-   {
-    "team": "Nice",
-    "name": "Sepe Elye Wahi",
-    "share": 0.4256
    },
    {
     "team": "Monaco",
@@ -870,7 +870,7 @@
    {
     "team": "Le Havre",
     "name": "Josh Maja",
-    "share": 0.3178
+    "share": 0.3652
    },
    {
     "team": "Marseille",
@@ -879,7 +879,7 @@
    }
   ]
  },
- "note": "E0: 1140 results \u00b7 SP1: 1140 results \u00b7 D1: 918 results \u00b7 F1: 918 results \u00b7 fixtures: 0 \u00b7 xG overlay: 4115/4116 matches fit on xG (through 2026-05-24) \u00b7 props E0:451p/18t SP1:482p/17t D1:403p/15t F1:425p/16t",
+ "note": "E0: 1140 results \u00b7 SP1: 1140 results \u00b7 D1: 918 results \u00b7 F1: 918 results \u00b7 fixtures: 0 \u00b7 xG overlay: 4115/4116 matches fit on xG (through 2026-05-24) \u00b7 props E0:451p/18t SP1:484p/17t D1:403p/15t F1:427p/16t",
  "cal": {
   "n": 0
  }
