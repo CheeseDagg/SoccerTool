@@ -1,6 +1,6 @@
 {
- "props_src": "E0:451p/18t \u00b7 SP1:484p/17t \u00b7 D1:403p/15t \u00b7 F1:427p/16t",
- "generated": "2026-10-31T15:22:31+00:00",
+ "props_src": "E0:454p/18t \u00b7 SP1:487p/17t \u00b7 D1:413p/15t \u00b7 F1:428p/16t",
+ "generated": "2026-11-01T16:05:47+00:00",
  "slate_date": null,
  "slate_end": null,
  "leagues": {
@@ -719,17 +719,22 @@
    {
     "team": "Man City",
     "name": "Erling Haaland",
-    "share": 0.4525
+    "share": 0.45
    },
    {
     "team": "Everton",
     "name": "Thierno Barry",
-    "share": 0.4228
+    "share": 0.3845
    },
    {
-    "team": "Sunderland",
-    "name": "Brian Brobbey",
-    "share": 0.3653
+    "team": "Aston Villa",
+    "name": "Nicolas Jackson",
+    "share": 0.3799
+   },
+   {
+    "team": "Leeds",
+    "name": "Dominic Calvert-Lewin",
+    "share": 0.3698
    },
    {
     "team": "Man United",
@@ -737,19 +742,14 @@
     "share": 0.36
    },
    {
-    "team": "Aston Villa",
-    "name": "Nicolas Jackson",
-    "share": 0.357
+    "team": "Sunderland",
+    "name": "Brian Brobbey",
+    "share": 0.3229
    },
    {
-    "team": "Leeds",
-    "name": "Dominic Calvert-Lewin",
-    "share": 0.3567
-   },
-   {
-    "team": "Bournemouth",
-    "name": "Marcus Tavernier",
-    "share": 0.3171
+    "team": "Man United",
+    "name": "Bruno Fernandes",
+    "share": 0.2836
    }
   ],
   "SP1": [
@@ -771,7 +771,7 @@
    {
     "team": "Vallecano",
     "name": "Sergio Camello",
-    "share": 0.4549
+    "share": 0.3838
    },
    {
     "team": "Elche",
@@ -781,24 +781,24 @@
    {
     "team": "Getafe",
     "name": "Mart\u00edn Satriano",
-    "share": 0.3483
+    "share": 0.3499
    },
    {
     "team": "Barcelona",
     "name": "Raphinha",
-    "share": 0.3079
+    "share": 0.315
    },
    {
-    "team": "Alaves",
-    "name": "Lucas Boy\u00e9",
-    "share": 0.2956
+    "team": "Levante",
+    "name": "Roger Brugu\u00e9",
+    "share": 0.2914
    }
   ],
   "D1": [
    {
     "team": "Werder Bremen",
     "name": "Niclas F\u00fcllkrug",
-    "share": 0.5082
+    "share": 0.5018
    },
    {
     "team": "Ein Frankfurt",
@@ -808,17 +808,17 @@
    {
     "team": "Leverkusen",
     "name": "Patrik Schick",
-    "share": 0.3549
-   },
-   {
-    "team": "Hamburg",
-    "name": "Yussuf Poulsen",
-    "share": 0.2922
+    "share": 0.3655
    },
    {
     "team": "Stuttgart",
     "name": "Ermedin Demirovic",
-    "share": 0.2895
+    "share": 0.3244
+   },
+   {
+    "team": "Hamburg",
+    "name": "Yussuf Poulsen",
+    "share": 0.2893
    },
    {
     "team": "Union Berlin",
@@ -826,14 +826,14 @@
     "share": 0.2877
    },
    {
+    "team": "Augsburg",
+    "name": "Michael Gregoritsch",
+    "share": 0.2822
+   },
+   {
     "team": "Mainz",
     "name": "Phillip Tietz",
     "share": 0.27
-   },
-   {
-    "team": "Ein Frankfurt",
-    "name": "Jonathan Burkardt",
-    "share": 0.2606
    }
   ],
   "F1": [
@@ -879,7 +879,7 @@
    }
   ]
  },
- "note": "E0: 1140 results \u00b7 SP1: 1140 results \u00b7 D1: 918 results \u00b7 F1: 918 results \u00b7 fixtures: 0 \u00b7 xG overlay: 4115/4116 matches fit on xG (through 2026-05-24) \u00b7 props E0:451p/18t SP1:484p/17t D1:403p/15t F1:427p/16t",
+ "note": "E0: 1140 results \u00b7 SP1: 1140 results \u00b7 D1: 918 results \u00b7 F1: 918 results \u00b7 fixtures: 0 \u00b7 xG overlay: 4115/4116 matches fit on xG (through 2026-05-24) \u00b7 props E0:454p/18t SP1:487p/17t D1:413p/15t F1:428p/16t",
  "cal": {
   "n": 0
  }
