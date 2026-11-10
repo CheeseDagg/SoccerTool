@@ -1,0 +1,1806 @@
+{
+ "AEK": {
+  "div": "G1",
+  "latest": "2026-11-08"
+ },
+ "AFC Wimbledon": {
+  "div": "E2",
+  "latest": "2026-10-31"
+ },
+ "AVS": {
+  "div": "P1",
+  "latest": "2026-05-16"
+ },
+ "AZ Alkmaar": {
+  "div": "N1",
+  "latest": "2026-11-08"
+ },
+ "Aberdeen": {
+  "div": "SC0",
+  "latest": "2026-11-07"
+ },
+ "Academico Viseu": {
+  "div": "P1",
+  "latest": "2026-11-08"
+ },
+ "Accrington": {
+  "div": "E3",
+  "latest": "2026-10-31"
+ },
+ "Ad. Demirspor": {
+  "div": "T1",
+  "latest": "2025-05-31"
+ },
+ "Airdrie Utd": {
+  "div": "SC2",
+  "latest": "2026-11-07"
+ },
+ "Ajaccio": {
+  "div": "F2",
+  "latest": "2025-05-10"
+ },
+ "Ajax": {
+  "div": "N1",
+  "latest": "2026-11-08"
+ },
+ "Alanyaspor": {
+  "div": "T1",
+  "latest": "2026-11-08"
+ },
+ "Alaves": {
+  "div": "SP1",
+  "latest": "2026-11-06"
+ },
+ "Albacete": {
+  "div": "SP2",
+  "latest": "2026-11-07"
+ },
+ "Aldershot": {
+  "div": "EC",
+  "latest": "2026-10-31"
+ },
+ "Alloa": {
+  "div": "SC2",
+  "latest": "2026-11-07"
+ },
+ "Almere City": {
+  "div": "N1",
+  "latest": "2025-05-18"
+ },
+ "Almeria": {
+  "div": "SP2",
+  "latest": "2026-11-08"
+ },
+ "Altrincham": {
+  "div": "EC",
+  "latest": "2026-10-31"
+ },
+ "Alverca": {
+  "div": "P1",
+  "latest": "2026-11-07"
+ },
+ "Amedspor": {
+  "div": "T1",
+  "latest": "2026-11-07"
+ },
+ "Amiens": {
+  "div": "F2",
+  "latest": "2026-05-09"
+ },
+ "Anderlecht": {
+  "div": "B1",
+  "latest": "2026-11-08"
+ },
+ "Andorra": {
+  "div": "SP2",
+  "latest": "2026-11-02"
+ },
+ "Angers": {
+  "div": "F1",
+  "latest": "2026-11-08"
+ },
+ "Annan Athletic": {
+  "div": "SC3",
+  "latest": "2026-11-07"
+ },
+ "Annecy": {
+  "div": "F2",
+  "latest": "2026-11-06"
+ },
+ "Antalyaspor": {
+  "div": "T1",
+  "latest": "2026-05-17"
+ },
+ "Antwerp": {
+  "div": "B1",
+  "latest": "2026-11-07"
+ },
+ "Arbroath": {
+  "div": "SC1",
+  "latest": "2026-11-07"
+ },
+ "Arezzo": {
+  "div": "I2",
+  "latest": "2026-11-07"
+ },
+ "Aris": {
+  "div": "G1",
+  "latest": "2026-11-07"
+ },
+ "Arouca": {
+  "div": "P1",
+  "latest": "2026-11-06"
+ },
+ "Arsenal": {
+  "div": "E0",
+  "latest": "2026-11-07"
+ },
+ "Ascoli": {
+  "div": "I2",
+  "latest": "2026-11-06"
+ },
+ "Asteras Tripolis": {
+  "div": "G1",
+  "latest": "2026-11-08"
+ },
+ "Aston Villa": {
+  "div": "E0",
+  "latest": "2026-11-08"
+ },
+ "Atalanta": {
+  "div": "I1",
+  "latest": "2026-11-08"
+ },
+ "Ath Bilbao": {
+  "div": "SP1",
+  "latest": "2026-11-07"
+ },
+ "Ath Madrid": {
+  "div": "SP1",
+  "latest": "2026-11-08"
+ },
+ "Athens Kallithea": {
+  "div": "G1",
+  "latest": "2025-05-18"
+ },
+ "Atromitos": {
+  "div": "G1",
+  "latest": "2026-11-08"
+ },
+ "Augsburg": {
+  "div": "D1",
+  "latest": "2026-11-07"
+ },
+ "Auxerre": {
+  "div": "F1",
+  "latest": "2026-11-07"
+ },
+ "Avellino": {
+  "div": "I2",
+  "latest": "2026-11-07"
+ },
+ "Ayr": {
+  "div": "SC1",
+  "latest": "2026-11-07"
+ },
+ "Barcelona": {
+  "div": "SP1",
+  "latest": "2026-11-08"
+ },
+ "Bari": {
+  "div": "I2",
+  "latest": "2026-05-08"
+ },
+ "Barnet": {
+  "div": "E3",
+  "latest": "2026-10-31"
+ },
+ "Barnsley": {
+  "div": "E2",
+  "latest": "2026-10-31"
+ },
+ "Barrow": {
+  "div": "EC",
+  "latest": "2026-10-31"
+ },
+ "Bastia": {
+  "div": "F2",
+  "latest": "2026-05-09"
+ },
+ "Bayern Munich": {
+  "div": "D1",
+  "latest": "2026-11-07"
+ },
+ "Beerschot VA": {
+  "div": "B1",
+  "latest": "2025-05-10"
+ },
+ "Benevento": {
+  "div": "I2",
+  "latest": "2026-11-07"
+ },
+ "Benfica": {
+  "div": "P1",
+  "latest": "2026-11-08"
+ },
+ "Besiktas": {
+  "div": "T1",
+  "latest": "2026-11-08"
+ },
+ "Betis": {
+  "div": "SP1",
+  "latest": "2026-11-08"
+ },
+ "Beveren": {
+  "div": "B1",
+  "latest": "2026-11-06"
+ },
+ "Bielefeld": {
+  "div": "D2",
+  "latest": "2026-11-07"
+ },
+ "Birmingham": {
+  "div": "E1",
+  "latest": "2026-11-07"
+ },
+ "Blackburn": {
+  "div": "E1",
+  "latest": "2026-11-07"
+ },
+ "Blackpool": {
+  "div": "E2",
+  "latest": "2026-11-01"
+ },
+ "Boavista": {
+  "div": "P1",
+  "latest": "2025-05-17"
+ },
+ "Bochum": {
+  "div": "D2",
+  "latest": "2026-11-08"
+ },
+ "Bodrumspor": {
+  "div": "T1",
+  "latest": "2025-06-01"
+ },
+ "Bologna": {
+  "div": "I1",
+  "latest": "2026-11-07"
+ },
+ "Bolton": {
+  "div": "E1",
+  "latest": "2026-11-06"
+ },
+ "Bonnyrigg Rose": {
+  "div": "SC3",
+  "latest": "2025-05-03"
+ },
+ "Boreham Wood": {
+  "div": "EC",
+  "latest": "2026-10-31"
+ },
+ "Boston Utd": {
+  "div": "EC",
+  "latest": "2026-10-31"
+ },
+ "Boulogne": {
+  "div": "F2",
+  "latest": "2026-11-06"
+ },
+ "Bournemouth": {
+  "div": "E0",
+  "latest": "2026-11-08"
+ },
+ "Brackley Town": {
+  "div": "EC",
+  "latest": "2026-04-25"
+ },
+ "Bradford": {
+  "div": "E2",
+  "latest": "2026-10-31"
+ },
+ "Braintree Town": {
+  "div": "EC",
+  "latest": "2026-04-25"
+ },
+ "Braunschweig": {
+  "div": "D2",
+  "latest": "2026-11-06"
+ },
+ "Brentford": {
+  "div": "E0",
+  "latest": "2026-11-08"
+ },
+ "Brescia": {
+  "div": "I2",
+  "latest": "2025-05-13"
+ },
+ "Brest": {
+  "div": "F1",
+  "latest": "2026-11-08"
+ },
+ "Brighton": {
+  "div": "E0",
+  "latest": "2026-11-08"
+ },
+ "Bristol City": {
+  "div": "E1",
+  "latest": "2026-11-07"
+ },
+ "Bristol Rvs": {
+  "div": "E3",
+  "latest": "2026-10-31"
+ },
+ "Bromley": {
+  "div": "E2",
+  "latest": "2026-10-31"
+ },
+ "Burgos": {
+  "div": "SP2",
+  "latest": "2026-11-07"
+ },
+ "Burnley": {
+  "div": "E1",
+  "latest": "2026-11-07"
+ },
+ "Burton": {
+  "div": "E2",
+  "latest": "2026-10-31"
+ },
+ "Buyuksehyr": {
+  "div": "T1",
+  "latest": "2026-11-07"
+ },
+ "Cadiz": {
+  "div": "SP2",
+  "latest": "2026-11-07"
+ },
+ "Caen": {
+  "div": "F2",
+  "latest": "2025-05-10"
+ },
+ "Cagliari": {
+  "div": "I1",
+  "latest": "2026-11-07"
+ },
+ "Cambridge": {
+  "div": "E2",
+  "latest": "2026-10-31"
+ },
+ "Cambuur": {
+  "div": "N1",
+  "latest": "2026-11-08"
+ },
+ "Cardiff": {
+  "div": "E1",
+  "latest": "2026-11-07"
+ },
+ "Carlisle": {
+  "div": "EC",
+  "latest": "2026-10-31"
+ },
+ "Carrarese": {
+  "div": "I2",
+  "latest": "2026-11-08"
+ },
+ "Cartagena": {
+  "div": "SP2",
+  "latest": "2025-06-01"
+ },
+ "Casa Pia": {
+  "div": "P1",
+  "latest": "2026-11-07"
+ },
+ "Castellon": {
+  "div": "SP2",
+  "latest": "2026-11-01"
+ },
+ "Catanzaro": {
+  "div": "I2",
+  "latest": "2026-11-07"
+ },
+ "Celta": {
+  "div": "SP1",
+  "latest": "2026-11-08"
+ },
+ "Celta B": {
+  "div": "SP2",
+  "latest": "2026-11-07"
+ },
+ "Celtic": {
+  "div": "SC0",
+  "latest": "2026-11-08"
+ },
+ "Cercle Brugge": {
+  "div": "B1",
+  "latest": "2026-11-07"
+ },
+ "Cesena": {
+  "div": "I2",
+  "latest": "2026-11-07"
+ },
+ "Ceuta": {
+  "div": "SP2",
+  "latest": "2026-11-07"
+ },
+ "Charleroi": {
+  "div": "B1",
+  "latest": "2026-11-07"
+ },
+ "Charlton": {
+  "div": "E1",
+  "latest": "2026-11-07"
+ },
+ "Chelsea": {
+  "div": "E0",
+  "latest": "2026-11-08"
+ },
+ "Cheltenham": {
+  "div": "E3",
+  "latest": "2026-10-31"
+ },
+ "Chesterfield": {
+  "div": "E3",
+  "latest": "2026-10-30"
+ },
+ "Cittadella": {
+  "div": "I2",
+  "latest": "2025-05-13"
+ },
+ "Clermont": {
+  "div": "F2",
+  "latest": "2026-11-07"
+ },
+ "Club Brugge": {
+  "div": "B1",
+  "latest": "2026-11-08"
+ },
+ "Clyde": {
+  "div": "SC3",
+  "latest": "2026-11-07"
+ },
+ "Colchester": {
+  "div": "E3",
+  "latest": "2026-10-31"
+ },
+ "Como": {
+  "div": "I1",
+  "latest": "2026-11-08"
+ },
+ "Cordoba": {
+  "div": "SP2",
+  "latest": "2026-11-07"
+ },
+ "Corum": {
+  "div": "T1",
+  "latest": "2026-11-08"
+ },
+ "Cosenza": {
+  "div": "I2",
+  "latest": "2025-05-13"
+ },
+ "Cottbus": {
+  "div": "D2",
+  "latest": "2026-11-06"
+ },
+ "Cove Rangers": {
+  "div": "SC2",
+  "latest": "2026-11-07"
+ },
+ "Coventry": {
+  "div": "E0",
+  "latest": "2026-11-06"
+ },
+ "Crawley Town": {
+  "div": "E3",
+  "latest": "2026-10-31"
+ },
+ "Cremonese": {
+  "div": "I2",
+  "latest": "2026-11-08"
+ },
+ "Crewe": {
+  "div": "E3",
+  "latest": "2026-10-31"
+ },
+ "Crystal Palace": {
+  "div": "E0",
+  "latest": "2026-11-08"
+ },
+ "Cultural Leonesa": {
+  "div": "SP2",
+  "latest": "2026-05-30"
+ },
+ "Dag and Red": {
+  "div": "EC",
+  "latest": "2025-05-05"
+ },
+ "Darmstadt": {
+  "div": "D2",
+  "latest": "2026-11-07"
+ },
+ "Den Haag": {
+  "div": "N1",
+  "latest": "2026-11-07"
+ },
+ "Dender": {
+  "div": "B1",
+  "latest": "2026-05-09"
+ },
+ "Derby": {
+  "div": "E1",
+  "latest": "2026-11-06"
+ },
+ "Dijon": {
+  "div": "F2",
+  "latest": "2026-11-06"
+ },
+ "Doncaster": {
+  "div": "E2",
+  "latest": "2026-10-31"
+ },
+ "Dortmund": {
+  "div": "D1",
+  "latest": "2026-11-07"
+ },
+ "Dresden": {
+  "div": "D2",
+  "latest": "2026-11-06"
+ },
+ "Dumbarton": {
+  "div": "SC3",
+  "latest": "2026-11-07"
+ },
+ "Dundee": {
+  "div": "SC0",
+  "latest": "2026-11-07"
+ },
+ "Dundee United": {
+  "div": "SC0",
+  "latest": "2026-11-07"
+ },
+ "Dunfermline": {
+  "div": "SC1",
+  "latest": "2026-11-06"
+ },
+ "Dunkerque": {
+  "div": "F2",
+  "latest": "2026-11-06"
+ },
+ "East Fife": {
+  "div": "SC2",
+  "latest": "2026-11-07"
+ },
+ "East Kilbride": {
+  "div": "SC2",
+  "latest": "2026-11-07"
+ },
+ "Eastleigh": {
+  "div": "EC",
+  "latest": "2026-10-31"
+ },
+ "Ebbsfleet": {
+  "div": "EC",
+  "latest": "2025-05-05"
+ },
+ "Edinburgh City": {
+  "div": "SC3",
+  "latest": "2026-11-07"
+ },
+ "Eibar": {
+  "div": "SP2",
+  "latest": "2026-10-31"
+ },
+ "Ein Frankfurt": {
+  "div": "D1",
+  "latest": "2026-11-07"
+ },
+ "Elche": {
+  "div": "SP1",
+  "latest": "2026-11-08"
+ },
+ "Eldense": {
+  "div": "SP2",
+  "latest": "2026-11-09"
+ },
+ "Elgin": {
+  "div": "SC3",
+  "latest": "2026-11-07"
+ },
+ "Elversberg": {
+  "div": "D1",
+  "latest": "2026-11-07"
+ },
+ "Empoli": {
+  "div": "I2",
+  "latest": "2026-11-07"
+ },
+ "Erzurumspor": {
+  "div": "T1",
+  "latest": "2026-11-08"
+ },
+ "Espanol": {
+  "div": "SP1",
+  "latest": "2026-11-07"
+ },
+ "Estoril": {
+  "div": "P1",
+  "latest": "2026-10-31"
+ },
+ "Estrela": {
+  "div": "P1",
+  "latest": "2026-11-08"
+ },
+ "Everton": {
+  "div": "E0",
+  "latest": "2026-11-06"
+ },
+ "Excelsior": {
+  "div": "N1",
+  "latest": "2026-11-07"
+ },
+ "Exeter": {
+  "div": "E3",
+  "latest": "2026-10-31"
+ },
+ "Eyupspor": {
+  "div": "T1",
+  "latest": "2026-11-07"
+ },
+ "FC Koln": {
+  "div": "D1",
+  "latest": "2026-11-08"
+ },
+ "Falkirk": {
+  "div": "SC0",
+  "latest": "2026-11-08"
+ },
+ "Famalicao": {
+  "div": "P1",
+  "latest": "2026-11-06"
+ },
+ "Farense": {
+  "div": "P1",
+  "latest": "2025-05-17"
+ },
+ "Fenerbahce": {
+  "div": "T1",
+  "latest": "2026-11-08"
+ },
+ "Ferrol": {
+  "div": "SP2",
+  "latest": "2025-05-31"
+ },
+ "Feyenoord": {
+  "div": "N1",
+  "latest": "2026-11-08"
+ },
+ "Fiorentina": {
+  "div": "I1",
+  "latest": "2026-11-08"
+ },
+ "Fleetwood Town": {
+  "div": "E3",
+  "latest": "2026-10-31"
+ },
+ "For Sittard": {
+  "div": "N1",
+  "latest": "2026-11-07"
+ },
+ "Forest Green": {
+  "div": "EC",
+  "latest": "2026-10-31"
+ },
+ "Forfar": {
+  "div": "SC3",
+  "latest": "2026-11-07"
+ },
+ "Fortuna Dusseldorf": {
+  "div": "D2",
+  "latest": "2026-05-17"
+ },
+ "Freiburg": {
+  "div": "D1",
+  "latest": "2026-11-08"
+ },
+ "Frosinone": {
+  "div": "I1",
+  "latest": "2026-11-07"
+ },
+ "Fulham": {
+  "div": "E0",
+  "latest": "2026-11-07"
+ },
+ "Fylde": {
+  "div": "EC",
+  "latest": "2026-10-30"
+ },
+ "Galatasaray": {
+  "div": "T1",
+  "latest": "2026-11-07"
+ },
+ "Gateshead": {
+  "div": "EC",
+  "latest": "2026-10-31"
+ },
+ "Gaziantep": {
+  "div": "T1",
+  "latest": "2026-11-06"
+ },
+ "Genclerbirligi": {
+  "div": "T1",
+  "latest": "2026-11-08"
+ },
+ "Genk": {
+  "div": "B1",
+  "latest": "2026-11-08"
+ },
+ "Genoa": {
+  "div": "I1",
+  "latest": "2026-11-08"
+ },
+ "Gent": {
+  "div": "B1",
+  "latest": "2026-11-08"
+ },
+ "Getafe": {
+  "div": "SP1",
+  "latest": "2026-11-08"
+ },
+ "Gil Vicente": {
+  "div": "P1",
+  "latest": "2026-11-08"
+ },
+ "Gillingham": {
+  "div": "E3",
+  "latest": "2026-10-31"
+ },
+ "Girona": {
+  "div": "SP2",
+  "latest": "2026-11-08"
+ },
+ "Go Ahead Eagles": {
+  "div": "N1",
+  "latest": "2026-11-07"
+ },
+ "Goztep": {
+  "div": "T1",
+  "latest": "2026-11-07"
+ },
+ "Granada": {
+  "div": "SP2",
+  "latest": "2026-11-01"
+ },
+ "Grenoble": {
+  "div": "F2",
+  "latest": "2026-11-06"
+ },
+ "Greuther Furth": {
+  "div": "D2",
+  "latest": "2026-11-06"
+ },
+ "Grimsby": {
+  "div": "E3",
+  "latest": "2026-10-31"
+ },
+ "Groningen": {
+  "div": "N1",
+  "latest": "2026-11-08"
+ },
+ "Guimaraes": {
+  "div": "P1",
+  "latest": "2026-11-08"
+ },
+ "Guingamp": {
+  "div": "F2",
+  "latest": "2026-11-06"
+ },
+ "Halifax": {
+  "div": "EC",
+  "latest": "2026-10-31"
+ },
+ "Hamburg": {
+  "div": "D1",
+  "latest": "2026-11-06"
+ },
+ "Hamilton": {
+  "div": "SC2",
+  "latest": "2026-11-07"
+ },
+ "Hannover": {
+  "div": "D2",
+  "latest": "2026-11-08"
+ },
+ "Harrogate": {
+  "div": "EC",
+  "latest": "2026-10-31"
+ },
+ "Hartlepool": {
+  "div": "EC",
+  "latest": "2026-10-31"
+ },
+ "Hatayspor": {
+  "div": "T1",
+  "latest": "2025-05-31"
+ },
+ "Hearts": {
+  "div": "SC0",
+  "latest": "2026-11-08"
+ },
+ "Heerenveen": {
+  "div": "N1",
+  "latest": "2026-11-08"
+ },
+ "Heidenheim": {
+  "div": "D2",
+  "latest": "2026-11-08"
+ },
+ "Heracles": {
+  "div": "N1",
+  "latest": "2026-05-17"
+ },
+ "Hertha": {
+  "div": "D2",
+  "latest": "2026-11-07"
+ },
+ "Hibernian": {
+  "div": "SC0",
+  "latest": "2026-11-07"
+ },
+ "Hoffenheim": {
+  "div": "D1",
+  "latest": "2026-11-08"
+ },
+ "Holstein Kiel": {
+  "div": "D2",
+  "latest": "2026-11-07"
+ },
+ "Hornchurch": {
+  "div": "EC",
+  "latest": "2026-10-30"
+ },
+ "Huddersfield": {
+  "div": "E2",
+  "latest": "2026-11-03"
+ },
+ "Huesca": {
+  "div": "SP2",
+  "latest": "2026-05-31"
+ },
+ "Hull": {
+  "div": "E0",
+  "latest": "2026-11-07"
+ },
+ "Inter": {
+  "div": "I1",
+  "latest": "2026-11-08"
+ },
+ "Inverness C": {
+  "div": "SC1",
+  "latest": "2026-11-07"
+ },
+ "Ipswich": {
+  "div": "E0",
+  "latest": "2026-11-08"
+ },
+ "Iraklis": {
+  "div": "G1",
+  "latest": "2026-11-08"
+ },
+ "Juve Stabia": {
+  "div": "I2",
+  "latest": "2026-11-07"
+ },
+ "Juventus": {
+  "div": "I1",
+  "latest": "2026-11-08"
+ },
+ "Kaiserslautern": {
+  "div": "D2",
+  "latest": "2026-11-07"
+ },
+ "Kalamata": {
+  "div": "G1",
+  "latest": "2026-11-08"
+ },
+ "Karagumruk": {
+  "div": "T1",
+  "latest": "2026-05-16"
+ },
+ "Karlsruhe": {
+  "div": "D2",
+  "latest": "2026-11-08"
+ },
+ "Kasimpasa": {
+  "div": "T1",
+  "latest": "2026-11-06"
+ },
+ "Kayserispor": {
+  "div": "T1",
+  "latest": "2026-05-17"
+ },
+ "Kelty Hearts": {
+  "div": "SC3",
+  "latest": "2026-11-07"
+ },
+ "Kidderminster": {
+  "div": "EC",
+  "latest": "2026-10-31"
+ },
+ "Kifisia": {
+  "div": "G1",
+  "latest": "2026-11-07"
+ },
+ "Kilmarnock": {
+  "div": "SC0",
+  "latest": "2026-11-08"
+ },
+ "Kocaelispor": {
+  "div": "T1",
+  "latest": "2026-11-07"
+ },
+ "Konyaspor": {
+  "div": "T1",
+  "latest": "2026-11-07"
+ },
+ "Kortrijk": {
+  "div": "B1",
+  "latest": "2026-11-08"
+ },
+ "La Coruna": {
+  "div": "SP1",
+  "latest": "2026-11-07"
+ },
+ "Lamia": {
+  "div": "G1",
+  "latest": "2025-05-18"
+ },
+ "Larisa": {
+  "div": "G1",
+  "latest": "2026-05-21"
+ },
+ "Las Palmas": {
+  "div": "SP2",
+  "latest": "2026-11-09"
+ },
+ "Laval": {
+  "div": "F2",
+  "latest": "2026-11-07"
+ },
+ "Lazio": {
+  "div": "I1",
+  "latest": "2026-11-08"
+ },
+ "Le Havre": {
+  "div": "F1",
+  "latest": "2026-11-08"
+ },
+ "Le Mans": {
+  "div": "F1",
+  "latest": "2026-11-08"
+ },
+ "Lecce": {
+  "div": "I1",
+  "latest": "2026-11-07"
+ },
+ "Leeds": {
+  "div": "E0",
+  "latest": "2026-11-07"
+ },
+ "Leganes": {
+  "div": "SP2",
+  "latest": "2026-11-07"
+ },
+ "Leicester": {
+  "div": "E2",
+  "latest": "2026-10-31"
+ },
+ "Lens": {
+  "div": "F1",
+  "latest": "2026-11-08"
+ },
+ "Levadeiakos": {
+  "div": "G1",
+  "latest": "2026-11-08"
+ },
+ "Levante": {
+  "div": "SP1",
+  "latest": "2026-11-08"
+ },
+ "Leverkusen": {
+  "div": "D1",
+  "latest": "2026-11-08"
+ },
+ "Leyton Orient": {
+  "div": "E2",
+  "latest": "2026-10-31"
+ },
+ "Lille": {
+  "div": "F1",
+  "latest": "2026-11-08"
+ },
+ "Lincoln": {
+  "div": "E1",
+  "latest": "2026-11-07"
+ },
+ "Liverpool": {
+  "div": "E0",
+  "latest": "2026-11-08"
+ },
+ "Livingston": {
+  "div": "SC1",
+  "latest": "2026-11-07"
+ },
+ "Lommel SK": {
+  "div": "B1",
+  "latest": "2026-11-07"
+ },
+ "Lorient": {
+  "div": "F1",
+  "latest": "2026-11-08"
+ },
+ "Luton": {
+  "div": "E2",
+  "latest": "2026-11-03"
+ },
+ "Lyon": {
+  "div": "F1",
+  "latest": "2026-11-08"
+ },
+ "M'gladbach": {
+  "div": "D1",
+  "latest": "2026-11-06"
+ },
+ "Magdeburg": {
+  "div": "D2",
+  "latest": "2026-11-08"
+ },
+ "Maidenhead": {
+  "div": "EC",
+  "latest": "2025-05-05"
+ },
+ "Mainz": {
+  "div": "D1",
+  "latest": "2026-11-07"
+ },
+ "Malaga": {
+  "div": "SP1",
+  "latest": "2026-11-07"
+ },
+ "Mallorca": {
+  "div": "SP2",
+  "latest": "2026-11-02"
+ },
+ "Man City": {
+  "div": "E0",
+  "latest": "2026-11-07"
+ },
+ "Man United": {
+  "div": "E0",
+  "latest": "2026-11-08"
+ },
+ "Mansfield": {
+  "div": "E2",
+  "latest": "2026-11-03"
+ },
+ "Mantova": {
+  "div": "I2",
+  "latest": "2026-11-07"
+ },
+ "Maritimo": {
+  "div": "P1",
+  "latest": "2026-11-01"
+ },
+ "Marseille": {
+  "div": "F1",
+  "latest": "2026-11-08"
+ },
+ "Martigues": {
+  "div": "F2",
+  "latest": "2025-05-10"
+ },
+ "Mechelen": {
+  "div": "B1",
+  "latest": "2026-11-07"
+ },
+ "Metz": {
+  "div": "F2",
+  "latest": "2026-11-06"
+ },
+ "Middlesbrough": {
+  "div": "E1",
+  "latest": "2026-11-07"
+ },
+ "Milan": {
+  "div": "I1",
+  "latest": "2026-11-08"
+ },
+ "Millwall": {
+  "div": "E1",
+  "latest": "2026-11-07"
+ },
+ "Milton Keynes Dons": {
+  "div": "E2",
+  "latest": "2026-10-31"
+ },
+ "Mirandes": {
+  "div": "SP2",
+  "latest": "2026-05-31"
+ },
+ "Modena": {
+  "div": "I2",
+  "latest": "2026-11-08"
+ },
+ "Monaco": {
+  "div": "F1",
+  "latest": "2026-11-08"
+ },
+ "Montpellier": {
+  "div": "F2",
+  "latest": "2026-11-06"
+ },
+ "Montrose": {
+  "div": "SC2",
+  "latest": "2026-11-07"
+ },
+ "Monza": {
+  "div": "I1",
+  "latest": "2026-11-08"
+ },
+ "Morecambe": {
+  "div": "EC",
+  "latest": "2026-04-25"
+ },
+ "Moreirense": {
+  "div": "P1",
+  "latest": "2026-11-07"
+ },
+ "Morton": {
+  "div": "SC1",
+  "latest": "2026-11-07"
+ },
+ "Motherwell": {
+  "div": "SC0",
+  "latest": "2026-11-07"
+ },
+ "NAC Breda": {
+  "div": "N1",
+  "latest": "2026-05-17"
+ },
+ "Nacional": {
+  "div": "P1",
+  "latest": "2026-11-08"
+ },
+ "Nancy": {
+  "div": "F2",
+  "latest": "2026-11-06"
+ },
+ "Nantes": {
+  "div": "F2",
+  "latest": "2026-11-07"
+ },
+ "Napoli": {
+  "div": "I1",
+  "latest": "2026-11-08"
+ },
+ "Newcastle": {
+  "div": "E0",
+  "latest": "2026-11-07"
+ },
+ "Newport County": {
+  "div": "E3",
+  "latest": "2026-10-30"
+ },
+ "Nice": {
+  "div": "F1",
+  "latest": "2026-11-08"
+ },
+ "Nijmegen": {
+  "div": "N1",
+  "latest": "2026-11-08"
+ },
+ "Northampton": {
+  "div": "E3",
+  "latest": "2026-11-03"
+ },
+ "Norwich": {
+  "div": "E1",
+  "latest": "2026-11-07"
+ },
+ "Nott'm Forest": {
+  "div": "E0",
+  "latest": "2026-11-07"
+ },
+ "Notts County": {
+  "div": "E2",
+  "latest": "2026-10-31"
+ },
+ "Nurnberg": {
+  "div": "D2",
+  "latest": "2026-11-07"
+ },
+ "OFI Crete": {
+  "div": "G1",
+  "latest": "2026-11-08"
+ },
+ "Oldham": {
+  "div": "E3",
+  "latest": "2026-11-03"
+ },
+ "Olympiakos": {
+  "div": "G1",
+  "latest": "2026-11-08"
+ },
+ "Osasuna": {
+  "div": "SP1",
+  "latest": "2026-11-07"
+ },
+ "Osnabruck": {
+  "div": "D2",
+  "latest": "2026-11-07"
+ },
+ "Oud-Heverlee Leuven": {
+  "div": "B1",
+  "latest": "2026-11-07"
+ },
+ "Oviedo": {
+  "div": "SP2",
+  "latest": "2026-11-07"
+ },
+ "Oxford": {
+  "div": "E2",
+  "latest": "2026-11-04"
+ },
+ "PAOK": {
+  "div": "G1",
+  "latest": "2026-11-08"
+ },
+ "PSV Eindhoven": {
+  "div": "N1",
+  "latest": "2026-11-08"
+ },
+ "Paderborn": {
+  "div": "D1",
+  "latest": "2026-11-07"
+ },
+ "Padova": {
+  "div": "I2",
+  "latest": "2026-11-07"
+ },
+ "Palermo": {
+  "div": "I2",
+  "latest": "2026-11-06"
+ },
+ "Panathinaikos": {
+  "div": "G1",
+  "latest": "2026-11-08"
+ },
+ "Panetolikos": {
+  "div": "G1",
+  "latest": "2026-11-07"
+ },
+ "Panserraikos": {
+  "div": "G1",
+  "latest": "2026-05-21"
+ },
+ "Paris FC": {
+  "div": "F1",
+  "latest": "2026-11-07"
+ },
+ "Paris SG": {
+  "div": "F1",
+  "latest": "2026-11-07"
+ },
+ "Parma": {
+  "div": "I1",
+  "latest": "2026-11-07"
+ },
+ "Partick": {
+  "div": "SC1",
+  "latest": "2026-11-07"
+ },
+ "Pau FC": {
+  "div": "F2",
+  "latest": "2026-11-07"
+ },
+ "Pescara": {
+  "div": "I2",
+  "latest": "2026-05-08"
+ },
+ "Peterboro": {
+  "div": "E2",
+  "latest": "2026-10-31"
+ },
+ "Peterhead": {
+  "div": "SC2",
+  "latest": "2026-11-07"
+ },
+ "Pisa": {
+  "div": "I2",
+  "latest": "2026-11-07"
+ },
+ "Plymouth": {
+  "div": "E2",
+  "latest": "2026-10-31"
+ },
+ "Port Vale": {
+  "div": "E3",
+  "latest": "2026-10-31"
+ },
+ "Porto": {
+  "div": "P1",
+  "latest": "2026-11-08"
+ },
+ "Portsmouth": {
+  "div": "E1",
+  "latest": "2026-11-07"
+ },
+ "Preston": {
+  "div": "E1",
+  "latest": "2026-11-07"
+ },
+ "Preu\u00dfen M\u00fcnster": {
+  "div": "D2",
+  "latest": "2026-05-17"
+ },
+ "QPR": {
+  "div": "E1",
+  "latest": "2026-11-07"
+ },
+ "Queen of Sth": {
+  "div": "SC2",
+  "latest": "2026-11-07"
+ },
+ "Queens Park": {
+  "div": "SC1",
+  "latest": "2026-11-07"
+ },
+ "RAAL La Louviere": {
+  "div": "B1",
+  "latest": "2026-11-07"
+ },
+ "RB Leipzig": {
+  "div": "D1",
+  "latest": "2026-11-07"
+ },
+ "Raith Rvs": {
+  "div": "SC1",
+  "latest": "2026-11-06"
+ },
+ "Rangers": {
+  "div": "SC0",
+  "latest": "2026-11-07"
+ },
+ "Reading": {
+  "div": "E2",
+  "latest": "2026-11-04"
+ },
+ "Real Madrid": {
+  "div": "SP1",
+  "latest": "2026-11-07"
+ },
+ "Red Star": {
+  "div": "F2",
+  "latest": "2026-11-06"
+ },
+ "Regensburg": {
+  "div": "D2",
+  "latest": "2025-05-18"
+ },
+ "Reggiana": {
+  "div": "I2",
+  "latest": "2026-05-08"
+ },
+ "Reims": {
+  "div": "F2",
+  "latest": "2026-11-06"
+ },
+ "Rennes": {
+  "div": "F1",
+  "latest": "2026-11-08"
+ },
+ "Rio Ave": {
+  "div": "P1",
+  "latest": "2026-11-08"
+ },
+ "Rizespor": {
+  "div": "T1",
+  "latest": "2026-11-08"
+ },
+ "Rochdale": {
+  "div": "E3",
+  "latest": "2026-10-31"
+ },
+ "Rodez": {
+  "div": "F2",
+  "latest": "2026-11-07"
+ },
+ "Roma": {
+  "div": "I1",
+  "latest": "2026-11-07"
+ },
+ "Ross County": {
+  "div": "SC2",
+  "latest": "2026-11-07"
+ },
+ "Rotherham": {
+  "div": "E3",
+  "latest": "2026-10-31"
+ },
+ "Sabadell": {
+  "div": "SP2",
+  "latest": "2026-11-09"
+ },
+ "Salernitana": {
+  "div": "I2",
+  "latest": "2025-05-13"
+ },
+ "Salford": {
+  "div": "E3",
+  "latest": "2026-10-31"
+ },
+ "Sampdoria": {
+  "div": "I2",
+  "latest": "2026-11-08"
+ },
+ "Samsunspor": {
+  "div": "T1",
+  "latest": "2026-11-07"
+ },
+ "Santa Clara": {
+  "div": "P1",
+  "latest": "2026-11-08"
+ },
+ "Santander": {
+  "div": "SP1",
+  "latest": "2026-11-07"
+ },
+ "Sassuolo": {
+  "div": "I1",
+  "latest": "2026-11-07"
+ },
+ "Schalke 04": {
+  "div": "D1",
+  "latest": "2026-11-08"
+ },
+ "Scunthorpe": {
+  "div": "EC",
+  "latest": "2026-10-31"
+ },
+ "Sevilla": {
+  "div": "SP1",
+  "latest": "2026-11-06"
+ },
+ "Sheffield United": {
+  "div": "E1",
+  "latest": "2026-11-07"
+ },
+ "Sheffield Weds": {
+  "div": "E2",
+  "latest": "2026-11-01"
+ },
+ "Shrewsbury": {
+  "div": "E3",
+  "latest": "2026-10-31"
+ },
+ "Sivasspor": {
+  "div": "T1",
+  "latest": "2025-05-31"
+ },
+ "Sochaux": {
+  "div": "F2",
+  "latest": "2026-11-06"
+ },
+ "Sociedad": {
+  "div": "SP1",
+  "latest": "2026-11-08"
+ },
+ "Sociedad B": {
+  "div": "SP2",
+  "latest": "2026-11-09"
+ },
+ "Solihull": {
+  "div": "EC",
+  "latest": "2026-10-31"
+ },
+ "Southampton": {
+  "div": "E1",
+  "latest": "2026-11-07"
+ },
+ "Southend": {
+  "div": "EC",
+  "latest": "2026-10-31"
+ },
+ "Sp Braga": {
+  "div": "P1",
+  "latest": "2026-11-08"
+ },
+ "Sp Gijon": {
+  "div": "SP2",
+  "latest": "2026-11-08"
+ },
+ "Sp Lisbon": {
+  "div": "P1",
+  "latest": "2026-11-07"
+ },
+ "Sparta Rotterdam": {
+  "div": "N1",
+  "latest": "2026-11-07"
+ },
+ "Spartans": {
+  "div": "SC3",
+  "latest": "2026-11-07"
+ },
+ "Spezia": {
+  "div": "I2",
+  "latest": "2026-05-08"
+ },
+ "St Etienne": {
+  "div": "F2",
+  "latest": "2026-11-07"
+ },
+ "St Johnstone": {
+  "div": "SC0",
+  "latest": "2026-11-07"
+ },
+ "St Mirren": {
+  "div": "SC0",
+  "latest": "2026-11-07"
+ },
+ "St Pauli": {
+  "div": "D2",
+  "latest": "2026-11-08"
+ },
+ "St Truiden": {
+  "div": "B1",
+  "latest": "2026-11-08"
+ },
+ "St. Gilloise": {
+  "div": "B1",
+  "latest": "2026-11-08"
+ },
+ "Standard": {
+  "div": "B1",
+  "latest": "2026-11-06"
+ },
+ "Stenhousemuir": {
+  "div": "SC1",
+  "latest": "2026-11-07"
+ },
+ "Stevenage": {
+  "div": "E2",
+  "latest": "2026-10-31"
+ },
+ "Stirling": {
+  "div": "SC3",
+  "latest": "2026-11-07"
+ },
+ "Stockport": {
+  "div": "E2",
+  "latest": "2026-10-31"
+ },
+ "Stoke": {
+  "div": "E1",
+  "latest": "2026-11-07"
+ },
+ "Stranraer": {
+  "div": "SC3",
+  "latest": "2026-11-07"
+ },
+ "Strasbourg": {
+  "div": "F1",
+  "latest": "2026-11-06"
+ },
+ "Stuttgart": {
+  "div": "D1",
+  "latest": "2026-11-07"
+ },
+ "Sudtirol": {
+  "div": "I2",
+  "latest": "2026-11-07"
+ },
+ "Sunderland": {
+  "div": "E0",
+  "latest": "2026-11-08"
+ },
+ "Sutton": {
+  "div": "EC",
+  "latest": "2026-10-31"
+ },
+ "Swansea": {
+  "div": "E1",
+  "latest": "2026-11-07"
+ },
+ "Swindon": {
+  "div": "E3",
+  "latest": "2026-10-31"
+ },
+ "Tamworth": {
+  "div": "EC",
+  "latest": "2026-10-31"
+ },
+ "Telstar": {
+  "div": "N1",
+  "latest": "2026-11-07"
+ },
+ "Tenerife": {
+  "div": "SP2",
+  "latest": "2026-11-02"
+ },
+ "Tondela": {
+  "div": "P1",
+  "latest": "2026-05-16"
+ },
+ "Torino": {
+  "div": "I1",
+  "latest": "2026-11-07"
+ },
+ "Tottenham": {
+  "div": "E0",
+  "latest": "2026-11-07"
+ },
+ "Toulouse": {
+  "div": "F1",
+  "latest": "2026-11-06"
+ },
+ "Trabzonspor": {
+  "div": "T1",
+  "latest": "2026-11-08"
+ },
+ "Tranmere": {
+  "div": "E3",
+  "latest": "2026-10-31"
+ },
+ "Troyes": {
+  "div": "F1",
+  "latest": "2026-11-07"
+ },
+ "Truro": {
+  "div": "EC",
+  "latest": "2026-04-25"
+ },
+ "Twente": {
+  "div": "N1",
+  "latest": "2026-11-08"
+ },
+ "Udinese": {
+  "div": "I1",
+  "latest": "2026-11-06"
+ },
+ "Ulm": {
+  "div": "D2",
+  "latest": "2025-05-18"
+ },
+ "Union Berlin": {
+  "div": "D1",
+  "latest": "2026-11-08"
+ },
+ "Utrecht": {
+  "div": "N1",
+  "latest": "2026-11-08"
+ },
+ "Valencia": {
+  "div": "SP1",
+  "latest": "2026-11-07"
+ },
+ "Valladolid": {
+  "div": "SP2",
+  "latest": "2026-11-08"
+ },
+ "Vallecano": {
+  "div": "SP1",
+  "latest": "2026-11-08"
+ },
+ "Venezia": {
+  "div": "I1",
+  "latest": "2026-11-06"
+ },
+ "Verona": {
+  "div": "I2",
+  "latest": "2026-11-07"
+ },
+ "Vicenza": {
+  "div": "I2",
+  "latest": "2026-11-08"
+ },
+ "Villarreal": {
+  "div": "SP1",
+  "latest": "2026-11-08"
+ },
+ "Virtus Entella": {
+  "div": "I2",
+  "latest": "2026-11-08"
+ },
+ "Volendam": {
+  "div": "N1",
+  "latest": "2026-05-17"
+ },
+ "Volos NFC": {
+  "div": "G1",
+  "latest": "2026-11-07"
+ },
+ "Waalwijk": {
+  "div": "N1",
+  "latest": "2025-05-18"
+ },
+ "Walsall": {
+  "div": "E3",
+  "latest": "2026-10-31"
+ },
+ "Waregem": {
+  "div": "B1",
+  "latest": "2026-11-08"
+ },
+ "Watford": {
+  "div": "E1",
+  "latest": "2026-11-07"
+ },
+ "Wealdstone": {
+  "div": "EC",
+  "latest": "2026-10-31"
+ },
+ "Werder Bremen": {
+  "div": "D1",
+  "latest": "2026-11-07"
+ },
+ "West Brom": {
+  "div": "E1",
+  "latest": "2026-11-07"
+ },
+ "West Ham": {
+  "div": "E1",
+  "latest": "2026-11-07"
+ },
+ "Westerlo": {
+  "div": "B1",
+  "latest": "2026-11-07"
+ },
+ "Wigan": {
+  "div": "E2",
+  "latest": "2026-11-03"
+ },
+ "Willem II": {
+  "div": "N1",
+  "latest": "2026-11-06"
+ },
+ "Woking": {
+  "div": "EC",
+  "latest": "2026-10-31"
+ },
+ "Wolfsburg": {
+  "div": "D2",
+  "latest": "2026-11-07"
+ },
+ "Wolves": {
+  "div": "E1",
+  "latest": "2026-11-07"
+ },
+ "Worthing": {
+  "div": "EC",
+  "latest": "2026-10-31"
+ },
+ "Wrexham": {
+  "div": "E1",
+  "latest": "2026-11-07"
+ },
+ "Wycombe": {
+  "div": "E2",
+  "latest": "2026-10-31"
+ },
+ "Yeovil": {
+  "div": "EC",
+  "latest": "2026-10-31"
+ },
+ "York": {
+  "div": "E3",
+  "latest": "2026-10-31"
+ },
+ "Zaragoza": {
+  "div": "SP2",
+  "latest": "2026-05-31"
+ },
+ "Zwolle": {
+  "div": "N1",
+  "latest": "2026-11-06"
+ }
+}

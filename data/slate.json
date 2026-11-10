@@ -1,6 +1,6 @@
 {
  "props_src": "E0:pin(421p,35d) \u00b7 E1:off(KeyError) \u00b7 E2:off(KeyError) \u00b7 E3:off(KeyError) \u00b7 EC:off(KeyError) \u00b7 SC0:off(KeyError) \u00b7 SC1:off(KeyError) \u00b7 SC2:off(KeyError) \u00b7 SC3:off(KeyError) \u00b7 D1:pin(367p,35d) \u00b7 D2:off(KeyError) \u00b7 I1:off(ValueError) \u00b7 I2:off(KeyError) \u00b7 SP1:pin(461p,35d) \u00b7 SP2:off(KeyError) \u00b7 F1:pin(424p,35d) \u00b7 F2:off(KeyError) \u00b7 N1:off(KeyError) \u00b7 B1:off(KeyError) \u00b7 P1:off(KeyError) \u00b7 T1:off(KeyError) \u00b7 G1:off(KeyError)",
- "generated": "2026-11-10T16:15:37+00:00",
+ "generated": "2026-11-10T16:17:28+00:00",
  "slate_date": null,
  "slate_end": null,
  "leagues": {
