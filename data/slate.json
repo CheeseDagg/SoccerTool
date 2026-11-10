@@ -1,711 +1,4065 @@
 {
- "props_src": "E0:pin(454p,8d) \u00b7 SP1:pin(487p,8d) \u00b7 D1:pin(413p,8d) \u00b7 F1:pin(428p,8d)",
- "generated": "2026-11-09T19:52:51+00:00",
+ "props_src": "E0:pin(421p,35d) \u00b7 E1:off(KeyError) \u00b7 E2:off(KeyError) \u00b7 E3:off(KeyError) \u00b7 EC:off(KeyError) \u00b7 SC0:off(KeyError) \u00b7 SC1:off(KeyError) \u00b7 SC2:off(KeyError) \u00b7 SC3:off(KeyError) \u00b7 D1:pin(367p,35d) \u00b7 D2:off(KeyError) \u00b7 I1:off(ValueError) \u00b7 I2:off(KeyError) \u00b7 SP1:pin(461p,35d) \u00b7 SP2:off(KeyError) \u00b7 F1:pin(424p,35d) \u00b7 F2:off(KeyError) \u00b7 N1:off(KeyError) \u00b7 B1:off(KeyError) \u00b7 P1:off(KeyError) \u00b7 T1:off(KeyError) \u00b7 G1:off(KeyError)",
+ "generated": "2026-11-10T15:59:08+00:00",
  "slate_date": null,
  "slate_end": null,
  "leagues": {
   "E0": {
    "name": "Premier League",
-   "n_matches": 1140,
-   "latest_result": "2026-05-24",
-   "home_adv": 0.179,
-   "rho": -0.118,
-   "mu": 0.224237,
+   "n_matches": 860,
+   "latest_result": "2026-11-08",
+   "home_adv": 0.199,
+   "rho": -0.068,
+   "mu": 0.168892,
    "rho_source": "goals",
    "level_scale": [
-    0.897,
-    0.9144
+    0.9218,
+    0.9289
    ],
    "ratings": [
     {
      "team": "Arsenal",
-     "att": 0.33,
-     "dfn": 0.554,
-     "idx": 242.0
-    },
-    {
-     "team": "Man City",
-     "att": 0.363,
-     "dfn": 0.263,
-     "idx": 187.1
-    },
-    {
-     "team": "Liverpool",
-     "att": 0.317,
-     "dfn": 0.179,
-     "idx": 164.4
-    },
-    {
-     "team": "Man United",
-     "att": 0.205,
-     "dfn": 0.139,
-     "idx": 141.1
-    },
-    {
-     "team": "Chelsea",
-     "att": 0.27,
-     "dfn": 0.066,
-     "idx": 139.9
-    },
-    {
-     "team": "Bournemouth",
-     "att": 0.223,
-     "dfn": 0.092,
-     "idx": 137.1
-    },
-    {
-     "team": "Newcastle",
-     "att": 0.187,
-     "dfn": 0.062,
-     "idx": 128.2
+     "att": 0.29,
+     "dfn": 0.619,
+     "idx": 248.2
     },
     {
      "team": "Brighton",
-     "att": 0.099,
-     "dfn": 0.129,
-     "idx": 125.6
+     "att": 0.301,
+     "dfn": 0.248,
+     "idx": 173.1
     },
     {
-     "team": "Leeds",
-     "att": 0.126,
-     "dfn": 0.103,
-     "idx": 125.6
+     "team": "Man City",
+     "att": 0.368,
+     "dfn": 0.163,
+     "idx": 170.1
+    },
+    {
+     "team": "Liverpool",
+     "att": 0.253,
+     "dfn": 0.214,
+     "idx": 159.5
+    },
+    {
+     "team": "Chelsea",
+     "att": 0.323,
+     "dfn": -0.01,
+     "idx": 136.8
+    },
+    {
+     "team": "Bournemouth",
+     "att": 0.233,
+     "dfn": 0.07,
+     "idx": 135.4
     },
     {
      "team": "Brentford",
+     "att": 0.223,
+     "dfn": 0.054,
+     "idx": 131.9
+    },
+    {
+     "team": "Leeds",
+     "att": 0.008,
+     "dfn": 0.222,
+     "idx": 125.8
+    },
+    {
+     "team": "Man United",
+     "att": 0.196,
+     "dfn": -0.008,
+     "idx": 120.7
+    },
+    {
+     "team": "Aston Villa",
+     "att": 0.143,
+     "dfn": 0.009,
+     "idx": 116.4
+    },
+    {
+     "team": "Newcastle",
+     "att": 0.129,
+     "dfn": -0.028,
+     "idx": 110.6
+    },
+    {
+     "team": "Hull",
+     "att": -0.266,
+     "dfn": 0.331,
+     "idx": 106.7
+    },
+    {
+     "team": "Everton",
+     "att": -0.105,
+     "dfn": 0.119,
+     "idx": 101.4
+    },
+    {
+     "team": "Tottenham",
+     "att": -0.108,
+     "dfn": 0.091,
+     "idx": 98.3
+    },
+    {
+     "team": "Fulham",
+     "att": -0.116,
+     "dfn": 0.072,
+     "idx": 95.6
+    },
+    {
+     "team": "Crystal Palace",
+     "att": 0.078,
+     "dfn": -0.175,
+     "idx": 90.8
+    },
+    {
+     "team": "Nott'm Forest",
+     "att": -0.131,
+     "dfn": 0.011,
+     "idx": 88.7
+    },
+    {
+     "team": "West Ham",
+     "att": -0.032,
+     "dfn": -0.117,
+     "idx": 86.2
+    },
+    {
+     "team": "Sunderland",
+     "att": -0.266,
+     "dfn": -0.018,
+     "idx": 75.3
+    },
+    {
+     "team": "Ipswich",
+     "att": -0.03,
+     "dfn": -0.304,
+     "idx": 71.6
+    },
+    {
+     "team": "Wolves",
+     "att": -0.233,
+     "dfn": -0.125,
+     "idx": 69.9
+    },
+    {
+     "team": "Coventry",
+     "att": -0.169,
+     "dfn": -0.257,
+     "idx": 65.3
+    },
+    {
+     "team": "Burnley",
+     "att": -0.31,
+     "dfn": -0.317,
+     "idx": 53.4
+    },
+    {
+     "team": "Leicester",
+     "att": -0.396,
+     "dfn": -0.362,
+     "idx": 46.9
+    },
+    {
+     "team": "Southampton",
+     "att": -0.382,
+     "dfn": -0.501,
+     "idx": 41.3
+    }
+   ],
+   "fixtures": [],
+   "backtest": {
+    "n": 602,
+    "acc": 50.2,
+    "brier3": 0.6103,
+    "totals": {
+     "n": 602,
+     "acc": 52.7,
+     "market_acc": 54.5,
+     "disagree_n": 159,
+     "disagree_model_right": 46.5,
+     "disagree_market_right": 53.5
+    },
+    "n_mkt": 602,
+    "acc_mkt": 50.2,
+    "market_acc": 51.2,
+    "disagree_n": 84,
+    "disagree_model_right": 31.0,
+    "disagree_market_right": 38.1
+   }
+  },
+  "E1": {
+   "name": "Championship",
+   "n_matches": 1284,
+   "latest_result": "2026-11-07",
+   "home_adv": 0.223,
+   "rho": -0.036,
+   "mu": 0.161106,
+   "rho_source": "response",
+   "level_scale": [
+    1.0,
+    1.0
+   ],
+   "ratings": [
+    {
+     "team": "Leeds",
+     "att": 0.434,
+     "dfn": 0.674,
+     "idx": 302.8
+    },
+    {
+     "team": "Coventry",
+     "att": 0.351,
+     "dfn": 0.228,
+     "idx": 178.4
+    },
+    {
+     "team": "Southampton",
+     "att": 0.334,
+     "dfn": 0.189,
+     "idx": 168.6
+    },
+    {
+     "team": "Ipswich",
+     "att": 0.278,
+     "dfn": 0.244,
+     "idx": 168.4
+    },
+    {
+     "team": "West Ham",
+     "att": 0.589,
+     "dfn": -0.166,
+     "idx": 152.8
+    },
+    {
+     "team": "Wolves",
+     "att": 0.207,
+     "dfn": 0.179,
+     "idx": 147.0
+    },
+    {
+     "team": "Middlesbrough",
+     "att": 0.227,
+     "dfn": 0.132,
+     "idx": 143.2
+    },
+    {
+     "team": "Birmingham",
+     "att": 0.115,
+     "dfn": 0.21,
+     "idx": 138.3
+    },
+    {
+     "team": "Norwich",
+     "att": 0.25,
+     "dfn": -0.043,
+     "idx": 123.1
+    },
+    {
+     "team": "Sunderland",
+     "att": -0.151,
+     "dfn": 0.284,
+     "idx": 114.3
+    },
+    {
+     "team": "West Brom",
+     "att": -0.065,
+     "dfn": 0.194,
+     "idx": 113.7
+    },
+    {
+     "team": "Sheffield United",
+     "att": 0.068,
+     "dfn": 0.021,
+     "idx": 109.2
+    },
+    {
+     "team": "Millwall",
+     "att": 0.041,
+     "dfn": 0.033,
+     "idx": 107.7
+    },
+    {
+     "team": "Swansea",
+     "att": -0.009,
+     "dfn": 0.066,
+     "idx": 105.9
+    },
+    {
+     "team": "Wrexham",
+     "att": 0.055,
+     "dfn": -0.02,
+     "idx": 103.5
+    },
+    {
+     "team": "Burnley",
+     "att": 0.108,
+     "dfn": -0.105,
+     "idx": 100.3
+    },
+    {
+     "team": "Hull",
+     "att": 0.022,
+     "dfn": -0.02,
+     "idx": 100.1
+    },
+    {
+     "team": "QPR",
+     "att": 0.032,
+     "dfn": -0.071,
+     "idx": 96.2
+    },
+    {
+     "team": "Stoke",
+     "att": -0.081,
+     "dfn": 0.04,
+     "idx": 96.0
+    },
+    {
+     "team": "Portsmouth",
+     "att": -0.092,
+     "dfn": -0.008,
+     "idx": 90.5
+    },
+    {
+     "team": "Cardiff",
+     "att": 0.155,
+     "dfn": -0.258,
+     "idx": 90.3
+    },
+    {
+     "team": "Blackburn",
+     "att": -0.167,
+     "dfn": 0.039,
+     "idx": 88.0
+    },
+    {
+     "team": "Bristol City",
+     "att": -0.118,
+     "dfn": -0.058,
+     "idx": 83.9
+    },
+    {
+     "team": "Leicester",
+     "att": -0.061,
+     "dfn": -0.119,
+     "idx": 83.5
+    },
+    {
+     "team": "Derby",
+     "att": -0.099,
+     "dfn": -0.109,
+     "idx": 81.2
+    },
+    {
+     "team": "Oxford",
+     "att": -0.279,
+     "dfn": 0.026,
+     "idx": 77.6
+    },
+    {
+     "team": "Bolton",
+     "att": -0.028,
+     "dfn": -0.305,
+     "idx": 71.7
+    },
+    {
+     "team": "Watford",
+     "att": -0.279,
+     "dfn": -0.083,
+     "idx": 69.6
+    },
+    {
+     "team": "Luton",
+     "att": -0.299,
+     "dfn": -0.095,
+     "idx": 67.4
+    },
+    {
+     "team": "Preston",
+     "att": -0.22,
+     "dfn": -0.195,
+     "idx": 66.0
+    },
+    {
+     "team": "Charlton",
+     "att": -0.4,
+     "dfn": -0.03,
+     "idx": 65.1
+    },
+    {
+     "team": "Plymouth",
+     "att": -0.141,
+     "dfn": -0.35,
+     "idx": 61.2
+    },
+    {
+     "team": "Lincoln",
+     "att": -0.284,
+     "dfn": -0.229,
+     "idx": 59.9
+    },
+    {
+     "team": "Sheffield Weds",
+     "att": -0.492,
+     "dfn": -0.293,
+     "idx": 45.6
+    }
+   ],
+   "fixtures": [],
+   "backtest": {
+    "n": 881,
+    "acc": 43.8,
+    "brier3": 0.6466,
+    "totals": {
+     "n": 881,
+     "acc": 50.7,
+     "market_acc": 56.4,
+     "disagree_n": 250,
+     "disagree_model_right": 40.0,
+     "disagree_market_right": 60.0
+    },
+    "n_mkt": 881,
+    "acc_mkt": 43.8,
+    "market_acc": 48.1,
+    "disagree_n": 162,
+    "disagree_model_right": 27.2,
+    "disagree_market_right": 50.6
+   }
+  },
+  "E2": {
+   "name": "League One",
+   "n_matches": 1262,
+   "latest_result": "2026-11-04",
+   "home_adv": 0.2,
+   "rho": -0.048,
+   "mu": 0.131622,
+   "rho_source": "response",
+   "level_scale": [
+    1.0,
+    1.0
+   ],
+   "ratings": [
+    {
+     "team": "Birmingham",
+     "att": 0.324,
+     "dfn": 0.661,
+     "idx": 267.7
+    },
+    {
+     "team": "Oxford",
+     "att": 0.273,
+     "dfn": 0.465,
+     "idx": 209.3
+    },
+    {
+     "team": "Wrexham",
+     "att": 0.098,
+     "dfn": 0.569,
+     "idx": 194.9
+    },
+    {
+     "team": "Lincoln",
+     "att": 0.353,
+     "dfn": 0.273,
+     "idx": 186.9
+    },
+    {
+     "team": "Cardiff",
+     "att": 0.425,
+     "dfn": 0.118,
+     "idx": 172.1
+    },
+    {
+     "team": "Charlton",
+     "att": 0.149,
+     "dfn": 0.318,
+     "idx": 159.5
+    },
+    {
+     "team": "Stockport",
+     "att": 0.206,
+     "dfn": 0.141,
+     "idx": 141.5
+    },
+    {
+     "team": "Huddersfield",
+     "att": 0.243,
+     "dfn": 0.052,
+     "idx": 134.2
+    },
+    {
+     "team": "Sheffield Weds",
+     "att": 0.169,
+     "dfn": 0.105,
+     "idx": 131.6
+    },
+    {
+     "team": "Luton",
+     "att": 0.261,
+     "dfn": -0.009,
+     "idx": 128.7
+    },
+    {
+     "team": "Reading",
+     "att": 0.163,
+     "dfn": 0.067,
+     "idx": 126.0
+    },
+    {
+     "team": "Plymouth",
+     "att": 0.224,
+     "dfn": -0.045,
+     "idx": 119.6
+    },
+    {
+     "team": "Bolton",
+     "att": 0.168,
+     "dfn": 0.002,
+     "idx": 118.5
+    },
+    {
+     "team": "Bradford",
+     "att": -0.203,
+     "dfn": 0.361,
+     "idx": 117.2
+    },
+    {
+     "team": "Notts County",
+     "att": -0.095,
+     "dfn": 0.22,
+     "idx": 113.2
+    },
+    {
+     "team": "Wycombe",
+     "att": 0.177,
+     "dfn": -0.066,
+     "idx": 111.8
+    },
+    {
+     "team": "Leicester",
+     "att": 0.232,
+     "dfn": -0.131,
+     "idx": 110.6
+    },
+    {
+     "team": "Mansfield",
+     "att": 0.073,
+     "dfn": 0.003,
+     "idx": 107.9
+    },
+    {
+     "team": "Stevenage",
+     "att": -0.159,
+     "dfn": 0.211,
+     "idx": 105.3
+    },
+    {
+     "team": "Leyton Orient",
+     "att": 0.038,
+     "dfn": -0.008,
+     "idx": 103.1
+    },
+    {
+     "team": "Milton Keynes Dons",
+     "att": 0.205,
+     "dfn": -0.188,
+     "idx": 101.7
+    },
+    {
+     "team": "Blackpool",
+     "att": -0.016,
+     "dfn": -0.102,
+     "idx": 88.9
+    },
+    {
+     "team": "Burton",
+     "att": -0.112,
+     "dfn": -0.053,
+     "idx": 84.8
+    },
+    {
+     "team": "Cambridge",
+     "att": -0.006,
+     "dfn": -0.162,
+     "idx": 84.6
+    },
+    {
+     "team": "Exeter",
+     "att": -0.141,
+     "dfn": -0.082,
+     "idx": 80.0
+    },
+    {
+     "team": "Barnsley",
+     "att": 0.018,
+     "dfn": -0.244,
+     "idx": 79.8
+    },
+    {
+     "team": "Peterboro",
+     "att": -0.043,
+     "dfn": -0.224,
+     "idx": 76.6
+    },
+    {
+     "team": "Crawley Town",
+     "att": 0.022,
+     "dfn": -0.341,
+     "idx": 72.7
+    },
+    {
+     "team": "Wigan",
+     "att": -0.352,
+     "dfn": 0.026,
+     "idx": 72.2
+    },
+    {
+     "team": "Doncaster",
+     "att": -0.171,
+     "dfn": -0.175,
+     "idx": 70.8
+    },
+    {
+     "team": "Rotherham",
+     "att": -0.305,
+     "dfn": -0.15,
+     "idx": 63.4
+    },
+    {
+     "team": "Port Vale",
+     "att": -0.497,
+     "dfn": -0.006,
+     "idx": 60.5
+    },
+    {
+     "team": "Bristol Rvs",
+     "att": -0.303,
+     "dfn": -0.256,
+     "idx": 57.2
+    },
+    {
+     "team": "AFC Wimbledon",
+     "att": -0.35,
+     "dfn": -0.213,
+     "idx": 56.9
+    },
+    {
+     "team": "Northampton",
+     "att": -0.365,
+     "dfn": -0.234,
+     "idx": 54.9
+    },
+    {
+     "team": "Shrewsbury",
+     "att": -0.39,
+     "dfn": -0.268,
+     "idx": 51.8
+    },
+    {
+     "team": "Bromley",
+     "att": -0.314,
+     "dfn": -0.636,
+     "idx": 38.7
+    }
+   ],
+   "fixtures": [],
+   "backtest": {
+    "n": 859,
+    "acc": 49.2,
+    "brier3": 0.6291,
+    "totals": {
+     "n": 859,
+     "acc": 53.9,
+     "market_acc": 55.2,
+     "disagree_n": 223,
+     "disagree_model_right": 47.5,
+     "disagree_market_right": 52.5
+    },
+    "n_mkt": 859,
+    "acc_mkt": 49.2,
+    "market_acc": 49.9,
+    "disagree_n": 184,
+    "disagree_model_right": 35.3,
+    "disagree_market_right": 38.6
+   }
+  },
+  "E3": {
+   "name": "League Two",
+   "n_matches": 1268,
+   "latest_result": "2026-11-03",
+   "home_adv": 0.218,
+   "rho": -0.028,
+   "mu": 0.057408,
+   "rho_source": "response",
+   "level_scale": [
+    1.0,
+    1.0
+   ],
+   "ratings": [
+    {
+     "team": "Cambridge",
+     "att": 0.157,
+     "dfn": 0.618,
+     "idx": 217.0
+    },
+    {
+     "team": "Doncaster",
+     "att": 0.295,
+     "dfn": 0.153,
+     "idx": 156.5
+    },
+    {
+     "team": "Milton Keynes Dons",
+     "att": 0.286,
+     "dfn": 0.135,
+     "idx": 152.3
+    },
+    {
+     "team": "AFC Wimbledon",
+     "att": -0.071,
+     "dfn": 0.492,
+     "idx": 152.2
+    },
+    {
+     "team": "Bradford",
+     "att": 0.142,
+     "dfn": 0.225,
+     "idx": 144.2
+    },
+    {
+     "team": "Barnet",
+     "att": 0.371,
+     "dfn": -0.02,
+     "idx": 142.1
+    },
+    {
+     "team": "Bromley",
+     "att": 0.184,
+     "dfn": 0.162,
+     "idx": 141.2
+    },
+    {
+     "team": "Notts County",
+     "att": 0.237,
+     "dfn": 0.094,
+     "idx": 139.3
+    },
+    {
+     "team": "Salford",
+     "att": 0.188,
+     "dfn": 0.128,
+     "idx": 137.1
+    },
+    {
+     "team": "Grimsby",
+     "att": 0.257,
+     "dfn": -0.003,
+     "idx": 128.9
+    },
+    {
+     "team": "Exeter",
+     "att": -0.477,
+     "dfn": 0.686,
+     "idx": 123.1
+    },
+    {
+     "team": "Chesterfield",
+     "att": 0.237,
+     "dfn": -0.036,
+     "idx": 122.2
+    },
+    {
+     "team": "Walsall",
+     "att": 0.129,
+     "dfn": 0.044,
+     "idx": 118.9
+    },
+    {
+     "team": "York",
+     "att": 0.332,
+     "dfn": -0.219,
+     "idx": 111.9
+    },
+    {
+     "team": "Oldham",
+     "att": 0.006,
+     "dfn": 0.086,
+     "idx": 109.6
+    },
+    {
+     "team": "Swindon",
+     "att": 0.085,
+     "dfn": -0.018,
+     "idx": 106.8
+    },
+    {
+     "team": "Port Vale",
+     "att": -0.129,
+     "dfn": 0.147,
+     "idx": 101.8
+    },
+    {
+     "team": "Crewe",
+     "att": 0.002,
+     "dfn": 0.004,
+     "idx": 100.7
+    },
+    {
+     "team": "Colchester",
+     "att": -0.067,
+     "dfn": 0.053,
+     "idx": 98.6
+    },
+    {
+     "team": "Fleetwood Town",
+     "att": -0.013,
+     "dfn": -0.023,
+     "idx": 96.5
+    },
+    {
+     "team": "Accrington",
+     "att": 0.001,
+     "dfn": -0.039,
+     "idx": 96.3
+    },
+    {
+     "team": "Bristol Rvs",
+     "att": 0.004,
+     "dfn": -0.156,
+     "idx": 85.9
+    },
+    {
+     "team": "Northampton",
+     "att": -0.651,
+     "dfn": 0.45,
+     "idx": 81.9
+    },
+    {
+     "team": "Cheltenham",
+     "att": 0.09,
+     "dfn": -0.31,
+     "idx": 80.3
+    },
+    {
+     "team": "Gillingham",
+     "att": -0.068,
+     "dfn": -0.16,
+     "idx": 79.6
+    },
+    {
+     "team": "Newport County",
+     "att": -0.071,
+     "dfn": -0.177,
+     "idx": 78.0
+    },
+    {
+     "team": "Tranmere",
+     "att": -0.07,
+     "dfn": -0.216,
+     "idx": 75.2
+    },
+    {
+     "team": "Carlisle",
+     "att": -0.169,
+     "dfn": -0.198,
+     "idx": 69.3
+    },
+    {
+     "team": "Shrewsbury",
+     "att": -0.17,
+     "dfn": -0.201,
+     "idx": 69.0
+    },
+    {
+     "team": "Barrow",
+     "att": -0.174,
+     "dfn": -0.227,
+     "idx": 66.9
+    },
+    {
+     "team": "Rotherham",
+     "att": 0.027,
+     "dfn": -0.45,
+     "idx": 65.5
+    },
+    {
+     "team": "Harrogate",
+     "att": -0.318,
+     "dfn": -0.107,
+     "idx": 65.4
+    },
+    {
+     "team": "Crawley Town",
+     "att": -0.231,
+     "dfn": -0.211,
+     "idx": 64.3
+    },
+    {
+     "team": "Rochdale",
+     "att": -0.02,
+     "dfn": -0.482,
+     "idx": 60.6
+    },
+    {
+     "team": "Morecambe",
+     "att": -0.328,
+     "dfn": -0.223,
+     "idx": 57.6
+    }
+   ],
+   "fixtures": [],
+   "backtest": {
+    "n": 867,
+    "acc": 44.4,
+    "brier3": 0.6512,
+    "totals": {
+     "n": 867,
+     "acc": 51.4,
+     "market_acc": 53.4,
+     "disagree_n": 279,
+     "disagree_model_right": 47.0,
+     "disagree_market_right": 53.0
+    },
+    "n_mkt": 867,
+    "acc_mkt": 44.4,
+    "market_acc": 47.4,
+    "disagree_n": 177,
+    "disagree_model_right": 31.1,
+    "disagree_market_right": 45.8
+   }
+  },
+  "EC": {
+   "name": "National League",
+   "n_matches": 1293,
+   "latest_result": "2026-10-31",
+   "home_adv": 0.183,
+   "rho": 0.029,
+   "mu": 0.22575,
+   "rho_source": "response",
+   "level_scale": [
+    1.0,
+    1.0
+   ],
+   "ratings": [
+    {
+     "team": "Barnet",
+     "att": 0.395,
+     "dfn": 0.585,
+     "idx": 266.5
+    },
+    {
+     "team": "York",
+     "att": 0.482,
+     "dfn": 0.453,
+     "idx": 254.9
+    },
+    {
+     "team": "Boreham Wood",
+     "att": 0.502,
+     "dfn": 0.166,
+     "idx": 195.2
+    },
+    {
+     "team": "Rochdale",
+     "att": 0.207,
+     "dfn": 0.38,
+     "idx": 179.8
+    },
+    {
+     "team": "Carlisle",
+     "att": 0.304,
+     "dfn": 0.153,
+     "idx": 157.9
+    },
+    {
+     "team": "Southend",
+     "att": 0.307,
+     "dfn": 0.086,
+     "idx": 148.1
+    },
+    {
+     "team": "Harrogate",
+     "att": 0.351,
+     "dfn": 0.018,
+     "idx": 144.7
+    },
+    {
+     "team": "Barrow",
+     "att": 0.191,
+     "dfn": 0.138,
+     "idx": 138.9
+    },
+    {
+     "team": "Worthing",
+     "att": 0.349,
+     "dfn": -0.092,
+     "idx": 129.3
+    },
+    {
+     "team": "Oldham",
+     "att": -0.058,
+     "dfn": 0.301,
+     "idx": 127.5
+    },
+    {
+     "team": "Forest Green",
+     "att": 0.147,
+     "dfn": 0.077,
+     "idx": 125.1
+    },
+    {
+     "team": "Halifax",
+     "att": 0.041,
+     "dfn": 0.099,
+     "idx": 115.0
+    },
+    {
+     "team": "Woking",
+     "att": 0.038,
+     "dfn": 0.095,
+     "idx": 114.3
+    },
+    {
+     "team": "Kidderminster",
+     "att": -0.331,
+     "dfn": 0.398,
+     "idx": 106.9
+    },
+    {
+     "team": "Fylde",
+     "att": 0.122,
+     "dfn": -0.058,
+     "idx": 106.6
+    },
+    {
+     "team": "Yeovil",
+     "att": 0.009,
+     "dfn": 0.025,
+     "idx": 103.4
+    },
+    {
+     "team": "Altrincham",
+     "att": -0.041,
+     "dfn": 0.0,
+     "idx": 96.0
+    },
+    {
+     "team": "Dag and Red",
+     "att": -0.103,
+     "dfn": 0.035,
+     "idx": 93.4
+    },
+    {
+     "team": "Scunthorpe",
+     "att": 0.059,
+     "dfn": -0.133,
+     "idx": 92.9
+    },
+    {
+     "team": "Tamworth",
+     "att": 0.058,
+     "dfn": -0.166,
+     "idx": 89.8
+    },
+    {
+     "team": "Boston Utd",
+     "att": -0.065,
+     "dfn": -0.102,
+     "idx": 84.6
+    },
+    {
+     "team": "Wealdstone",
+     "att": 0.012,
+     "dfn": -0.179,
+     "idx": 84.6
+    },
+    {
+     "team": "Sutton",
+     "att": -0.133,
+     "dfn": -0.048,
+     "idx": 83.5
+    },
+    {
+     "team": "Hartlepool",
+     "att": -0.162,
+     "dfn": -0.044,
+     "idx": 81.4
+    },
+    {
+     "team": "Maidenhead",
+     "att": -0.106,
+     "dfn": -0.101,
+     "idx": 81.3
+    },
+    {
+     "team": "Aldershot",
+     "att": -0.066,
+     "dfn": -0.15,
+     "idx": 80.6
+    },
+    {
+     "team": "Eastleigh",
+     "att": -0.138,
+     "dfn": -0.13,
+     "idx": 76.5
+    },
+    {
+     "team": "Solihull",
+     "att": -0.021,
+     "dfn": -0.246,
+     "idx": 76.5
+    },
+    {
+     "team": "Hornchurch",
+     "att": -0.207,
+     "dfn": -0.093,
+     "idx": 74.1
+    },
+    {
+     "team": "Morecambe",
+     "att": 0.039,
+     "dfn": -0.452,
+     "idx": 66.2
+    },
+    {
+     "team": "Truro",
+     "att": -0.473,
+     "dfn": -0.041,
+     "idx": 59.8
+    },
+    {
+     "team": "Braintree Town",
+     "att": -0.433,
+     "dfn": -0.112,
+     "idx": 58.0
+    },
+    {
+     "team": "Gateshead",
+     "att": -0.304,
+     "dfn": -0.295,
+     "idx": 54.9
+    },
+    {
+     "team": "Brackley Town",
+     "att": -0.491,
+     "dfn": -0.177,
+     "idx": 51.3
+    },
+    {
+     "team": "Ebbsfleet",
+     "att": -0.482,
+     "dfn": -0.392,
+     "idx": 41.7
+    }
+   ],
+   "fixtures": [],
+   "backtest": {
+    "n": 894,
+    "acc": 51.0,
+    "brier3": 0.6047,
+    "totals": {
+     "n": 894,
+     "acc": 57.0,
+     "market_acc": 58.8,
+     "disagree_n": 256,
+     "disagree_model_right": 46.9,
+     "disagree_market_right": 53.1
+    },
+    "n_mkt": 894,
+    "acc_mkt": 51.0,
+    "market_acc": 53.0,
+    "disagree_n": 136,
+    "disagree_model_right": 30.1,
+    "disagree_market_right": 43.4
+   }
+  },
+  "SC0": {
+   "name": "Scottish Premiership",
+   "n_matches": 531,
+   "latest_result": "2026-11-08",
+   "home_adv": 0.22,
+   "rho": 0.019,
+   "mu": 0.188566,
+   "rho_source": "response",
+   "level_scale": [
+    1.0,
+    1.0
+   ],
+   "ratings": [
+    {
+     "team": "Celtic",
+     "att": 0.475,
+     "dfn": 0.393,
+     "idx": 238.1
+    },
+    {
+     "team": "Rangers",
+     "att": 0.412,
+     "dfn": 0.29,
+     "idx": 201.9
+    },
+    {
+     "team": "Hearts",
+     "att": 0.305,
+     "dfn": 0.116,
+     "idx": 152.3
+    },
+    {
+     "team": "Hibernian",
+     "att": 0.087,
+     "dfn": 0.156,
+     "idx": 127.5
+    },
+    {
+     "team": "Falkirk",
+     "att": 0.116,
+     "dfn": 0.054,
+     "idx": 118.6
+    },
+    {
+     "team": "Motherwell",
+     "att": 0.014,
+     "dfn": 0.105,
+     "idx": 112.7
+    },
+    {
+     "team": "Dundee United",
+     "att": -0.038,
+     "dfn": -0.045,
+     "idx": 92.0
+    },
+    {
+     "team": "Dundee",
+     "att": -0.011,
+     "dfn": -0.103,
+     "idx": 89.2
+    },
+    {
+     "team": "St Johnstone",
+     "att": -0.133,
+     "dfn": -0.111,
+     "idx": 78.3
+    },
+    {
+     "team": "Aberdeen",
+     "att": -0.229,
+     "dfn": -0.057,
+     "idx": 75.1
+    },
+    {
+     "team": "Kilmarnock",
+     "att": -0.068,
+     "dfn": -0.26,
+     "idx": 72.1
+    },
+    {
+     "team": "St Mirren",
+     "att": -0.366,
+     "dfn": -0.055,
+     "idx": 65.6
+    },
+    {
+     "team": "Ross County",
+     "att": -0.319,
+     "dfn": -0.164,
+     "idx": 61.7
+    },
+    {
+     "team": "Livingston",
+     "att": -0.246,
+     "dfn": -0.317,
+     "idx": 56.9
+    }
+   ],
+   "fixtures": [],
+   "backtest": {
+    "n": 382,
+    "acc": 51.3,
+    "brier3": 0.5987,
+    "totals": {
+     "n": 382,
+     "acc": 53.4,
+     "market_acc": 58.4,
+     "disagree_n": 111,
+     "disagree_model_right": 41.4,
+     "disagree_market_right": 58.6
+    },
+    "n_mkt": 382,
+    "acc_mkt": 51.3,
+    "market_acc": 52.6,
+    "disagree_n": 55,
+    "disagree_model_right": 25.5,
+    "disagree_market_right": 34.5
+   }
+  },
+  "SC1": {
+   "name": "Scottish Championship",
+   "n_matches": 429,
+   "latest_result": "2026-11-07",
+   "home_adv": 0.229,
+   "rho": -0.149,
+   "mu": 0.050596,
+   "rho_source": "response",
+   "level_scale": [
+    1.0,
+    1.0
+   ],
+   "ratings": [
+    {
+     "team": "St Johnstone",
+     "att": 0.347,
+     "dfn": 0.499,
+     "idx": 233.1
+    },
+    {
+     "team": "Falkirk",
+     "att": 0.47,
+     "dfn": 0.172,
+     "idx": 190.0
+    },
+    {
+     "team": "Livingston",
+     "att": 0.16,
+     "dfn": 0.353,
+     "idx": 167.0
+    },
+    {
+     "team": "Partick",
+     "att": 0.061,
+     "dfn": 0.348,
+     "idx": 150.5
+    },
+    {
+     "team": "Dunfermline",
+     "att": -0.026,
+     "dfn": 0.26,
+     "idx": 126.3
+    },
+    {
+     "team": "Raith Rvs",
+     "att": 0.069,
+     "dfn": 0.146,
+     "idx": 124.0
+    },
+    {
+     "team": "Inverness C",
+     "att": 0.144,
+     "dfn": -0.072,
+     "idx": 107.4
+    },
+    {
+     "team": "Stenhousemuir",
+     "att": -0.042,
+     "dfn": -0.012,
+     "idx": 94.7
+    },
+    {
+     "team": "Ayr",
+     "att": -0.073,
+     "dfn": -0.161,
+     "idx": 79.1
+    },
+    {
+     "team": "Arbroath",
+     "att": -0.2,
+     "dfn": -0.137,
+     "idx": 71.4
+    },
+    {
+     "team": "Airdrie Utd",
+     "att": -0.168,
+     "dfn": -0.186,
+     "idx": 70.1
+    },
+    {
+     "team": "Morton",
+     "att": -0.027,
+     "dfn": -0.331,
+     "idx": 69.9
+    },
+    {
+     "team": "Ross County",
+     "att": -0.177,
+     "dfn": -0.301,
+     "idx": 62.0
+    },
+    {
+     "team": "Hamilton",
+     "att": -0.154,
+     "dfn": -0.362,
+     "idx": 59.7
+    },
+    {
+     "team": "Queens Park",
+     "att": -0.384,
+     "dfn": -0.215,
+     "idx": 55.0
+    }
+   ],
+   "fixtures": [],
+   "backtest": {
+    "n": 305,
+    "acc": 45.2,
+    "brier3": 0.6614,
+    "totals": {
+     "n": 305,
+     "acc": 52.1,
+     "market_acc": 54.8,
+     "disagree_n": 84,
+     "disagree_model_right": 45.2,
+     "disagree_market_right": 54.8
+    },
+    "n_mkt": 305,
+    "acc_mkt": 45.2,
+    "market_acc": 46.2,
+    "disagree_n": 63,
+    "disagree_model_right": 34.9,
+    "disagree_market_right": 39.7
+   }
+  },
+  "SC2": {
+   "name": "Scottish League One",
+   "n_matches": 429,
+   "latest_result": "2026-11-07",
+   "home_adv": 0.153,
+   "rho": -0.089,
+   "mu": 0.196928,
+   "rho_source": "response",
+   "level_scale": [
+    1.0,
+    1.0
+   ],
+   "ratings": [
+    {
+     "team": "Ross County",
+     "att": 0.889,
+     "dfn": 0.672,
+     "idx": 476.7
+    },
+    {
+     "team": "Inverness C",
+     "att": 0.072,
+     "dfn": 0.447,
+     "idx": 168.1
+    },
+    {
+     "team": "Hamilton",
+     "att": 0.161,
+     "dfn": 0.222,
+     "idx": 146.7
+    },
+    {
+     "team": "East Kilbride",
+     "att": 0.249,
+     "dfn": 0.096,
+     "idx": 141.2
+    },
+    {
+     "team": "Stenhousemuir",
+     "att": -0.034,
+     "dfn": 0.339,
+     "idx": 135.7
+    },
+    {
+     "team": "Arbroath",
+     "att": 0.106,
+     "dfn": 0.055,
+     "idx": 117.5
+    },
+    {
+     "team": "Alloa",
+     "att": -0.063,
+     "dfn": 0.005,
+     "idx": 94.4
+    },
+    {
+     "team": "Cove Rangers",
+     "att": -0.09,
+     "dfn": 0.03,
+     "idx": 94.2
+    },
+    {
+     "team": "Montrose",
+     "att": -0.003,
+     "dfn": -0.242,
+     "idx": 78.3
+    },
+    {
+     "team": "Airdrie Utd",
+     "att": -0.272,
+     "dfn": 0.011,
+     "idx": 77.1
+    },
+    {
+     "team": "Queen of Sth",
+     "att": 0.033,
+     "dfn": -0.3,
+     "idx": 76.6
+    },
+    {
+     "team": "Dumbarton",
+     "att": 0.031,
+     "dfn": -0.366,
+     "idx": 71.6
+    },
+    {
+     "team": "Peterhead",
+     "att": -0.189,
+     "dfn": -0.25,
+     "idx": 64.5
+    },
+    {
+     "team": "East Fife",
+     "att": -0.386,
+     "dfn": -0.111,
+     "idx": 60.8
+    },
+    {
+     "team": "Kelty Hearts",
+     "att": -0.353,
+     "dfn": -0.2,
+     "idx": 57.5
+    },
+    {
+     "team": "Annan Athletic",
+     "att": -0.151,
+     "dfn": -0.411,
+     "idx": 57.0
+    }
+   ],
+   "fixtures": [],
+   "backtest": {
+    "n": 298,
+    "acc": 47.7,
+    "brier3": 0.6366,
+    "totals": {
+     "n": 298,
+     "acc": 55.4,
+     "market_acc": 56.4,
+     "disagree_n": 109,
+     "disagree_model_right": 48.6,
+     "disagree_market_right": 51.4
+    },
+    "n_mkt": 298,
+    "acc_mkt": 47.7,
+    "market_acc": 51.7,
+    "disagree_n": 64,
+    "disagree_model_right": 34.4,
+    "disagree_market_right": 53.1
+   }
+  },
+  "SC3": {
+   "name": "Scottish League Two",
+   "n_matches": 425,
+   "latest_result": "2026-11-07",
+   "home_adv": 0.217,
+   "rho": -0.072,
+   "mu": 0.241414,
+   "rho_source": "response",
+   "level_scale": [
+    1.0,
+    1.0
+   ],
+   "ratings": [
+    {
+     "team": "East Kilbride",
+     "att": 0.371,
+     "dfn": 0.135,
+     "idx": 165.9
+    },
+    {
+     "team": "East Fife",
+     "att": 0.173,
+     "dfn": 0.33,
+     "idx": 165.3
+    },
+    {
+     "team": "Stranraer",
+     "att": 0.003,
+     "dfn": 0.351,
+     "idx": 142.5
+    },
+    {
+     "team": "Clyde",
+     "att": 0.213,
+     "dfn": 0.036,
+     "idx": 128.3
+    },
+    {
+     "team": "Peterhead",
+     "att": 0.006,
+     "dfn": 0.23,
+     "idx": 126.6
+    },
+    {
+     "team": "Spartans",
+     "att": 0.17,
+     "dfn": 0.001,
+     "idx": 118.6
+    },
+    {
+     "team": "Elgin",
+     "att": 0.083,
+     "dfn": -0.016,
+     "idx": 107.0
+    },
+    {
+     "team": "Edinburgh City",
+     "att": -0.012,
+     "dfn": -0.173,
+     "idx": 83.2
+    },
+    {
+     "team": "Forfar",
+     "att": -0.224,
+     "dfn": 0.002,
+     "idx": 80.0
+    },
+    {
+     "team": "Dumbarton",
+     "att": -0.21,
+     "dfn": -0.07,
+     "idx": 75.6
+    },
+    {
+     "team": "Stirling",
+     "att": -0.04,
+     "dfn": -0.269,
+     "idx": 73.4
+    },
+    {
+     "team": "Kelty Hearts",
+     "att": -0.105,
+     "dfn": -0.214,
+     "idx": 72.7
+    },
+    {
+     "team": "Annan Athletic",
+     "att": -0.192,
+     "dfn": -0.187,
+     "idx": 68.4
+    },
+    {
+     "team": "Bonnyrigg Rose",
+     "att": -0.236,
+     "dfn": -0.155,
+     "idx": 67.6
+    }
+   ],
+   "fixtures": [],
+   "backtest": {
+    "n": 301,
+    "acc": 43.5,
+    "brier3": 0.6525,
+    "totals": {
+     "n": 301,
+     "acc": 57.5,
+     "market_acc": 56.1,
+     "disagree_n": 78,
+     "disagree_model_right": 52.6,
+     "disagree_market_right": 47.4
+    },
+    "n_mkt": 301,
+    "acc_mkt": 43.5,
+    "market_acc": 46.2,
+    "disagree_n": 62,
+    "disagree_model_right": 30.6,
+    "disagree_market_right": 43.5
+   }
+  },
+  "D1": {
+   "name": "Bundesliga",
+   "n_matches": 693,
+   "latest_result": "2026-11-08",
+   "home_adv": 0.253,
+   "rho": -0.027,
+   "mu": 0.239477,
+   "rho_source": "goals",
+   "level_scale": [
+    0.9336,
+    0.9976
+   ],
+   "ratings": [
+    {
+     "team": "Bayern Munich",
+     "att": 0.692,
+     "dfn": 0.315,
+     "idx": 273.8
+    },
+    {
+     "team": "Dortmund",
+     "att": 0.227,
+     "dfn": 0.381,
+     "idx": 183.6
+    },
+    {
+     "team": "RB Leipzig",
+     "att": 0.401,
+     "dfn": 0.025,
+     "idx": 153.0
+    },
+    {
+     "team": "Leverkusen",
+     "att": 0.328,
+     "dfn": 0.068,
+     "idx": 148.5
+    },
+    {
+     "team": "Stuttgart",
+     "att": 0.259,
+     "dfn": 0.062,
+     "idx": 137.8
+    },
+    {
+     "team": "Freiburg",
+     "att": 0.1,
+     "dfn": 0.144,
+     "idx": 127.6
+    },
+    {
+     "team": "Elversberg",
+     "att": 0.273,
+     "dfn": -0.126,
+     "idx": 115.8
+    },
+    {
+     "team": "Mainz",
+     "att": 0.238,
+     "dfn": -0.123,
+     "idx": 112.2
+    },
+    {
+     "team": "Hoffenheim",
+     "att": 0.146,
+     "dfn": -0.065,
+     "idx": 108.5
+    },
+    {
+     "team": "Ein Frankfurt",
+     "att": 0.077,
+     "dfn": -0.063,
+     "idx": 101.3
+    },
+    {
+     "team": "Augsburg",
+     "att": 0.119,
+     "dfn": -0.131,
+     "idx": 98.8
+    },
+    {
+     "team": "Werder Bremen",
+     "att": -0.011,
+     "dfn": -0.002,
+     "idx": 98.7
+    },
+    {
+     "team": "Wolfsburg",
+     "att": 0.033,
+     "dfn": -0.083,
+     "idx": 95.2
+    },
+    {
+     "team": "FC Koln",
+     "att": -0.082,
+     "dfn": -0.054,
+     "idx": 87.3
+    },
+    {
+     "team": "Heidenheim",
+     "att": -0.048,
+     "dfn": -0.173,
+     "idx": 80.2
+    },
+    {
+     "team": "Union Berlin",
+     "att": -0.231,
+     "dfn": -0.035,
+     "idx": 76.6
+    },
+    {
+     "team": "M'gladbach",
+     "att": -0.099,
+     "dfn": -0.172,
+     "idx": 76.3
+    },
+    {
+     "team": "Paderborn",
+     "att": -0.553,
+     "dfn": 0.276,
+     "idx": 75.8
+    },
+    {
+     "team": "Bochum",
+     "att": -0.129,
+     "dfn": -0.207,
+     "idx": 71.5
+    },
+    {
+     "team": "Holstein Kiel",
+     "att": -0.174,
+     "dfn": -0.182,
+     "idx": 70.0
+    },
+    {
+     "team": "Hamburg",
+     "att": -0.199,
+     "dfn": -0.177,
+     "idx": 68.6
+    },
+    {
+     "team": "St Pauli",
+     "att": -0.39,
+     "dfn": -0.095,
+     "idx": 61.6
+    },
+    {
+     "team": "Schalke 04",
+     "att": -0.976,
+     "dfn": 0.419,
+     "idx": 57.3
+    }
+   ],
+   "fixtures": [],
+   "backtest": {
+    "n": 476,
+    "acc": 52.7,
+    "brier3": 0.5885,
+    "totals": {
+     "n": 476,
+     "acc": 62.4,
+     "market_acc": 63.2,
+     "disagree_n": 54,
+     "disagree_model_right": 46.3,
+     "disagree_market_right": 53.7
+    },
+    "n_mkt": 476,
+    "acc_mkt": 52.7,
+    "market_acc": 54.4,
+    "disagree_n": 87,
+    "disagree_model_right": 31.0,
+    "disagree_market_right": 40.2
+   }
+  },
+  "D2": {
+   "name": "2. Bundesliga",
+   "n_matches": 711,
+   "latest_result": "2026-11-08",
+   "home_adv": 0.289,
+   "rho": -0.043,
+   "mu": 0.201348,
+   "rho_source": "response",
+   "level_scale": [
+    1.0,
+    1.0
+   ],
+   "ratings": [
+    {
+     "team": "Hamburg",
+     "att": 0.478,
+     "dfn": 0.082,
+     "idx": 175.1
+    },
+    {
+     "team": "Wolfsburg",
+     "att": 0.505,
+     "dfn": -0.009,
+     "idx": 164.2
+    },
+    {
+     "team": "Elversberg",
+     "att": 0.276,
+     "dfn": 0.212,
+     "idx": 163.0
+    },
+    {
+     "team": "FC Koln",
+     "att": 0.033,
+     "dfn": 0.33,
+     "idx": 143.8
+    },
+    {
+     "team": "Hertha",
+     "att": 0.144,
+     "dfn": 0.191,
+     "idx": 139.8
+    },
+    {
+     "team": "Nurnberg",
+     "att": 0.213,
+     "dfn": 0.079,
+     "idx": 133.9
+    },
+    {
+     "team": "Schalke 04",
+     "att": 0.026,
+     "dfn": 0.205,
+     "idx": 126.1
+    },
+    {
+     "team": "Paderborn",
      "att": 0.193,
      "dfn": 0.034,
      "idx": 125.5
     },
     {
-     "team": "Aston Villa",
-     "att": 0.105,
-     "dfn": 0.103,
-     "idx": 123.2
+     "team": "Magdeburg",
+     "att": 0.27,
+     "dfn": -0.07,
+     "idx": 122.1
     },
     {
-     "team": "Crystal Palace",
-     "att": 0.145,
-     "dfn": 0.04,
-     "idx": 120.3
+     "team": "Kaiserslautern",
+     "att": -0.107,
+     "dfn": 0.238,
+     "idx": 114.1
     },
     {
-     "team": "Tottenham",
-     "att": -0.021,
-     "dfn": 0.047,
-     "idx": 102.6
+     "team": "Bielefeld",
+     "att": 0.102,
+     "dfn": -0.029,
+     "idx": 107.6
     },
     {
-     "team": "Fulham",
-     "att": -0.046,
-     "dfn": 0.069,
-     "idx": 102.3
+     "team": "Hannover",
+     "att": -0.011,
+     "dfn": 0.08,
+     "idx": 107.1
     },
     {
-     "team": "Everton",
-     "att": -0.086,
-     "dfn": 0.087,
-     "idx": 100.1
+     "team": "Bochum",
+     "att": -0.137,
+     "dfn": 0.118,
+     "idx": 98.1
     },
     {
-     "team": "Nott'm Forest",
-     "att": -0.065,
-     "dfn": 0.015,
-     "idx": 95.1
+     "team": "Dresden",
+     "att": 0.065,
+     "dfn": -0.102,
+     "idx": 96.4
     },
     {
-     "team": "West Ham",
-     "att": -0.063,
-     "dfn": -0.061,
-     "idx": 88.4
+     "team": "Heidenheim",
+     "att": 0.116,
+     "dfn": -0.164,
+     "idx": 95.3
     },
     {
-     "team": "Sunderland",
-     "att": -0.185,
-     "dfn": 0.054,
-     "idx": 87.7
+     "team": "Cottbus",
+     "att": 0.069,
+     "dfn": -0.149,
+     "idx": 92.3
     },
     {
-     "team": "Wolves",
-     "att": -0.253,
-     "dfn": -0.067,
-     "idx": 72.6
+     "team": "Holstein Kiel",
+     "att": -0.209,
+     "dfn": 0.076,
+     "idx": 87.5
     },
     {
-     "team": "Luton",
-     "att": -0.103,
-     "dfn": -0.361,
-     "idx": 62.9
+     "team": "Darmstadt",
+     "att": -0.067,
+     "dfn": -0.071,
+     "idx": 87.1
     },
     {
-     "team": "Sheffield United",
+     "team": "St Pauli",
+     "att": -0.232,
+     "dfn": 0.065,
+     "idx": 84.6
+    },
+    {
+     "team": "Osnabruck",
+     "att": -0.166,
+     "dfn": -0.046,
+     "idx": 80.9
+    },
+    {
+     "team": "Karlsruhe",
+     "att": 0.066,
+     "dfn": -0.282,
+     "idx": 80.5
+    },
+    {
+     "team": "Fortuna Dusseldorf",
+     "att": -0.188,
+     "dfn": -0.059,
+     "idx": 78.1
+    },
+    {
+     "team": "Ulm",
+     "att": -0.281,
+     "dfn": 0.01,
+     "idx": 76.2
+    },
+    {
+     "team": "Greuther Furth",
+     "att": -0.087,
+     "dfn": -0.199,
+     "idx": 75.2
+    },
+    {
+     "team": "Braunschweig",
+     "att": -0.189,
+     "dfn": -0.106,
+     "idx": 74.5
+    },
+    {
+     "team": "Preu\u00dfen M\u00fcnster",
      "att": -0.241,
-     "dfn": -0.291,
-     "idx": 58.8
+     "dfn": -0.131,
+     "idx": 68.9
     },
     {
-     "team": "Burnley",
-     "att": -0.33,
-     "dfn": -0.236,
-     "idx": 56.8
-    },
-    {
-     "team": "Ipswich",
-     "att": -0.338,
-     "dfn": -0.267,
-     "idx": 54.6
-    },
-    {
-     "team": "Leicester",
-     "att": -0.424,
-     "dfn": -0.309,
-     "idx": 48.0
-    },
-    {
-     "team": "Southampton",
-     "att": -0.411,
-     "dfn": -0.444,
-     "idx": 42.5
+     "team": "Regensburg",
+     "att": -0.641,
+     "dfn": -0.301,
+     "idx": 39.0
     }
    ],
    "fixtures": [],
    "backtest": {
-    "n": 892,
-    "acc": 53.3,
-    "brier3": 0.5816,
+    "n": 511,
+    "acc": 46.8,
+    "brier3": 0.6358,
     "totals": {
-     "n": 892,
-     "acc": 56.1,
-     "market_acc": 58.6,
-     "disagree_n": 149,
-     "disagree_model_right": 42.3,
-     "disagree_market_right": 57.7
+     "n": 511,
+     "acc": 55.0,
+     "market_acc": 56.6,
+     "disagree_n": 134,
+     "disagree_model_right": 47.0,
+     "disagree_market_right": 53.0
     },
-    "n_mkt": 892,
-    "acc_mkt": 53.3,
-    "market_acc": 54.0,
-    "disagree_n": 107,
-    "disagree_model_right": 31.8,
-    "disagree_market_right": 38.3
+    "n_mkt": 511,
+    "acc_mkt": 46.8,
+    "market_acc": 48.9,
+    "disagree_n": 108,
+    "disagree_model_right": 30.6,
+    "disagree_market_right": 40.7
+   }
+  },
+  "I1": {
+   "name": "Serie A",
+   "n_matches": 870,
+   "latest_result": "2026-11-08",
+   "home_adv": 0.084,
+   "rho": 0.021,
+   "mu": 0.177477,
+   "rho_source": "response",
+   "level_scale": [
+    1.0,
+    1.0
+   ],
+   "ratings": [
+    {
+     "team": "Inter",
+     "att": 0.644,
+     "dfn": 0.255,
+     "idx": 245.8
+    },
+    {
+     "team": "Roma",
+     "att": 0.476,
+     "dfn": 0.401,
+     "idx": 240.3
+    },
+    {
+     "team": "Como",
+     "att": 0.272,
+     "dfn": 0.413,
+     "idx": 198.4
+    },
+    {
+     "team": "Napoli",
+     "att": 0.245,
+     "dfn": 0.315,
+     "idx": 175.2
+    },
+    {
+     "team": "Juventus",
+     "att": 0.196,
+     "dfn": 0.309,
+     "idx": 165.8
+    },
+    {
+     "team": "Frosinone",
+     "att": 0.577,
+     "dfn": -0.087,
+     "idx": 163.2
+    },
+    {
+     "team": "Milan",
+     "att": 0.274,
+     "dfn": 0.208,
+     "idx": 162.0
+    },
+    {
+     "team": "Lazio",
+     "att": 0.212,
+     "dfn": 0.213,
+     "idx": 153.0
+    },
+    {
+     "team": "Atalanta",
+     "att": 0.203,
+     "dfn": 0.093,
+     "idx": 134.4
+    },
+    {
+     "team": "Bologna",
+     "att": 0.114,
+     "dfn": 0.069,
+     "idx": 120.1
+    },
+    {
+     "team": "Fiorentina",
+     "att": 0.104,
+     "dfn": -0.094,
+     "idx": 101.0
+    },
+    {
+     "team": "Genoa",
+     "att": -0.134,
+     "dfn": 0.025,
+     "idx": 89.7
+    },
+    {
+     "team": "Torino",
+     "att": -0.025,
+     "dfn": -0.121,
+     "idx": 86.4
+    },
+    {
+     "team": "Sassuolo",
+     "att": 0.083,
+     "dfn": -0.259,
+     "idx": 83.9
+    },
+    {
+     "team": "Cagliari",
+     "att": -0.186,
+     "dfn": -0.007,
+     "idx": 82.4
+    },
+    {
+     "team": "Udinese",
+     "att": -0.07,
+     "dfn": -0.167,
+     "idx": 78.9
+    },
+    {
+     "team": "Parma",
+     "att": -0.367,
+     "dfn": 0.023,
+     "idx": 70.8
+    },
+    {
+     "team": "Monza",
+     "att": 0.018,
+     "dfn": -0.455,
+     "idx": 64.6
+    },
+    {
+     "team": "Lecce",
+     "att": -0.359,
+     "dfn": -0.126,
+     "idx": 61.6
+    },
+    {
+     "team": "Empoli",
+     "att": -0.32,
+     "dfn": -0.195,
+     "idx": 59.8
+    },
+    {
+     "team": "Cremonese",
+     "att": -0.391,
+     "dfn": -0.143,
+     "idx": 58.7
+    },
+    {
+     "team": "Venezia",
+     "att": -0.424,
+     "dfn": -0.15,
+     "idx": 56.4
+    },
+    {
+     "team": "Verona",
+     "att": -0.566,
+     "dfn": -0.149,
+     "idx": 48.9
+    },
+    {
+     "team": "Pisa",
+     "att": -0.58,
+     "dfn": -0.371,
+     "idx": 38.6
+    }
+   ],
+   "fixtures": [],
+   "backtest": {
+    "n": 616,
+    "acc": 54.1,
+    "brier3": 0.5801,
+    "totals": {
+     "n": 616,
+     "acc": 49.5,
+     "market_acc": 55.5,
+     "disagree_n": 171,
+     "disagree_model_right": 39.2,
+     "disagree_market_right": 60.8
+    },
+    "n_mkt": 616,
+    "acc_mkt": 54.1,
+    "market_acc": 56.2,
+    "disagree_n": 85,
+    "disagree_model_right": 27.1,
+    "disagree_market_right": 42.4
+   }
+  },
+  "I2": {
+   "name": "Serie B",
+   "n_matches": 870,
+   "latest_result": "2026-11-08",
+   "home_adv": 0.218,
+   "rho": -0.113,
+   "mu": 0.086908,
+   "rho_source": "response",
+   "level_scale": [
+    1.0,
+    1.0
+   ],
+   "ratings": [
+    {
+     "team": "Venezia",
+     "att": 0.493,
+     "dfn": 0.422,
+     "idx": 249.6
+    },
+    {
+     "team": "Ascoli",
+     "att": 0.178,
+     "dfn": 0.645,
+     "idx": 227.7
+    },
+    {
+     "team": "Sassuolo",
+     "att": 0.467,
+     "dfn": 0.173,
+     "idx": 189.7
+    },
+    {
+     "team": "Monza",
+     "att": 0.266,
+     "dfn": 0.362,
+     "idx": 187.4
+    },
+    {
+     "team": "Frosinone",
+     "att": 0.341,
+     "dfn": 0.224,
+     "idx": 176.0
+    },
+    {
+     "team": "Palermo",
+     "att": 0.346,
+     "dfn": 0.161,
+     "idx": 166.0
+    },
+    {
+     "team": "Verona",
+     "att": 0.265,
+     "dfn": 0.072,
+     "idx": 140.1
+    },
+    {
+     "team": "Modena",
+     "att": 0.12,
+     "dfn": 0.183,
+     "idx": 135.3
+    },
+    {
+     "team": "Pisa",
+     "att": 0.322,
+     "dfn": -0.08,
+     "idx": 127.3
+    },
+    {
+     "team": "Cremonese",
+     "att": 0.111,
+     "dfn": 0.092,
+     "idx": 122.6
+    },
+    {
+     "team": "Benevento",
+     "att": 0.007,
+     "dfn": 0.194,
+     "idx": 122.3
+    },
+    {
+     "team": "Juve Stabia",
+     "att": -0.131,
+     "dfn": 0.137,
+     "idx": 100.6
+    },
+    {
+     "team": "Avellino",
+     "att": -0.017,
+     "dfn": 0.014,
+     "idx": 99.6
+    },
+    {
+     "team": "Mantova",
+     "att": 0.018,
+     "dfn": -0.051,
+     "idx": 96.7
+    },
+    {
+     "team": "Catanzaro",
+     "att": 0.155,
+     "dfn": -0.234,
+     "idx": 92.4
+    },
+    {
+     "team": "Spezia",
+     "att": 0.049,
+     "dfn": -0.132,
+     "idx": 92.0
+    },
+    {
+     "team": "Padova",
+     "att": -0.154,
+     "dfn": 0.027,
+     "idx": 88.1
+    },
+    {
+     "team": "Sudtirol",
+     "att": -0.116,
+     "dfn": -0.035,
+     "idx": 86.0
+    },
+    {
+     "team": "Brescia",
+     "att": -0.154,
+     "dfn": 0.002,
+     "idx": 85.8
+    },
+    {
+     "team": "Pescara",
+     "att": 0.102,
+     "dfn": -0.29,
+     "idx": 82.9
+    },
+    {
+     "team": "Carrarese",
+     "att": -0.16,
+     "dfn": -0.043,
+     "idx": 81.6
+    },
+    {
+     "team": "Salernitana",
+     "att": -0.256,
+     "dfn": 0.047,
+     "idx": 81.1
+    },
+    {
+     "team": "Cesena",
+     "att": -0.109,
+     "dfn": -0.12,
+     "idx": 79.5
+    },
+    {
+     "team": "Empoli",
+     "att": -0.047,
+     "dfn": -0.2,
+     "idx": 78.1
+    },
+    {
+     "team": "Bari",
+     "att": -0.174,
+     "dfn": -0.14,
+     "idx": 73.0
+    },
+    {
+     "team": "Virtus Entella",
+     "att": -0.272,
+     "dfn": -0.042,
+     "idx": 73.0
+    },
+    {
+     "team": "Sampdoria",
+     "att": -0.273,
+     "dfn": -0.066,
+     "idx": 71.2
+    },
+    {
+     "team": "Reggiana",
+     "att": -0.255,
+     "dfn": -0.141,
+     "idx": 67.3
+    },
+    {
+     "team": "Vicenza",
+     "att": 0.06,
+     "dfn": -0.479,
+     "idx": 65.7
+    },
+    {
+     "team": "Cittadella",
+     "att": -0.413,
+     "dfn": -0.137,
+     "idx": 57.7
+    },
+    {
+     "team": "Cosenza",
+     "att": -0.417,
+     "dfn": -0.217,
+     "idx": 53.1
+    },
+    {
+     "team": "Arezzo",
+     "att": -0.348,
+     "dfn": -0.347,
+     "idx": 49.9
+    }
+   ],
+   "fixtures": [],
+   "backtest": {
+    "n": 582,
+    "acc": 42.6,
+    "brier3": 0.6396,
+    "totals": {
+     "n": 582,
+     "acc": 52.7,
+     "market_acc": 54.8,
+     "disagree_n": 154,
+     "disagree_model_right": 46.1,
+     "disagree_market_right": 53.9
+    },
+    "n_mkt": 582,
+    "acc_mkt": 42.6,
+    "market_acc": 47.8,
+    "disagree_n": 126,
+    "disagree_model_right": 21.4,
+    "disagree_market_right": 45.2
    }
   },
   "SP1": {
    "name": "La Liga",
-   "n_matches": 1140,
-   "latest_result": "2026-05-24",
-   "home_adv": 0.306,
-   "rho": 0.015,
-   "mu": 0.086237,
+   "n_matches": 879,
+   "latest_result": "2026-11-08",
+   "home_adv": 0.29,
+   "rho": -0.052,
+   "mu": 0.103177,
    "rho_source": "goals",
    "level_scale": [
-    0.9057,
-    0.9131
+    0.936,
+    0.9383
    ],
    "ratings": [
     {
      "team": "Barcelona",
-     "att": 0.614,
-     "dfn": 0.166,
-     "idx": 218.2
+     "att": 0.82,
+     "dfn": 0.197,
+     "idx": 276.3
     },
     {
      "team": "Real Madrid",
-     "att": 0.442,
-     "dfn": 0.233,
-     "idx": 196.3
+     "att": 0.521,
+     "dfn": 0.362,
+     "idx": 241.8
     },
     {
      "team": "Ath Madrid",
-     "att": 0.289,
-     "dfn": 0.126,
-     "idx": 151.4
-    },
-    {
-     "team": "Villarreal",
-     "att": 0.28,
-     "dfn": 0.053,
-     "idx": 139.6
+     "att": 0.334,
+     "dfn": 0.262,
+     "idx": 181.4
     },
     {
      "team": "Ath Bilbao",
-     "att": 0.084,
-     "dfn": 0.232,
-     "idx": 137.3
+     "att": 0.086,
+     "dfn": 0.282,
+     "idx": 144.5
     },
     {
      "team": "Betis",
-     "att": 0.137,
-     "dfn": 0.125,
-     "idx": 130.0
+     "att": 0.196,
+     "dfn": 0.146,
+     "idx": 140.8
     },
     {
-     "team": "Vallecano",
-     "att": 0.095,
-     "dfn": 0.043,
-     "idx": 114.7
-    },
-    {
-     "team": "Alaves",
-     "att": 0.004,
-     "dfn": 0.11,
-     "idx": 112.1
-    },
-    {
-     "team": "Celta",
-     "att": 0.049,
-     "dfn": 0.052,
-     "idx": 110.6
-    },
-    {
-     "team": "Osasuna",
-     "att": 0.002,
-     "dfn": 0.089,
-     "idx": 109.6
-    },
-    {
-     "team": "Valencia",
-     "att": 0.02,
-     "dfn": 0.069,
-     "idx": 109.3
+     "team": "Villarreal",
+     "att": 0.226,
+     "dfn": 0.1,
+     "idx": 138.6
     },
     {
      "team": "Sociedad",
-     "att": 0.082,
-     "dfn": 0.003,
-     "idx": 108.9
+     "att": 0.194,
+     "dfn": -0.059,
+     "idx": 114.5
+    },
+    {
+     "team": "Alaves",
+     "att": -0.016,
+     "dfn": 0.09,
+     "idx": 107.6
+    },
+    {
+     "team": "La Coruna",
+     "att": -0.113,
+     "dfn": 0.185,
+     "idx": 107.5
+    },
+    {
+     "team": "Vallecano",
+     "att": 0.096,
+     "dfn": -0.039,
+     "idx": 105.9
+    },
+    {
+     "team": "Celta",
+     "att": -0.121,
+     "dfn": 0.169,
+     "idx": 104.9
     },
     {
      "team": "Levante",
-     "att": 0.167,
-     "dfn": -0.103,
-     "idx": 106.5
+     "att": 0.151,
+     "dfn": -0.11,
+     "idx": 104.2
     },
     {
      "team": "Girona",
-     "att": 0.038,
+     "att": 0.023,
      "dfn": -0.054,
-     "idx": 98.4
-    },
-    {
-     "team": "Espanol",
-     "att": -0.083,
-     "dfn": -0.047,
-     "idx": 87.8
-    },
-    {
-     "team": "Mallorca",
-     "att": -0.094,
-     "dfn": -0.049,
-     "idx": 86.7
-    },
-    {
-     "team": "Getafe",
-     "att": -0.332,
-     "dfn": 0.165,
-     "idx": 84.6
+     "idx": 96.9
     },
     {
      "team": "Sevilla",
-     "att": -0.207,
-     "dfn": 0.037,
-     "idx": 84.3
+     "att": -0.094,
+     "dfn": 0.021,
+     "idx": 93.0
+    },
+    {
+     "team": "Valencia",
+     "att": -0.122,
+     "dfn": 0.03,
+     "idx": 91.2
+    },
+    {
+     "team": "Espanol",
+     "att": -0.135,
+     "dfn": 0.042,
+     "idx": 91.1
+    },
+    {
+     "team": "Osasuna",
+     "att": -0.052,
+     "dfn": -0.045,
+     "idx": 90.7
+    },
+    {
+     "team": "Mallorca",
+     "att": -0.052,
+     "dfn": -0.081,
+     "idx": 87.6
     },
     {
      "team": "Elche",
-     "att": -0.048,
-     "dfn": -0.152,
-     "idx": 81.8
-    },
-    {
-     "team": "Almeria",
-     "att": -0.026,
-     "dfn": -0.191,
-     "idx": 80.5
-    },
-    {
-     "team": "Cadiz",
-     "att": -0.275,
-     "dfn": 0.013,
-     "idx": 77.0
+     "att": -0.062,
+     "dfn": -0.095,
+     "idx": 85.5
     },
     {
      "team": "Oviedo",
-     "att": -0.184,
-     "dfn": -0.13,
-     "idx": 73.1
+     "att": -0.152,
+     "dfn": -0.137,
+     "idx": 74.9
     },
     {
-     "team": "Granada",
-     "att": -0.178,
-     "dfn": -0.189,
-     "idx": 69.3
+     "team": "Getafe",
+     "att": -0.444,
+     "dfn": 0.128,
+     "idx": 73.0
     },
     {
      "team": "Leganes",
-     "att": -0.251,
-     "dfn": -0.118,
-     "idx": 69.2
+     "att": -0.224,
+     "dfn": -0.117,
+     "idx": 71.1
+    },
+    {
+     "team": "Santander",
+     "att": 0.063,
+     "dfn": -0.507,
+     "idx": 64.2
     },
     {
      "team": "Las Palmas",
-     "att": -0.307,
-     "dfn": -0.18,
-     "idx": 61.4
+     "att": -0.263,
+     "dfn": -0.229,
+     "idx": 61.1
     },
     {
      "team": "Valladolid",
-     "att": -0.319,
-     "dfn": -0.305,
-     "idx": 53.6
+     "att": -0.295,
+     "dfn": -0.307,
+     "idx": 54.8
+    },
+    {
+     "team": "Malaga",
+     "att": -0.566,
+     "dfn": -0.235,
+     "idx": 44.9
     }
    ],
    "fixtures": [],
    "backtest": {
-    "n": 889,
-    "acc": 53.7,
-    "brier3": 0.5793,
+    "n": 625,
+    "acc": 54.1,
+    "brier3": 0.5698,
     "totals": {
-     "n": 889,
-     "acc": 58.4,
-     "market_acc": 60.1,
-     "disagree_n": 141,
-     "disagree_model_right": 44.7,
-     "disagree_market_right": 55.3
+     "n": 625,
+     "acc": 55.4,
+     "market_acc": 58.9,
+     "disagree_n": 102,
+     "disagree_model_right": 39.2,
+     "disagree_market_right": 60.8
     },
-    "n_mkt": 889,
-    "acc_mkt": 53.7,
-    "market_acc": 55.3,
-    "disagree_n": 104,
-    "disagree_model_right": 25.0,
-    "disagree_market_right": 39.4
+    "n_mkt": 625,
+    "acc_mkt": 54.1,
+    "market_acc": 55.2,
+    "disagree_n": 80,
+    "disagree_model_right": 26.2,
+    "disagree_market_right": 35.0
    }
   },
-  "D1": {
-   "name": "Bundesliga",
-   "n_matches": 918,
-   "latest_result": "2026-05-16",
-   "home_adv": 0.175,
-   "rho": -0.054,
-   "mu": 0.337764,
-   "rho_source": "goals",
+  "SP2": {
+   "name": "La Liga 2",
+   "n_matches": 1064,
+   "latest_result": "2026-11-09",
+   "home_adv": 0.255,
+   "rho": 0.012,
+   "mu": 0.055439,
+   "rho_source": "response",
    "level_scale": [
-    0.9071,
-    0.9949
+    1.0,
+    1.0
    ],
    "ratings": [
     {
-     "team": "Bayern Munich",
-     "att": 0.617,
-     "dfn": 0.283,
-     "idx": 245.8
+     "team": "Mallorca",
+     "att": 0.011,
+     "dfn": 0.715,
+     "idx": 206.7
     },
     {
-     "team": "Dortmund",
-     "att": 0.25,
-     "dfn": 0.253,
-     "idx": 165.4
+     "team": "Elche",
+     "att": 0.159,
+     "dfn": 0.451,
+     "idx": 184.1
     },
     {
-     "team": "Leverkusen",
-     "att": 0.295,
-     "dfn": 0.187,
-     "idx": 161.9
+     "team": "Girona",
+     "att": 0.231,
+     "dfn": 0.338,
+     "idx": 176.7
     },
     {
-     "team": "Stuttgart",
-     "att": 0.281,
-     "dfn": 0.101,
-     "idx": 146.5
+     "team": "Levante",
+     "att": 0.304,
+     "dfn": 0.248,
+     "idx": 173.8
     },
     {
-     "team": "RB Leipzig",
-     "att": 0.263,
-     "dfn": 0.023,
-     "idx": 133.1
+     "team": "Castellon",
+     "att": 0.317,
+     "dfn": 0.193,
+     "idx": 166.6
     },
     {
-     "team": "Mainz",
+     "team": "Almeria",
+     "att": 0.402,
+     "dfn": 0.011,
+     "idx": 151.0
+    },
+    {
+     "team": "Santander",
+     "att": 0.453,
+     "dfn": -0.117,
+     "idx": 140.0
+    },
+    {
+     "team": "Eibar",
+     "att": 0.073,
+     "dfn": 0.255,
+     "idx": 138.9
+    },
+    {
+     "team": "Malaga",
+     "att": 0.264,
+     "dfn": 0.046,
+     "idx": 136.3
+    },
+    {
+     "team": "Burgos",
+     "att": -0.082,
+     "dfn": 0.35,
+     "idx": 130.6
+    },
+    {
+     "team": "La Coruna",
+     "att": 0.132,
+     "dfn": 0.132,
+     "idx": 130.2
+    },
+    {
+     "team": "Oviedo",
+     "att": 0.172,
+     "dfn": 0.065,
+     "idx": 126.8
+    },
+    {
+     "team": "Las Palmas",
+     "att": 0.127,
+     "dfn": 0.001,
+     "idx": 113.7
+    },
+    {
+     "team": "Sabadell",
+     "att": -0.326,
+     "dfn": 0.435,
+     "idx": 111.5
+    },
+    {
+     "team": "Granada",
+     "att": 0.114,
+     "dfn": -0.014,
+     "idx": 110.5
+    },
+    {
+     "team": "Sp Gijon",
+     "att": 0.044,
+     "dfn": 0.01,
+     "idx": 105.5
+    },
+    {
+     "team": "Andorra",
+     "att": 0.173,
+     "dfn": -0.149,
+     "idx": 102.4
+    },
+    {
+     "team": "Cordoba",
      "att": 0.169,
-     "dfn": 0.012,
-     "idx": 119.8
+     "dfn": -0.207,
+     "idx": 96.3
     },
     {
-     "team": "Hoffenheim",
-     "att": 0.092,
-     "dfn": 0.032,
-     "idx": 113.1
-    },
-    {
-     "team": "Ein Frankfurt",
-     "att": 0.027,
-     "dfn": 0.075,
-     "idx": 110.7
-    },
-    {
-     "team": "Freiburg",
-     "att": -0.063,
-     "dfn": 0.108,
-     "idx": 104.5
-    },
-    {
-     "team": "FC Koln",
-     "att": 0.008,
-     "dfn": -0.055,
-     "idx": 95.5
-    },
-    {
-     "team": "Wolfsburg",
-     "att": -0.005,
-     "dfn": -0.042,
-     "idx": 95.5
-    },
-    {
-     "team": "Union Berlin",
-     "att": -0.141,
-     "dfn": 0.071,
-     "idx": 93.3
-    },
-    {
-     "team": "Augsburg",
-     "att": -0.061,
-     "dfn": -0.044,
-     "idx": 90.0
-    },
-    {
-     "team": "M'gladbach",
-     "att": -0.111,
-     "dfn": -0.001,
+     "team": "Valladolid",
+     "att": 0.031,
+     "dfn": -0.143,
      "idx": 89.4
     },
     {
-     "team": "Werder Bremen",
-     "att": -0.159,
-     "dfn": -0.006,
-     "idx": 84.8
+     "team": "Albacete",
+     "att": 0.011,
+     "dfn": -0.126,
+     "idx": 89.1
     },
     {
-     "team": "Heidenheim",
-     "att": -0.08,
-     "dfn": -0.145,
+     "team": "Mirandes",
+     "att": -0.022,
+     "dfn": -0.14,
+     "idx": 85.1
+    },
+    {
+     "team": "Tenerife",
+     "att": -0.125,
+     "dfn": -0.042,
+     "idx": 84.6
+    },
+    {
+     "team": "Sociedad B",
+     "att": -0.048,
+     "dfn": -0.176,
      "idx": 79.9
     },
     {
-     "team": "Hamburg",
-     "att": -0.19,
-     "dfn": -0.116,
-     "idx": 73.6
+     "team": "Celta B",
+     "att": 0.2,
+     "dfn": -0.428,
+     "idx": 79.6
     },
     {
-     "team": "Bochum",
-     "att": -0.122,
-     "dfn": -0.185,
-     "idx": 73.5
+     "team": "Cadiz",
+     "att": -0.133,
+     "dfn": -0.119,
+     "idx": 77.7
     },
     {
-     "team": "Holstein Kiel",
-     "att": -0.195,
-     "dfn": -0.168,
-     "idx": 69.6
+     "team": "Huesca",
+     "att": -0.159,
+     "dfn": -0.119,
+     "idx": 75.7
     },
     {
-     "team": "St Pauli",
-     "att": -0.407,
-     "dfn": -0.075,
-     "idx": 61.8
+     "team": "Eldense",
+     "att": -0.146,
+     "dfn": -0.139,
+     "idx": 75.2
     },
     {
-     "team": "Darmstadt",
-     "att": -0.467,
-     "dfn": -0.31,
-     "idx": 46.0
+     "team": "Zaragoza",
+     "att": -0.291,
+     "dfn": -0.101,
+     "idx": 67.5
+    },
+    {
+     "team": "Leganes",
+     "att": -0.275,
+     "dfn": -0.123,
+     "idx": 67.1
+    },
+    {
+     "team": "Ceuta",
+     "att": -0.179,
+     "dfn": -0.342,
+     "idx": 59.4
+    },
+    {
+     "team": "Cultural Leonesa",
+     "att": -0.342,
+     "dfn": -0.234,
+     "idx": 56.3
+    },
+    {
+     "team": "Cartagena",
+     "att": -0.372,
+     "dfn": -0.375,
+     "idx": 47.4
+    },
+    {
+     "team": "Ferrol",
+     "att": -0.886,
+     "dfn": -0.159,
+     "idx": 35.2
     }
    ],
    "fixtures": [],
    "backtest": {
-    "n": 718,
-    "acc": 52.9,
-    "brier3": 0.5829,
+    "n": 735,
+    "acc": 47.3,
+    "brier3": 0.627,
     "totals": {
-     "n": 718,
-     "acc": 61.6,
-     "market_acc": 62.1,
-     "disagree_n": 64,
-     "disagree_model_right": 46.9,
-     "disagree_market_right": 53.1
+     "n": 735,
+     "acc": 54.3,
+     "market_acc": 57.3,
+     "disagree_n": 180,
+     "disagree_model_right": 43.9,
+     "disagree_market_right": 56.1
     },
-    "n_mkt": 718,
-    "acc_mkt": 52.9,
-    "market_acc": 54.9,
-    "disagree_n": 98,
-    "disagree_model_right": 25.5,
-    "disagree_market_right": 39.8
+    "n_mkt": 735,
+    "acc_mkt": 47.3,
+    "market_acc": 51.6,
+    "disagree_n": 166,
+    "disagree_model_right": 29.5,
+    "disagree_market_right": 48.2
    }
   },
   "F1": {
    "name": "Ligue 1",
-   "n_matches": 918,
-   "latest_result": "2026-05-17",
-   "home_adv": 0.188,
-   "rho": -0.041,
-   "mu": 0.218967,
+   "n_matches": 702,
+   "latest_result": "2026-11-08",
+   "home_adv": 0.218,
+   "rho": -0.037,
+   "mu": 0.181741,
    "rho_source": "goals",
    "level_scale": [
-    0.9098,
-    0.9433
+    0.9411,
+    0.9569
    ],
    "ratings": [
     {
      "team": "Paris SG",
-     "att": 0.506,
-     "dfn": 0.376,
-     "idx": 241.7
-    },
-    {
-     "team": "Lens",
-     "att": 0.35,
-     "dfn": 0.179,
-     "idx": 169.8
+     "att": 0.534,
+     "dfn": 0.425,
+     "idx": 260.8
     },
     {
      "team": "Lille",
-     "att": 0.104,
-     "dfn": 0.34,
-     "idx": 155.9
+     "att": 0.093,
+     "dfn": 0.465,
+     "idx": 174.7
     },
     {
-     "team": "Monaco",
-     "att": 0.282,
-     "dfn": 0.119,
-     "idx": 149.2
+     "team": "Lens",
+     "att": 0.352,
+     "dfn": 0.123,
+     "idx": 160.9
     },
     {
      "team": "Marseille",
-     "att": 0.342,
-     "dfn": 0.053,
-     "idx": 148.5
+     "att": 0.419,
+     "dfn": 0.047,
+     "idx": 159.4
+    },
+    {
+     "team": "Monaco",
+     "att": 0.235,
+     "dfn": 0.197,
+     "idx": 154.0
     },
     {
      "team": "Lyon",
-     "att": 0.156,
-     "dfn": 0.086,
-     "idx": 127.3
-    },
-    {
-     "team": "Toulouse",
-     "att": -0.016,
-     "dfn": 0.226,
-     "idx": 123.4
-    },
-    {
-     "team": "Strasbourg",
-     "att": 0.114,
-     "dfn": 0.031,
-     "idx": 115.5
-    },
-    {
-     "team": "Rennes",
      "att": 0.134,
-     "dfn": -0.05,
-     "idx": 108.8
-    },
-    {
-     "team": "Nice",
-     "att": 0.072,
-     "dfn": -0.014,
-     "idx": 106.0
+     "dfn": 0.216,
+     "idx": 141.8
     },
     {
      "team": "Paris FC",
-     "att": 0.062,
-     "dfn": -0.017,
-     "idx": 104.7
+     "att": 0.145,
+     "dfn": 0.126,
+     "idx": 131.2
     },
     {
-     "team": "Lorient",
-     "att": -0.009,
-     "dfn": 0.015,
-     "idx": 100.7
+     "team": "Toulouse",
+     "att": 0.054,
+     "dfn": 0.18,
+     "idx": 126.3
+    },
+    {
+     "team": "Strasbourg",
+     "att": 0.225,
+     "dfn": -0.085,
+     "idx": 115.0
+    },
+    {
+     "team": "Nice",
+     "att": 0.102,
+     "dfn": 0.02,
+     "idx": 112.9
+    },
+    {
+     "team": "Rennes",
+     "att": 0.263,
+     "dfn": -0.161,
+     "idx": 110.8
     },
     {
      "team": "Brest",
-     "att": -0.017,
-     "dfn": -0.054,
-     "idx": 93.1
+     "att": 0.109,
+     "dfn": -0.015,
+     "idx": 109.9
     },
     {
-     "team": "Auxerre",
-     "att": -0.181,
-     "dfn": 0.03,
-     "idx": 86.0
+     "team": "Lorient",
+     "att": -0.123,
+     "dfn": 0.196,
+     "idx": 107.6
     },
     {
      "team": "Nantes",
-     "att": -0.188,
-     "dfn": 0.018,
-     "idx": 84.3
+     "att": -0.149,
+     "dfn": 0.012,
+     "idx": 87.2
+    },
+    {
+     "team": "Auxerre",
+     "att": -0.138,
+     "dfn": -0.14,
+     "idx": 75.7
+    },
+    {
+     "team": "Le Mans",
+     "att": -0.124,
+     "dfn": -0.177,
+     "idx": 74.0
     },
     {
      "team": "Le Havre",
-     "att": -0.17,
-     "dfn": -0.089,
-     "idx": 77.2
+     "att": -0.186,
+     "dfn": -0.194,
+     "idx": 68.4
     },
     {
      "team": "Reims",
-     "att": -0.195,
-     "dfn": -0.103,
-     "idx": 74.2
-    },
-    {
-     "team": "Angers",
-     "att": -0.322,
-     "dfn": -0.118,
-     "idx": 64.4
-    },
-    {
-     "team": "Montpellier",
-     "att": -0.201,
-     "dfn": -0.246,
-     "idx": 63.9
+     "att": -0.222,
+     "dfn": -0.166,
+     "idx": 67.8
     },
     {
      "team": "Metz",
-     "att": -0.359,
-     "dfn": -0.11,
-     "idx": 62.6
+     "att": -0.32,
+     "dfn": -0.128,
+     "idx": 63.9
     },
     {
-     "team": "Clermont",
-     "att": -0.3,
-     "dfn": -0.241,
-     "idx": 58.2
+     "team": "Angers",
+     "att": -0.344,
+     "dfn": -0.181,
+     "idx": 59.2
+    },
+    {
+     "team": "Montpellier",
+     "att": -0.273,
+     "dfn": -0.307,
+     "idx": 56.0
     },
     {
      "team": "St Etienne",
-     "att": -0.163,
-     "dfn": -0.431,
-     "idx": 55.2
+     "att": -0.145,
+     "dfn": -0.447,
+     "idx": 55.3
+    },
+    {
+     "team": "Troyes",
+     "att": -0.641,
+     "dfn": -0.005,
+     "idx": 52.4
     }
    ],
    "fixtures": [],
    "backtest": {
-    "n": 724,
-    "acc": 51.2,
-    "brier3": 0.6004,
+    "n": 494,
+    "acc": 52.4,
+    "brier3": 0.5892,
     "totals": {
-     "n": 724,
-     "acc": 54.1,
-     "market_acc": 58.3,
-     "disagree_n": 152,
-     "disagree_model_right": 40.1,
-     "disagree_market_right": 59.9
+     "n": 494,
+     "acc": 57.3,
+     "market_acc": 60.9,
+     "disagree_n": 90,
+     "disagree_model_right": 40.0,
+     "disagree_market_right": 60.0
     },
-    "n_mkt": 724,
-    "acc_mkt": 51.2,
-    "market_acc": 53.7,
-    "disagree_n": 81,
-    "disagree_model_right": 25.9,
-    "disagree_market_right": 48.1
+    "n_mkt": 494,
+    "acc_mkt": 52.4,
+    "market_acc": 54.5,
+    "disagree_n": 57,
+    "disagree_model_right": 29.8,
+    "disagree_market_right": 47.4
+   }
+  },
+  "F2": {
+   "name": "Ligue 2",
+   "n_matches": 719,
+   "latest_result": "2026-11-07",
+   "home_adv": 0.118,
+   "rho": 0.0,
+   "mu": 0.145375,
+   "rho_source": "response",
+   "level_scale": [
+    1.0,
+    1.0
+   ],
+   "ratings": [
+    {
+     "team": "Lorient",
+     "att": 0.438,
+     "dfn": 0.277,
+     "idx": 204.4
+    },
+    {
+     "team": "St Etienne",
+     "att": 0.365,
+     "dfn": 0.222,
+     "idx": 180.0
+    },
+    {
+     "team": "Le Mans",
+     "att": 0.202,
+     "dfn": 0.372,
+     "idx": 177.6
+    },
+    {
+     "team": "Montpellier",
+     "att": 0.085,
+     "dfn": 0.463,
+     "idx": 172.9
+    },
+    {
+     "team": "Troyes",
+     "att": 0.239,
+     "dfn": 0.264,
+     "idx": 165.5
+    },
+    {
+     "team": "Reims",
+     "att": 0.343,
+     "dfn": 0.093,
+     "idx": 154.7
+    },
+    {
+     "team": "Paris FC",
+     "att": 0.195,
+     "dfn": 0.209,
+     "idx": 149.8
+    },
+    {
+     "team": "Metz",
+     "att": 0.325,
+     "dfn": -0.135,
+     "idx": 120.9
+    },
+    {
+     "team": "Dijon",
+     "att": 0.359,
+     "dfn": -0.186,
+     "idx": 118.8
+    },
+    {
+     "team": "Dunkerque",
+     "att": 0.146,
+     "dfn": -0.035,
+     "idx": 111.7
+    },
+    {
+     "team": "Annecy",
+     "att": 0.074,
+     "dfn": -0.027,
+     "idx": 104.9
+    },
+    {
+     "team": "Nancy",
+     "att": 0.009,
+     "dfn": 0.028,
+     "idx": 103.8
+    },
+    {
+     "team": "Rodez",
+     "att": 0.126,
+     "dfn": -0.114,
+     "idx": 101.2
+    },
+    {
+     "team": "Red Star",
+     "att": 0.017,
+     "dfn": -0.019,
+     "idx": 99.8
+    },
+    {
+     "team": "Guingamp",
+     "att": 0.043,
+     "dfn": -0.103,
+     "idx": 94.1
+    },
+    {
+     "team": "Boulogne",
+     "att": -0.27,
+     "dfn": 0.132,
+     "idx": 87.1
+    },
+    {
+     "team": "Pau FC",
+     "att": 0.071,
+     "dfn": -0.225,
+     "idx": 85.8
+    },
+    {
+     "team": "Bastia",
+     "att": -0.32,
+     "dfn": 0.11,
+     "idx": 81.1
+    },
+    {
+     "team": "Nantes",
+     "att": -0.074,
+     "dfn": -0.142,
+     "idx": 80.6
+    },
+    {
+     "team": "Grenoble",
+     "att": -0.159,
+     "dfn": -0.062,
+     "idx": 80.2
+    },
+    {
+     "team": "Clermont",
+     "att": -0.205,
+     "dfn": -0.019,
+     "idx": 80.0
+    },
+    {
+     "team": "Laval",
+     "att": -0.164,
+     "dfn": -0.185,
+     "idx": 70.5
+    },
+    {
+     "team": "Ajaccio",
+     "att": -0.378,
+     "dfn": 0.009,
+     "idx": 69.2
+    },
+    {
+     "team": "Amiens",
+     "att": -0.129,
+     "dfn": -0.384,
+     "idx": 59.9
+    },
+    {
+     "team": "Martigues",
+     "att": -0.353,
+     "dfn": -0.233,
+     "idx": 55.6
+    },
+    {
+     "team": "Sochaux",
+     "att": -0.621,
+     "dfn": 0.029,
+     "idx": 55.3
+    },
+    {
+     "team": "Caen",
+     "att": -0.363,
+     "dfn": -0.341,
+     "idx": 49.5
+    }
+   ],
+   "fixtures": [],
+   "backtest": {
+    "n": 488,
+    "acc": 45.5,
+    "brier3": 0.6487,
+    "totals": {
+     "n": 488,
+     "acc": 57.6,
+     "market_acc": 57.0,
+     "disagree_n": 135,
+     "disagree_model_right": 51.1,
+     "disagree_market_right": 48.9
+    },
+    "n_mkt": 488,
+    "acc_mkt": 45.5,
+    "market_acc": 45.1,
+    "disagree_n": 106,
+    "disagree_model_right": 34.9,
+    "disagree_market_right": 33.0
+   }
+  },
+  "N1": {
+   "name": "Eredivisie",
+   "n_matches": 720,
+   "latest_result": "2026-11-08",
+   "home_adv": 0.136,
+   "rho": -0.079,
+   "mu": 0.363397,
+   "rho_source": "response",
+   "level_scale": [
+    1.0,
+    1.0
+   ],
+   "ratings": [
+    {
+     "team": "PSV Eindhoven",
+     "att": 0.705,
+     "dfn": 0.261,
+     "idx": 262.8
+    },
+    {
+     "team": "Feyenoord",
+     "att": 0.449,
+     "dfn": 0.264,
+     "idx": 203.9
+    },
+    {
+     "team": "Twente",
+     "att": 0.31,
+     "dfn": 0.39,
+     "idx": 201.3
+    },
+    {
+     "team": "Ajax",
+     "att": 0.329,
+     "dfn": 0.369,
+     "idx": 201.0
+    },
+    {
+     "team": "AZ Alkmaar",
+     "att": 0.152,
+     "dfn": 0.229,
+     "idx": 146.4
+    },
+    {
+     "team": "Heerenveen",
+     "att": 0.141,
+     "dfn": 0.154,
+     "idx": 134.3
+    },
+    {
+     "team": "Nijmegen",
+     "att": 0.201,
+     "dfn": 0.081,
+     "idx": 132.5
+    },
+    {
+     "team": "Groningen",
+     "att": 0.173,
+     "dfn": -0.013,
+     "idx": 117.4
+    },
+    {
+     "team": "Cambuur",
+     "att": 0.338,
+     "dfn": -0.242,
+     "idx": 110.1
+    },
+    {
+     "team": "Utrecht",
+     "att": 0.121,
+     "dfn": -0.034,
+     "idx": 109.1
+    },
+    {
+     "team": "Go Ahead Eagles",
+     "att": 0.113,
+     "dfn": -0.066,
+     "idx": 104.8
+    },
+    {
+     "team": "Telstar",
+     "att": 0.045,
+     "dfn": -0.026,
+     "idx": 101.9
+    },
+    {
+     "team": "For Sittard",
+     "att": -0.044,
+     "dfn": 0.014,
+     "idx": 97.1
+    },
+    {
+     "team": "Den Haag",
+     "att": -0.084,
+     "dfn": -0.082,
+     "idx": 84.7
+    },
+    {
+     "team": "Sparta Rotterdam",
+     "att": -0.086,
+     "dfn": -0.118,
+     "idx": 81.6
+    },
+    {
+     "team": "Excelsior",
+     "att": -0.128,
+     "dfn": -0.122,
+     "idx": 77.9
+    },
+    {
+     "team": "Volendam",
+     "att": -0.4,
+     "dfn": 0.097,
+     "idx": 73.9
+    },
+    {
+     "team": "Zwolle",
+     "att": -0.215,
+     "dfn": -0.111,
+     "idx": 72.1
+    },
+    {
+     "team": "Waalwijk",
+     "att": -0.113,
+     "dfn": -0.25,
+     "idx": 69.5
+    },
+    {
+     "team": "NAC Breda",
+     "att": -0.385,
+     "dfn": 0.004,
+     "idx": 68.3
+    },
+    {
+     "team": "Heracles",
+     "att": -0.358,
+     "dfn": -0.285,
+     "idx": 52.6
+    },
+    {
+     "team": "Almere City",
+     "att": -0.768,
+     "dfn": -0.053,
+     "idx": 44.0
+    },
+    {
+     "team": "Willem II",
+     "att": -0.493,
+     "dfn": -0.461,
+     "idx": 38.5
+    }
+   ],
+   "fixtures": [],
+   "backtest": {
+    "n": 515,
+    "acc": 50.3,
+    "brier3": 0.6055,
+    "totals": {
+     "n": 515,
+     "acc": 55.1,
+     "market_acc": 61.0,
+     "disagree_n": 108,
+     "disagree_model_right": 36.1,
+     "disagree_market_right": 63.9
+    },
+    "n_mkt": 515,
+    "acc_mkt": 50.3,
+    "market_acc": 52.8,
+    "disagree_n": 73,
+    "disagree_model_right": 26.0,
+    "disagree_market_right": 43.8
+   }
+  },
+  "B1": {
+   "name": "Belgian Pro League",
+   "n_matches": 722,
+   "latest_result": "2026-11-08",
+   "home_adv": 0.228,
+   "rho": -0.018,
+   "mu": 0.179015,
+   "rho_source": "response",
+   "level_scale": [
+    1.0,
+    1.0
+   ],
+   "ratings": [
+    {
+     "team": "St. Gilloise",
+     "att": 0.379,
+     "dfn": 0.766,
+     "idx": 314.2
+    },
+    {
+     "team": "Club Brugge",
+     "att": 0.6,
+     "dfn": 0.321,
+     "idx": 251.0
+    },
+    {
+     "team": "Charleroi",
+     "att": 0.176,
+     "dfn": 0.148,
+     "idx": 138.2
+    },
+    {
+     "team": "Lommel SK",
+     "att": 0.048,
+     "dfn": 0.261,
+     "idx": 136.3
+    },
+    {
+     "team": "Genk",
+     "att": 0.124,
+     "dfn": 0.167,
+     "idx": 133.8
+    },
+    {
+     "team": "Gent",
+     "att": 0.046,
+     "dfn": 0.194,
+     "idx": 127.1
+    },
+    {
+     "team": "St Truiden",
+     "att": 0.223,
+     "dfn": -0.019,
+     "idx": 122.5
+    },
+    {
+     "team": "Anderlecht",
+     "att": 0.094,
+     "dfn": 0.104,
+     "idx": 121.9
+    },
+    {
+     "team": "Standard",
+     "att": -0.158,
+     "dfn": 0.167,
+     "idx": 100.9
+    },
+    {
+     "team": "Westerlo",
+     "att": 0.243,
+     "dfn": -0.264,
+     "idx": 98.0
+    },
+    {
+     "team": "Antwerp",
+     "att": -0.025,
+     "dfn": -0.028,
+     "idx": 94.9
+    },
+    {
+     "team": "Waregem",
+     "att": 0.009,
+     "dfn": -0.116,
+     "idx": 89.8
+    },
+    {
+     "team": "Mechelen",
+     "att": -0.03,
+     "dfn": -0.111,
+     "idx": 86.8
+    },
+    {
+     "team": "Cercle Brugge",
+     "att": 0.05,
+     "dfn": -0.201,
+     "idx": 85.9
+    },
+    {
+     "team": "Oud-Heverlee Leuven",
+     "att": -0.234,
+     "dfn": 0.012,
+     "idx": 80.1
+    },
+    {
+     "team": "RAAL La Louviere",
+     "att": -0.221,
+     "dfn": -0.204,
+     "idx": 65.4
+    },
+    {
+     "team": "Beveren",
+     "att": -0.049,
+     "dfn": -0.418,
+     "idx": 62.7
+    },
+    {
+     "team": "Dender",
+     "att": -0.282,
+     "dfn": -0.212,
+     "idx": 61.0
+    },
+    {
+     "team": "Beerschot VA",
+     "att": -0.276,
+     "dfn": -0.282,
+     "idx": 57.2
+    },
+    {
+     "team": "Kortrijk",
+     "att": -0.718,
+     "dfn": -0.284,
+     "idx": 36.7
+    }
+   ],
+   "fixtures": [],
+   "backtest": {
+    "n": 528,
+    "acc": 49.8,
+    "brier3": 0.6088,
+    "totals": {
+     "n": 528,
+     "acc": 52.8,
+     "market_acc": 58.0,
+     "disagree_n": 181,
+     "disagree_model_right": 42.5,
+     "disagree_market_right": 57.5
+    },
+    "n_mkt": 528,
+    "acc_mkt": 49.8,
+    "market_acc": 51.3,
+    "disagree_n": 104,
+    "disagree_model_right": 30.8,
+    "disagree_market_right": 38.5
+   }
+  },
+  "P1": {
+   "name": "Primeira Liga",
+   "n_matches": 710,
+   "latest_result": "2026-11-08",
+   "home_adv": 0.143,
+   "rho": 0.085,
+   "mu": 0.090298,
+   "rho_source": "response",
+   "level_scale": [
+    1.0,
+    1.0
+   ],
+   "ratings": [
+    {
+     "team": "Porto",
+     "att": 0.511,
+     "dfn": 0.706,
+     "idx": 337.6
+    },
+    {
+     "team": "Benfica",
+     "att": 0.696,
+     "dfn": 0.39,
+     "idx": 296.3
+    },
+    {
+     "team": "Sp Lisbon",
+     "att": 0.693,
+     "dfn": 0.371,
+     "idx": 289.9
+    },
+    {
+     "team": "Sp Braga",
+     "att": 0.285,
+     "dfn": 0.228,
+     "idx": 166.9
+    },
+    {
+     "team": "Academico Viseu",
+     "att": 0.14,
+     "dfn": 0.211,
+     "idx": 142.0
+    },
+    {
+     "team": "Famalicao",
+     "att": 0.073,
+     "dfn": 0.202,
+     "idx": 131.7
+    },
+    {
+     "team": "Santa Clara",
+     "att": -0.044,
+     "dfn": 0.252,
+     "idx": 123.1
+    },
+    {
+     "team": "Gil Vicente",
+     "att": -0.03,
+     "dfn": 0.199,
+     "idx": 118.4
+    },
+    {
+     "team": "Arouca",
+     "att": 0.078,
+     "dfn": -0.027,
+     "idx": 105.2
+    },
+    {
+     "team": "Guimaraes",
+     "att": -0.012,
+     "dfn": 0.044,
+     "idx": 103.2
+    },
+    {
+     "team": "Alverca",
+     "att": -0.034,
+     "dfn": -0.037,
+     "idx": 93.2
+    },
+    {
+     "team": "Moreirense",
+     "att": -0.061,
+     "dfn": -0.095,
+     "idx": 85.5
+    },
+    {
+     "team": "Estoril",
+     "att": 0.059,
+     "dfn": -0.259,
+     "idx": 81.9
+    },
+    {
+     "team": "Nacional",
+     "att": -0.139,
+     "dfn": -0.102,
+     "idx": 78.6
+    },
+    {
+     "team": "Estrela",
+     "att": 0.01,
+     "dfn": -0.272,
+     "idx": 77.0
+    },
+    {
+     "team": "Farense",
+     "att": -0.414,
+     "dfn": -0.015,
+     "idx": 65.1
+    },
+    {
+     "team": "Rio Ave",
+     "att": -0.155,
+     "dfn": -0.32,
+     "idx": 62.2
+    },
+    {
+     "team": "Casa Pia",
+     "att": -0.342,
+     "dfn": -0.173,
+     "idx": 59.7
+    },
+    {
+     "team": "Tondela",
+     "att": -0.332,
+     "dfn": -0.192,
+     "idx": 59.3
+    },
+    {
+     "team": "Maritimo",
+     "att": -0.156,
+     "dfn": -0.469,
+     "idx": 53.5
+    },
+    {
+     "team": "AVS",
+     "att": -0.366,
+     "dfn": -0.323,
+     "idx": 50.2
+    },
+    {
+     "team": "Boavista",
+     "att": -0.459,
+     "dfn": -0.32,
+     "idx": 45.9
+    }
+   ],
+   "fixtures": [],
+   "backtest": {
+    "n": 514,
+    "acc": 56.4,
+    "brier3": 0.5445,
+    "totals": {
+     "n": 514,
+     "acc": 59.7,
+     "market_acc": 57.6,
+     "disagree_n": 119,
+     "disagree_model_right": 54.6,
+     "disagree_market_right": 45.4
+    },
+    "n_mkt": 514,
+    "acc_mkt": 56.4,
+    "market_acc": 55.8,
+    "disagree_n": 64,
+    "disagree_model_right": 42.2,
+    "disagree_market_right": 37.5
+   }
+  },
+  "T1": {
+   "name": "Turkish Super Lig",
+   "n_matches": 747,
+   "latest_result": "2026-11-08",
+   "home_adv": 0.239,
+   "rho": -0.076,
+   "mu": 0.156921,
+   "rho_source": "response",
+   "level_scale": [
+    1.0,
+    1.0
+   ],
+   "ratings": [
+    {
+     "team": "Galatasaray",
+     "att": 0.615,
+     "dfn": 0.315,
+     "idx": 253.5
+    },
+    {
+     "team": "Fenerbahce",
+     "att": 0.615,
+     "dfn": 0.279,
+     "idx": 244.4
+    },
+    {
+     "team": "Amedspor",
+     "att": 0.751,
+     "dfn": 0.034,
+     "idx": 219.2
+    },
+    {
+     "team": "Trabzonspor",
+     "att": 0.408,
+     "dfn": 0.33,
+     "idx": 209.2
+    },
+    {
+     "team": "Besiktas",
+     "att": 0.343,
+     "dfn": 0.283,
+     "idx": 187.0
+    },
+    {
+     "team": "Buyuksehyr",
+     "att": 0.311,
+     "dfn": 0.129,
+     "idx": 155.3
+    },
+    {
+     "team": "Goztep",
+     "att": 0.173,
+     "dfn": 0.092,
+     "idx": 130.4
+    },
+    {
+     "team": "Corum",
+     "att": 0.394,
+     "dfn": -0.231,
+     "idx": 117.7
+    },
+    {
+     "team": "Kasimpasa",
+     "att": 0.036,
+     "dfn": 0.102,
+     "idx": 114.7
+    },
+    {
+     "team": "Kocaelispor",
+     "att": -0.34,
+     "dfn": 0.409,
+     "idx": 107.2
+    },
+    {
+     "team": "Rizespor",
+     "att": 0.064,
+     "dfn": -0.09,
+     "idx": 97.5
+    },
+    {
+     "team": "Samsunspor",
+     "att": 0.013,
+     "dfn": -0.115,
+     "idx": 90.3
+    },
+    {
+     "team": "Konyaspor",
+     "att": -0.221,
+     "dfn": 0.107,
+     "idx": 89.2
+    },
+    {
+     "team": "Genclerbirligi",
+     "att": -0.118,
+     "dfn": -0.013,
+     "idx": 87.7
+    },
+    {
+     "team": "Alanyaspor",
+     "att": -0.157,
+     "dfn": 0.016,
+     "idx": 86.9
+    },
+    {
+     "team": "Sivasspor",
+     "att": -0.124,
+     "dfn": -0.168,
+     "idx": 74.7
+    },
+    {
+     "team": "Gaziantep",
+     "att": -0.174,
+     "dfn": -0.14,
+     "idx": 73.1
+    },
+    {
+     "team": "Erzurumspor",
+     "att": -0.355,
+     "dfn": 0.031,
+     "idx": 72.3
+    },
+    {
+     "team": "Karagumruk",
+     "att": -0.309,
+     "dfn": -0.041,
+     "idx": 70.5
+    },
+    {
+     "team": "Hatayspor",
+     "att": 0.054,
+     "dfn": -0.416,
+     "idx": 69.6
+    },
+    {
+     "team": "Antalyaspor",
+     "att": -0.281,
+     "dfn": -0.121,
+     "idx": 66.9
+    },
+    {
+     "team": "Bodrumspor",
+     "att": -0.669,
+     "dfn": 0.208,
+     "idx": 63.1
+    },
+    {
+     "team": "Kayserispor",
+     "att": -0.325,
+     "dfn": -0.18,
+     "idx": 60.3
+    },
+    {
+     "team": "Eyupspor",
+     "att": -0.386,
+     "dfn": -0.208,
+     "idx": 55.2
+    },
+    {
+     "team": "Ad. Demirspor",
+     "att": -0.319,
+     "dfn": -0.611,
+     "idx": 39.5
+    }
+   ],
+   "fixtures": [],
+   "backtest": {
+    "n": 525,
+    "acc": 52.0,
+    "brier3": 0.5934,
+    "totals": {
+     "n": 525,
+     "acc": 56.2,
+     "market_acc": 59.8,
+     "disagree_n": 133,
+     "disagree_model_right": 42.9,
+     "disagree_market_right": 57.1
+    },
+    "n_mkt": 525,
+    "acc_mkt": 52.0,
+    "market_acc": 57.3,
+    "disagree_n": 79,
+    "disagree_model_right": 21.5,
+    "disagree_market_right": 57.0
+   }
+  },
+  "G1": {
+   "name": "Greek Super League",
+   "n_matches": 538,
+   "latest_result": "2026-11-08",
+   "home_adv": 0.296,
+   "rho": -0.22,
+   "mu": 0.013978,
+   "rho_source": "response",
+   "level_scale": [
+    1.0,
+    1.0
+   ],
+   "ratings": [
+    {
+     "team": "Olympiakos",
+     "att": 0.32,
+     "dfn": 0.909,
+     "idx": 341.8
+    },
+    {
+     "team": "AEK",
+     "att": 0.538,
+     "dfn": 0.645,
+     "idx": 326.4
+    },
+    {
+     "team": "Panathinaikos",
+     "att": 0.41,
+     "dfn": 0.489,
+     "idx": 245.6
+    },
+    {
+     "team": "PAOK",
+     "att": 0.518,
+     "dfn": 0.27,
+     "idx": 219.9
+    },
+    {
+     "team": "Aris",
+     "att": 0.072,
+     "dfn": 0.086,
+     "idx": 117.1
+    },
+    {
+     "team": "Atromitos",
+     "att": 0.037,
+     "dfn": 0.042,
+     "idx": 108.2
+    },
+    {
+     "team": "Levadeiakos",
+     "att": 0.119,
+     "dfn": -0.052,
+     "idx": 107.0
+    },
+    {
+     "team": "Iraklis",
+     "att": -0.016,
+     "dfn": 0.061,
+     "idx": 104.6
+    },
+    {
+     "team": "OFI Crete",
+     "att": 0.131,
+     "dfn": -0.129,
+     "idx": 100.2
+    },
+    {
+     "team": "Kalamata",
+     "att": 0.302,
+     "dfn": -0.357,
+     "idx": 94.6
+    },
+    {
+     "team": "Kifisia",
+     "att": 0.029,
+     "dfn": -0.129,
+     "idx": 90.5
+    },
+    {
+     "team": "Asteras Tripolis",
+     "att": -0.189,
+     "dfn": -0.113,
+     "idx": 73.9
+    },
+    {
+     "team": "Panetolikos",
+     "att": -0.335,
+     "dfn": -0.133,
+     "idx": 62.7
+    },
+    {
+     "team": "Larisa",
+     "att": -0.255,
+     "dfn": -0.22,
+     "idx": 62.2
+    },
+    {
+     "team": "Volos NFC",
+     "att": -0.241,
+     "dfn": -0.282,
+     "idx": 59.3
+    },
+    {
+     "team": "Athens Kallithea",
+     "att": -0.304,
+     "dfn": -0.232,
+     "idx": 58.5
+    },
+    {
+     "team": "Panserraikos",
+     "att": -0.396,
+     "dfn": -0.443,
+     "idx": 43.3
+    },
+    {
+     "team": "Lamia",
+     "att": -0.74,
+     "dfn": -0.413,
+     "idx": 31.6
+    }
+   ],
+   "fixtures": [],
+   "backtest": {
+    "n": 367,
+    "acc": 54.0,
+    "brier3": 0.5788,
+    "totals": {
+     "n": 367,
+     "acc": 57.2,
+     "market_acc": 55.3,
+     "disagree_n": 125,
+     "disagree_model_right": 52.8,
+     "disagree_market_right": 47.2
+    },
+    "n_mkt": 367,
+    "acc_mkt": 54.0,
+    "market_acc": 54.8,
+    "disagree_n": 63,
+    "disagree_model_right": 31.7,
+    "disagree_market_right": 36.5
    }
   }
  },
@@ -714,172 +4068,172 @@
    {
     "team": "Liverpool",
     "name": "Alexander Isak",
-    "share": 0.509
+    "share": 0.5174
    },
    {
     "team": "Man City",
     "name": "Erling Haaland",
-    "share": 0.45
+    "share": 0.4296
+   },
+   {
+    "team": "Arsenal",
+    "name": "Bukayo Saka",
+    "share": 0.4076
+   },
+   {
+    "team": "Bournemouth",
+    "name": "Marcus Tavernier",
+    "share": 0.3947
    },
    {
     "team": "Everton",
     "name": "Thierno Barry",
-    "share": 0.3845
-   },
-   {
-    "team": "Aston Villa",
-    "name": "Nicolas Jackson",
-    "share": 0.3799
-   },
-   {
-    "team": "Leeds",
-    "name": "Dominic Calvert-Lewin",
-    "share": 0.3698
-   },
-   {
-    "team": "Man United",
-    "name": "Bryan Mbeumo",
-    "share": 0.36
+    "share": 0.3892
    },
    {
     "team": "Sunderland",
     "name": "Brian Brobbey",
-    "share": 0.3229
+    "share": 0.3835
+   },
+   {
+    "team": "Leeds",
+    "name": "Dominic Calvert-Lewin",
+    "share": 0.3714
    },
    {
     "team": "Man United",
     "name": "Bruno Fernandes",
-    "share": 0.2836
+    "share": 0.3537
+   }
+  ],
+  "D1": [
+   {
+    "team": "Union Berlin",
+    "name": "Tim Skarke",
+    "share": 0.4266
+   },
+   {
+    "team": "Ein Frankfurt",
+    "name": "Younes Ebnoutalib",
+    "share": 0.3942
+   },
+   {
+    "team": "Leverkusen",
+    "name": "Patrik Schick",
+    "share": 0.3787
+   },
+   {
+    "team": "Hamburg",
+    "name": "Yussuf Poulsen",
+    "share": 0.3786
+   },
+   {
+    "team": "Elversberg",
+    "name": "Maurice Krattenmacher",
+    "share": 0.3573
+   },
+   {
+    "team": "Mainz",
+    "name": "Phillip Tietz",
+    "share": 0.348
+   },
+   {
+    "team": "Werder Bremen",
+    "name": "Niclas F\u00fcllkrug",
+    "share": 0.3461
+   },
+   {
+    "team": "Freiburg",
+    "name": "Yuito Suzuki",
+    "share": 0.3233
    }
   ],
   "SP1": [
    {
     "team": "Osasuna",
     "name": "Ante Budimir",
-    "share": 0.5725
-   },
-   {
-    "team": "Real Madrid",
-    "name": "Kylian Mbappe-Lottin",
-    "share": 0.4792
+    "share": 0.6748
    },
    {
     "team": "Espanol",
     "name": "Roberto Fern\u00e1ndez",
-    "share": 0.4653
+    "share": 0.5719
+   },
+   {
+    "team": "La Coruna",
+    "name": "Pierre-Emerick Aubameyang",
+    "share": 0.5333
    },
    {
     "team": "Vallecano",
     "name": "Sergio Camello",
-    "share": 0.3838
+    "share": 0.5191
+   },
+   {
+    "team": "Santander",
+    "name": "Yassir Zabiri",
+    "share": 0.4338
+   },
+   {
+    "team": "Real Madrid",
+    "name": "Kylian Mbappe-Lottin",
+    "share": 0.4268
+   },
+   {
+    "team": "Malaga",
+    "name": "Chupe",
+    "share": 0.4005
    },
    {
     "team": "Elche",
     "name": "Fernando Ni\u00f1o",
-    "share": 0.3761
-   },
-   {
-    "team": "Getafe",
-    "name": "Mart\u00edn Satriano",
-    "share": 0.3499
-   },
-   {
-    "team": "Barcelona",
-    "name": "Raphinha",
-    "share": 0.315
-   },
-   {
-    "team": "Levante",
-    "name": "Roger Brugu\u00e9",
-    "share": 0.2914
-   }
-  ],
-  "D1": [
-   {
-    "team": "Werder Bremen",
-    "name": "Niclas F\u00fcllkrug",
-    "share": 0.5018
-   },
-   {
-    "team": "Ein Frankfurt",
-    "name": "Younes Ebnoutalib",
-    "share": 0.4204
-   },
-   {
-    "team": "Leverkusen",
-    "name": "Patrik Schick",
-    "share": 0.3655
-   },
-   {
-    "team": "Stuttgart",
-    "name": "Ermedin Demirovic",
-    "share": 0.3244
-   },
-   {
-    "team": "Hamburg",
-    "name": "Yussuf Poulsen",
-    "share": 0.2893
-   },
-   {
-    "team": "Union Berlin",
-    "name": "Tim Skarke",
-    "share": 0.2877
-   },
-   {
-    "team": "Augsburg",
-    "name": "Michael Gregoritsch",
-    "share": 0.2822
-   },
-   {
-    "team": "Mainz",
-    "name": "Phillip Tietz",
-    "share": 0.27
+    "share": 0.3888
    }
   ],
   "F1": [
    {
-    "team": "Rennes",
-    "name": "Boulaye Dia",
-    "share": 0.8383
-   },
-   {
-    "team": "Nice",
-    "name": "Sepe Elye Wahi",
-    "share": 0.5079
-   },
-   {
-    "team": "Paris FC",
-    "name": "Lassine Sinayoko",
-    "share": 0.4279
-   },
-   {
     "team": "Monaco",
     "name": "Paris Brunner",
-    "share": 0.3934
+    "share": 0.5241
    },
    {
-    "team": "Auxerre",
-    "name": "Cameron Archer",
-    "share": 0.3922
-   },
-   {
-    "team": "Toulouse",
-    "name": "Casper Tengstedt",
-    "share": 0.3908
-   },
-   {
-    "team": "Le Havre",
-    "name": "Josh Maja",
-    "share": 0.3652
+    "team": "Brest",
+    "name": "Kamory Doumbia",
+    "share": 0.4668
    },
    {
     "team": "Marseille",
     "name": "Amine Gouiri",
-    "share": 0.2753
+    "share": 0.4561
+   },
+   {
+    "team": "Paris FC",
+    "name": "Lassine Sinayoko",
+    "share": 0.4552
+   },
+   {
+    "team": "Auxerre",
+    "name": "Cameron Archer",
+    "share": 0.4275
+   },
+   {
+    "team": "Le Havre",
+    "name": "Mbwana Samatta",
+    "share": 0.3947
+   },
+   {
+    "team": "Le Mans",
+    "name": "Louis Mafouta",
+    "share": 0.3859
+   },
+   {
+    "team": "Nice",
+    "name": "Sepe Elye Wahi",
+    "share": 0.358
    }
   ]
  },
- "note": "E0: 1140 results \u00b7 SP1: 1140 results \u00b7 D1: 918 results \u00b7 F1: 918 results \u00b7 fixtures: 0 \u00b7 xG overlay: 4115/4116 matches fit on xG (through 2026-05-24) \u00b7 props E0:pin(454p,8d) SP1:pin(487p,8d) D1:pin(413p,8d) F1:pin(428p,8d)",
+ "note": "E0: 860 results \u00b7 E1: 1284 results \u00b7 E2: 1262 results \u00b7 E3: 1268 results \u00b7 EC: 1293 results \u00b7 SC0: 531 results \u00b7 SC1: 429 results \u00b7 SC2: 429 results \u00b7 SC3: 425 results \u00b7 D1: 693 results \u00b7 D2: 711 results \u00b7 I1: 870 results \u00b7 I2: 870 results \u00b7 SP1: 879 results \u00b7 SP2: 1064 results \u00b7 F1: 702 results \u00b7 F2: 719 results \u00b7 N1: 720 results \u00b7 B1: 722 results \u00b7 P1: 710 results \u00b7 T1: 747 results \u00b7 G1: 538 results \u00b7 fixtures: 0 \u00b7 xG overlay: 2743/17726 matches fit on xG (through 2026-05-24) \u00b7 props E0:pin(421p,35d) E1:off(KeyError) E2:off(KeyError) E3:off(KeyError) EC:off(KeyError) SC0:off(KeyError) SC1:off(KeyError) SC2:off(KeyError) SC3:off(KeyError) D1:pin(367p,35d) D2:off(KeyError) I1:off(ValueError) I2:off(KeyError) SP1:pin(461p,35d) SP2:off(KeyError) F1:pin(424p,35d) F2:off(KeyError) N1:off(KeyError) B1:off(KeyError) P1:off(KeyError) T1:off(KeyError) G1:off(KeyError)",
  "cal": {
   "n": 0
  }
