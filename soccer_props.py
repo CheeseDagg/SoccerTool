@@ -31,12 +31,16 @@ the live evidence supports.
 """
 import re, json, gzip, urllib.request, urllib.parse
 
-UNDERSTAT = {"E0": "EPL", "SP1": "La_liga", "D1": "Bundesliga", "F1": "Ligue_1"}
+# understat serves the big five. Serie A was absent here only because the
+# goals model did not rate I1; it does now.
+UNDERSTAT = {"E0": "EPL", "SP1": "La_liga", "D1": "Bundesliga",
+             "F1": "Ligue_1", "I1": "Serie_A"}
 # The API's league selector is NOT the URL slug: it uses spaces, not underscores
 # ("La liga", not "La_liga"), and must be percent-encoded. Getting this wrong
 # yields a 404 that looks exactly like "understat is down".
 UNDERSTAT_API = "https://understat.com/getLeagueData/{league}/{year}"
-UNDERSTAT_API_LEAGUE = {"E0": "EPL", "SP1": "La liga", "D1": "Bundesliga", "F1": "Ligue 1"}
+UNDERSTAT_API_LEAGUE = {"E0": "EPL", "SP1": "La liga", "D1": "Bundesliga",
+                        "F1": "Ligue 1", "I1": "Serie A"}
 GOAL_W, XG_W = 0.60, 0.40
 
 # football-data name  <-  understat team_title (only the known deltas)

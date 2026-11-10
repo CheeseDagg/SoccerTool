@@ -236,7 +236,12 @@ def main():
                 props_note.append(f"{div}:off({type(e).__name__})")
                 print(f"   {div} props source failed — {e}"[:900])
     print("   " + " · ".join(props_note))
-    print("   " + refresh_pin(fresh_pin, set(M.LEAGUES), season_year,
+    # GATE THE PIN ON THE LEAGUES PROPS CAN ACTUALLY FETCH, not on every league
+    # the goals model covers. understat serves the big five and nothing else, so
+    # once the model widened past them an "all leagues present" gate could never
+    # be satisfied and the pin would quietly never refresh again -- which is the
+    # exact failure the assertion in _selftest_pin was written to catch.
+    print("   " + refresh_pin(fresh_pin, set(PR.UNDERSTAT), season_year,
                               os.path.join(DATA, "player_shares_pin.json")))
     # Every league off means the Props tab is EMPTY, and the site's empty state
     # ("no fixtures carry player shares yet") reads like an offseason message
@@ -469,12 +474,27 @@ def _selftest_pin():
     msg = refresh_pin(full, exp, 2026, os.path.join(d, "nope", "pin.json"), today)
     assert "pin refresh failed" in msg and "old pin still stands" in msg, msg
 
-    # the league set the publisher gates on must be the one props can actually
-    # fetch, or the all-four condition can never be satisfied and the pin
-    # quietly never refreshes again.
+    # The league set the publisher gates the pin on must be the one props can
+    # actually fetch, or the all-present condition can never be satisfied and
+    # the pin quietly never refreshes again. The goals model now covers far more
+    # divisions than understat serves, so these are legitimately different sets:
+    # assert the GATE uses the props set, and that props are a subset of the
+    # modelled leagues (a prop league the model does not rate has no fixtures).
     import soccer_model as _M, soccer_props as _PR
-    assert set(_M.LEAGUES) == set(_PR.UNDERSTAT), \
-        f"gate set {sorted(_M.LEAGUES)} != fetchable {sorted(_PR.UNDERSTAT)}"
+    assert set(_PR.UNDERSTAT) <= set(_M.LEAGUES), \
+        f"props league(s) the model does not cover: " \
+        f"{sorted(set(_PR.UNDERSTAT) - set(_M.LEAGUES))}"
+    _src = open(os.path.join(os.path.dirname(os.path.abspath(__file__)),
+                             "soccer_publish.py"), encoding="utf-8").read()
+    # the needles are assembled at runtime: written as literals they would
+    # appear in this very function and match themselves, so the "must not be
+    # present" check would fire on its own text and the "must be present" one
+    # would pass even after the call site regressed.
+    _call = "refresh_pin(fresh_pin, set("
+    assert _call + "PR.UNDER" + "STAT)" in _src, \
+        "the pin must gate on the props leagues, not on every modelled league"
+    assert _call + "M.LEAG" + "UES)" not in _src, \
+        "gating the pin on the model's leagues freezes it once the model widens"
 
     print("PIN SELFTEST PASS — all-or-nothing, non-empty, atomic, schema-clean")
     return 0
