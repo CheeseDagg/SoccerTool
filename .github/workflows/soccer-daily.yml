@@ -34,11 +34,18 @@ jobs:
           python soccer_publish.py --selftest-overlay
           python soccer_publish.py --selftest-pin
           python soccer_signals.py --selftest
+          python teamdiv.py --selftest
           node selftest.js
       - name: Refresh xG cache (fail-soft — keeps committed cache if understat is walled)
         run: python soccer_xg_experiment.py --refresh-cache || true
       - name: Fetch, fit, grade, publish
         run: python soccer_publish.py
+      # Each team's CURRENT division, from the date of its latest match. The
+      # cross-division scale is wrong without it: a promoted or relegated team
+      # carries a rating in two divisions and blending them mixes this season
+      # with an older one in a league the team has left.
+      - name: Resolve each team's current division
+        run: python teamdiv.py
       # Signals reads the parlay repo's socextra.json (Colombia, Peru, Chile,
       # Uruguay, Bolivia -- leagues football-data.co.uk does not publish). It is
       # fail-soft by construction: a bad fetch keeps the committed file rather
@@ -57,7 +64,7 @@ jobs:
           for attempt in 1 2 3 4 5; do
             git fetch origin main
             git reset --mixed origin/main
-            for f in data/slate.json data/signals.json data/player_shares_pin.json data/soccer_predictions.csv data/soccer_graded.csv data/backtest_cache.json data/understat_xg.json; do
+            for f in data/team_division.json data/slate.json data/signals.json data/player_shares_pin.json data/soccer_predictions.csv data/soccer_graded.csv data/backtest_cache.json data/understat_xg.json; do
               git add "$f" 2>/dev/null || true
             done
             if git diff --cached --quiet; then
